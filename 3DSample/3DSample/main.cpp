@@ -21,7 +21,7 @@ int WINAPI WinMain(
 	{
 		return -1;
 	}
-
+	//mainLoop
 	while (1) 
 	{
 
