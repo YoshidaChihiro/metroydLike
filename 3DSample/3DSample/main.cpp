@@ -11,6 +11,7 @@ int WINAPI WinMain(
 	_In_ int nCmdShow
 )
 {
+	//initMethod
 	ChangeWindowMode(TRUE);
 	SetWindowSizeChangeEnableFlag(FALSE, FALSE);
 	SetGraphMode(WIN_WIDTH, WIN_HEIGHT, 32);
