@@ -31,7 +31,7 @@ int WINAPI WinMain(
 		if (CheckHitKey(KEY_INPUT_ESCAPE) == 1)
 			break;
 	}
-
+	//exitMethod
 	DxLib_End();
 
 	return 0;
