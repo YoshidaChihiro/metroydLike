@@ -18,6 +18,7 @@
 *.so
 *.dylib
 *.dll
+*.ipch
 
 # Fortran module files
 *.mod
@@ -33,3 +34,4 @@
 *.exe
 *.out
 *.app
+*.ipch
