@@ -19,7 +19,12 @@
 *.dylib
 *.dll
 *.ipch
-
+*.pdb
+*.log
+*.tlog
+*.idb
+*.pdb
+*.ilk
 # Fortran module files
 *.mod
 *.smod
@@ -35,5 +40,7 @@
 *.out
 *.app
 *.ipch
-/vs
+/3DSample/.vs
+/3DSample/Debug
+/3DSample/3DSample/Debug
 *.pdb
