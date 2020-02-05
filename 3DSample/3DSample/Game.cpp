@@ -23,6 +23,7 @@ bool Game::Draw()
 
 bool Game::Update()
 {
+
 	return true;
 }
 
