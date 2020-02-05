@@ -1,7 +1,9 @@
-#include "DxLib.h"
-#define BLOCK_SIZE
-const int WIN_WIDTH = 650;
-const int WIN_HEIGHT = 450;
+#pragma once
+#include"Game.h"
+#include<stdio.h>
+#include<time.h>
+#include<ctime>
+#include <chrono>
 
 
 int WINAPI WinMain(
@@ -12,28 +14,45 @@ int WINAPI WinMain(
 )
 {
 	//initMethod
-	ChangeWindowMode(TRUE);
-	SetWindowSizeChangeEnableFlag(FALSE, FALSE);
-	SetGraphMode(WIN_WIDTH, WIN_HEIGHT, 32);
-	SetWindowSizeExtendRate(1.0);
-	SetBackgroundColor(0xff, 0xff, 0xff);
-	SetMainWindowText("title");
-	if (DxLib_Init() == -1)
-	{
-		return -1;
-	}
+	Game::CreateInstance(720,480,"test",Framework::Color(0xff,0xff,0xff,0));
+
+
+	timespec befTime;
+	timespec nowTime;
+
+	timespec_get(&befTime, TIME_UTC);
+	timespec_get(&nowTime, TIME_UTC);
+
+
 	//mainLoop
 	while (1) 
 	{
+		auto deltaTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::nanoseconds{ nowTime.tv_nsec - befTime.tv_nsec });
+		if (deltaTime.count() > 0 && deltaTime.count() < 20) {
+			WaitTimer(20 - deltaTime.count());
+		}
 
-		WaitTimer(20);
+
+		timespec_get(&befTime, TIME_UTC);
+
+		//XV‹——£
+
+		Game::GetInstance()->Update();
+		//•`‰æˆ—
+
+		Game::GetInstance()->Draw();
+
 		if (ProcessMessage() == -1)
 			break;
 		if (CheckHitKey(KEY_INPUT_ESCAPE) == 1)
 			break;
+
+
+		timespec_get(&nowTime, TIME_UTC);
 	}
 	//exitMethod
-	DxLib_End();
+	
+	Game::GetInstance()->Exit();
 
 	return 0;
 
