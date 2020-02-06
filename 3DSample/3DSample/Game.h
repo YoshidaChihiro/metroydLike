@@ -9,6 +9,8 @@ namespace Framework {
 		Game(int windowWidth, int windowHeight, std::string windowText, Vector4 color);
 		bool Draw();
 		bool Update();
+		bool ResourceLoad();
+		void SceneInitialize();
 		static bool CreateInstance(int windowWidth, int windowHeight, std::string windowText, Color color);
 		bool Exit();
 		static std::unique_ptr<Game>& GetInstance();

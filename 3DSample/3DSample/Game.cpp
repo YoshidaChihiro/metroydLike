@@ -37,8 +37,20 @@ bool Framework::Game::Draw()
 
 bool Framework::Game::Update()
 {
-	
+	Game::GetInstance();
 	return unq_sceneManager->Update();
+}
+
+bool Framework::Game::ResourceLoad()
+{
+	unq_resourceController->LoadTexture("sample.png");
+
+	return true;
+}
+
+void Framework::Game::SceneInitialize()
+{
+	unq_sceneManager->Initialize();
 }
 
 bool Framework::Game::CreateInstance(int windowWidth, int windowHeight, std::string windowText, Framework::Color color)
@@ -59,7 +71,7 @@ bool Framework::Game::Exit()
 	}
 	else
 	{
-		true;
+		return true;
 	}
 }
 

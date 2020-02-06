@@ -7,6 +7,7 @@ namespace Framework {
 	public:
 		TestObject(std::shared_ptr<Transform> shp_arg_transform,std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager);
 		~TestObject();
+		void PreInitialize()override;
 		bool Update()override;
 		std::shared_ptr<Resource_Texture> shp_texture;
 	};

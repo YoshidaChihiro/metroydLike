@@ -5,6 +5,10 @@ Framework::TestScene::TestScene() {
 
 }
 
+Framework::TestScene::~TestScene()
+{
+}
+
 void Framework::TestScene::Initialize()
 {
 	auto shp_transform = ObjectFactory::Create<Transform>(Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
