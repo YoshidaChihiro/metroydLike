@@ -14,7 +14,7 @@ int WINAPI WinMain(
 )
 {
 	//initMethod
-	Game::CreateInstance(720,480,"test",Framework::Color(0xff,0xff,0xff,0));
+	Framework::Game::CreateInstance(720,480,"test",Framework::Color(0xff,0xff,0xff,0));
 
 
 	timespec befTime;
@@ -35,12 +35,14 @@ int WINAPI WinMain(
 
 		timespec_get(&befTime, TIME_UTC);
 
+		Framework::Input::Update();
+
 		//XV‹——£
 
-		Game::GetInstance()->Update();
+		Framework::Game::GetInstance()->Update();
 		//•`‰æˆ—
 
-		Game::GetInstance()->Draw();
+		Framework::Game::GetInstance()->Draw();
 
 		if (ProcessMessage() == -1)
 			break;
@@ -52,7 +54,7 @@ int WINAPI WinMain(
 	}
 	//exitMethod
 	
-	Game::GetInstance()->Exit();
+	Framework::Game::GetInstance()->Exit();
 
 	return 0;
 

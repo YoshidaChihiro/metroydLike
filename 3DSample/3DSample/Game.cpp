@@ -1,8 +1,8 @@
 #include "Game.h"
 
-std::unique_ptr<Game> Game::instance=nullptr;
+std::unique_ptr<Framework::Game> Framework::Game::instance=nullptr;
 
-Game::Game(int windowWidth, int windowHeight, std::string windowText, Framework::Vector4 color)
+Framework::Game::Game(int windowWidth, int windowHeight, std::string windowText, Framework::Vector4 color):width(windowWidth),height(windowHeight)
 {
 
 	ChangeWindowMode(TRUE);
@@ -14,29 +14,45 @@ Game::Game(int windowWidth, int windowHeight, std::string windowText, Framework:
 	SetMainWindowText(windowText.c_str());
 	DxLib_Init();
 
+	unq_resourceController = std::make_unique<ResouceController>();
+	unq_sceneManager = std::make_unique<SceneManager>();
+
+	targetScreenHundle = MakeScreen(windowWidth, windowHeight, TRUE);
 }
 
-bool Game::Draw()
+bool Framework::Game::Draw()
 {
+
+	SetDrawScreen(targetScreenHundle);
+	ClearDrawScreen();
+
+	unq_resourceController->Draw();
+
+	SetDrawScreen(DX_SCREEN_BACK);
+	ClearDrawScreen();
+	DrawExtendGraph(0, 0, width, height, targetScreenHundle, TRUE);
+	ScreenFlip();
 	return true;
 }
 
-bool Game::Update()
+bool Framework::Game::Update()
 {
-
-	return true;
+	
+	return unq_sceneManager->Update();
 }
 
-bool Game::CreateInstance(int windowWidth, int windowHeight, std::string windowText, Framework::Color color)
+bool Framework::Game::CreateInstance(int windowWidth, int windowHeight, std::string windowText, Framework::Color color)
 {
 	if (instance) {
 		return false;
 	}
-	instance = std::make_unique<Game>(windowWidth, windowHeight, windowText, color);
+	instance = std::make_unique<Framework::Game>(windowWidth, windowHeight, windowText, color);
+
+	Framework::Input::Initialize();
 	return true;
 }
 
-bool Game::Exit()
+bool Framework::Game::Exit()
 {
 	if (DxLib_End() == -1) {
 		return false;
@@ -47,10 +63,20 @@ bool Game::Exit()
 	}
 }
 
-std::unique_ptr<Game>& Game::GetInstance()
+std::unique_ptr<Framework::Game>& Framework::Game::GetInstance()
 {
 	if (instance.get() == 0) {
-		throw Framework:: ButiException(L"Didn't Create instance", L"if (instance.get() == 0)", L"Application::GetApplication()");
+		throw Framework:: ButiException(L"Didn't Create instance", L"if (instance.get() == 0)", L"Game::GetInstance()");
 	}
 	return instance;
+}
+
+std::unique_ptr<Framework::ResouceController>& Framework::Game::GetResourceController()
+{
+	return unq_resourceController;
+}
+
+std::unique_ptr<Framework::SceneManager>& Framework::Game::GetSceneManager()
+{
+	return unq_sceneManager;
 }
