@@ -2,15 +2,11 @@
 
 Framework::SceneManager::SceneManager()
 {
+	shp_currentScene = ObjectFactory::Create<TestScene>();
 }
 
 Framework::SceneManager::~SceneManager()
 {
-}
-
-void Framework::SceneManager::Initialize()
-{
-	shp_currentScene = ObjectFactory::Create<TestScene>();
 }
 
 bool Framework::SceneManager::Update()

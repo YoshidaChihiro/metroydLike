@@ -7,7 +7,6 @@ namespace Framework {
 	public:
 		SceneManager();
 		~SceneManager();
-		void Initialize();
 		bool Update();
 		void Release();
 		void ChangeScene(std::shared_ptr<IScene> shp_arg_changeScene);

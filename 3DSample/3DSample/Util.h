@@ -92,18 +92,6 @@ namespace Framework {
 			return nullptr;
 
 		}
-		template<typename T>
-			inline bool IsThis() {
-			auto Ptr = std::dynamic_pointer_cast<T>(shared_from_this());
-			if (Ptr) {
-				return true;
-			}
-			else {
-				return false;
-			}
-			//return nullptr;
-
-		}
 		bool IsCreated() { return isCreated; }
 		virtual void PreInitialize() = 0;
 		virtual void Initialize() = 0;

@@ -17,9 +17,8 @@ namespace Framework {
 		std::shared_ptr<Transform> transform;
 	};
 	struct Resource_Texture :Resource_base {
-		Resource_Texture(int arg_handle, std::shared_ptr<Transform> arg_transform, bool isXFlip, bool isYFlip);
-		Resource_Texture(std::string key, std::shared_ptr<Transform> arg_transform, bool isXFlip, bool isYFlip);
-		~Resource_Texture();
+		Resource_Texture(int arg_handle, std::shared_ptr<Transform> arg_transform,bool isXFlip,bool isYFlip);
+		
 		bool Draw();
 		int handle;
 		std::shared_ptr<Transform> transform;

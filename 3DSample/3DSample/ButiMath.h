@@ -1,6 +1,5 @@
 #pragma once
 #include<DirectXMath.h>
-#include <memory>
 namespace Framework {
 
 	struct Vector2;
@@ -177,11 +176,6 @@ namespace Framework {
 			return ((Vector2)DirectX::XMVector2Length(DirectX::XMVECTOR(*this))).x;
 		}
 
-		inline float GetDistance(Vector2& other) const{
-			auto i = sqrt((other.x - x)*(other.x - x) + (other.y - y)*(other.y - y));
-			return i;
-		}
-
 		inline void Normalize()
 		{
 			*this = DirectX::XMVector2Normalize(DirectX::XMVECTOR(*this));
@@ -207,11 +201,6 @@ namespace Framework {
 			y = 0;
 			z = 0;
 		}
-
-		inline Vector2 GetVector2() {
-			return Vector2(x,y);
-		}
-
 		inline ~Vector3()
 		{
 		}
@@ -525,88 +514,6 @@ namespace Framework {
 	};
 
 	typedef Vector4 Color;
-	typedef Vector2 Point2D;
-
-	class Rectangle {
-	public:
-		float width;
-		float height;
-		float outerCircleRadius;
-		Vector2 position;
-		inline Rectangle() :width(0), height(0), position(Vector2()), outerCircleRadius(0) {};
-		inline Rectangle(float arg_width, float  arg_height, Vector2 arg_position) :width(arg_width), height(arg_height), position(arg_position), outerCircleRadius(GetRectangleOuterCircleRadius(width, height)) {};
-		inline Rectangle(float arg_width, float  arg_height, Vector2 arg_position, float arg_outerCircleRadius) :width(arg_width), height(arg_height), position(arg_position), outerCircleRadius(arg_outerCircleRadius) {};
-		inline Rectangle(float arg_width, float  arg_height, float x, float y) :width(arg_width), height(arg_height), position(Vector2(x, y)), outerCircleRadius(GetRectangleOuterCircleRadius(width, height)) {};
-		inline Point2D* GetVertecies()
-		{
-			 Point2D out[]{
-				Point2D(position.x - width / 2, position.y - height / 2),
-					Point2D(position.x + width / 2, position.y - height / 2),
-					Point2D(position.x + width / 2, position.y + height / 2),
-					Point2D(position.x - width / 2, position.y + height / 2)
-			};
-
-			 return out;
-		}
-			
-		inline void GetVertecies(Point2D* out) {
-			out = GetVertecies();
-		}
-		inline bool IsIntersects(std::shared_ptr< Rectangle> other) {
-
-			auto d = other->position.GetDistance(position);
-			if (other->position.GetDistance(position) > other->outerCircleRadius + outerCircleRadius) {
-				return false;
-			}
-			auto otherVertecies = other->GetVertecies();
-			for (auto i=0; i<4; i++)
-			{
-				if (IsContain(otherVertecies[ i])) {
-					return true;
-				}
-			}
-			return false;
-		}
-		inline bool IsContain(Point2D arg_point2D) {
-			if (arg_point2D.x >= position.x - width / 2 && arg_point2D.x <= position.x + width / 2
-				&& arg_point2D.y >= position.y - height / 2 && arg_point2D.y <= position.y + height / 2) {
-				return true;
-			}
-			return false;
-		}
-		inline float GetTop() {
-
-			return position.y - height / 2;
-		}
-		inline float GetBottom() {
-
-			return position.y + height / 2;
-		}
-		inline float GetLeft() {
-			return position.x - width / 2;
-		}
-		inline float GetRight() {
-
-			return position.x + width / 2;
-		}
-		inline static float GetRectangleOuterCircleRadius(const int width, const int height) {
-			auto aW = width; auto aH = height;
-			auto s = (aW + aH);
-			auto t = (s - aW)*(s - aH)* (s - aW)*(s - aH);
-			auto u = (aW*aH * 2)*(aW*aH * 2)*(aW*aW + aH * aH);
-
-
-			auto output = std::sqrt(u / t) / 4;
-			return output;
-		}
-		inline static float GetRectangleOuterCircleRadius(const Rectangle& ref_rect) {
-			auto s = (ref_rect.width + ref_rect.height);
-			auto t = (s - ref_rect.width)*(s - ref_rect.height)* (s - ref_rect.width)*(s - ref_rect.height);
-			auto u = (ref_rect.width*ref_rect.height * 2)*(ref_rect.width*ref_rect.height * 2)*(ref_rect.width*ref_rect.width + ref_rect.height * ref_rect.height);
-			auto output = std::sqrt(u / t) / 4;
-			return output;
-		}
-	};
 
 
 	class MathHelper

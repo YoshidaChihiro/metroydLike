@@ -5,7 +5,6 @@ namespace Framework {
 	{
 	public:
 		TestScene();
-		~TestScene();
 		void Initialize()override;
 
 		void PreInitialize()override;

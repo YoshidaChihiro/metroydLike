@@ -70,16 +70,16 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\libs\DxLib_VC\プロジェクトに追加すべきファイル_VC用;D:\K019G1120\1st\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(IncludePath)</IncludePath>
+    <IncludePath>D:\K019G1120\1st\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>C:\libs\DxLib_VC\プロジェクトに追加すべきファイル_VC用;D:\K019G1120\1st\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(IncludePath)</IncludePath>
+    <IncludePath>D:\K019G1120\1st\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\libs\DxLib_VC\プロジェクトに追加すべきファイル_VC用;D:\K019G1120\1st\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(IncludePath)</IncludePath>
+    <IncludePath>D:\K019G1120\1st\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\libs\DxLib_VC\プロジェクトに追加すべきファイル_VC用;D:\K019G1120\1st\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(IncludePath)</IncludePath>
+    <IncludePath>D:\K019G1120\1st\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -140,25 +140,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Collision2D.cpp" />
-    <ClCompile Include="Collision2DManager.cpp" />
-    <ClCompile Include="CSVReader.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="IScene.cpp" />
     <ClCompile Include="main.cpp" />
-<<<<<<< HEAD
     <ClCompile Include="Player.cpp" />
-=======
-    <ClCompile Include="Map.cpp" />
-    <ClCompile Include="MapChipObject.cpp" />
->>>>>>> origin
     <ClCompile Include="ResouceController.cpp" />
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="StringHelper.cpp" />
     <ClCompile Include="TestObject.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="Transform.cpp" />
@@ -166,23 +157,17 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ButiMath.h" />
-    <ClInclude Include="Collision2D.h" />
-    <ClInclude Include="Collision2DManager.h" />
-    <ClInclude Include="CSVReader.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="IScene.h" />
     <ClInclude Include="Library.h" />
-    <ClInclude Include="Map.h" />
-    <ClInclude Include="MapChipObject.h" />
     <ClInclude Include="MathInclude.cpp" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ResouceController.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="StringHelper.h" />
     <ClInclude Include="TestObject.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="Transform.h" />
