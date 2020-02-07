@@ -19,9 +19,8 @@ Framework::Player::Player(std::shared_ptr<Transform> shp_arg_transform, std::sha
 }
 
 
-Framework::Player::~Player()
-{
-}
+Framework::Player::~Player() {}
+
 
 bool Framework::Player::Update() {
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
@@ -49,6 +48,7 @@ bool Framework::Player::Move() {
 bool Framework::Player::Jump() {
 	//‰¼’u‚«///’…’n//////
 	if (transform->localPosition.y > 200.0f) {
+
 		isJump = false;
 		isSecondJump = false;
 		velocity.y = 0.0f;
