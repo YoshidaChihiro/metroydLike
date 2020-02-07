@@ -9,6 +9,7 @@ void Framework::TestScene::Initialize()
 {
 	auto shp_transform = ObjectFactory::Create<Transform>(Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
 	shp_gameObjectManager->AddObject(ObjectFactory::Create<TestObject>(shp_transform, shp_gameObjectManager));
+	shp_gameObjectManager->AddObject(ObjectFactory::Create<Player>(shp_transform, shp_gameObjectManager));
 }
 
 void Framework::TestScene::PreInitialize()
