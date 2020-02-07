@@ -14,6 +14,8 @@ namespace Framework {
 
 		virtual bool Update();
 
+		virtual void Hit(std::shared_ptr<GameObject> other) {};
+
 		void PreInitialize() override;
 
 		void Initialize()override;

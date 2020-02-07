@@ -15,7 +15,9 @@ int WINAPI WinMain(
 {
 	//initMethod
 	Framework::Game::CreateInstance(720,480,"test",Framework::Color(0xff,0xff,0xff,0));
-
+	int i = 0;
+	Framework::Game::GetInstance()->ResourceLoad();
+	Framework::Game::GetInstance()->SceneInitialize();
 
 	timespec befTime;
 	timespec nowTime;
