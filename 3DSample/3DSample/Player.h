@@ -22,7 +22,9 @@ namespace Framework {
 			gravity,
 			maxFallSpeed;
 		bool isJump,
-			LBtrigger;
+			isSecondJump,
+			LBtrigger,
+			RBtrigger;
 		enum State
 		{
 			NormalMode,

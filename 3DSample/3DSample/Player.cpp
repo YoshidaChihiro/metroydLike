@@ -4,12 +4,14 @@
 
 Framework::Player::Player(std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager) :GameObject(shp_arg_transform, shp_arg_gameObjectManager)
 {
-	velocity = *new Vector2(0.0f, 0.0f);
+	velocity = Vector2(0.0f, 0.0f);
 	speed = 1.0f;
 	gravity = 0.1f;
 	maxFallSpeed = 1.0f;
 	isJump = true;
+	isSecondJump = true;
 	LBtrigger = false;
+	RBtrigger = false;
 	state = NormalMode;
 
 	int handle = LoadGraph("Resource/Texture/apple.png");
@@ -43,10 +45,12 @@ bool Framework::Player::Move() {
 	transform->localPosition += velocity * speed;
 	return true;
 }
+
 bool Framework::Player::Jump() {
-	//仮置き////////////
+	//仮置き///着地//////
 	if (transform->localPosition.y > 200.0f) {
 		isJump = false;
+		isSecondJump = false;
 		velocity.y = 0.0f;
 	}
 	////////////////////
@@ -62,6 +66,14 @@ bool Framework::Player::Jump() {
 	}
 	//ジャンプ中
 	if(isJump == true) {
+		//2段ジャンプ
+		if (state == ThrowWaitMode && isSecondJump == false && xinput.Buttons[8] && LBtrigger == false) {
+			velocity.y = -3.0f;
+			isSecondJump = true;
+			state = NormalMode;
+			LBtrigger = true;
+		}
+
 		//重力
 		velocity.y += gravity;
 		//落下速度制限
@@ -72,24 +84,34 @@ bool Framework::Player::Jump() {
 
 	return true;
 }
+
 bool Framework::Player::Throw() {
 	//Button[9]…RB
-	if (xinput.Buttons[9]) {
+	if (xinput.Buttons[9] && RBtrigger == false) {
 		switch (state)
 		{
-		case Framework::Player::NormalMode:
+		case NormalMode:
 			state = ThrowWaitMode;
 			break;
-		case Framework::Player::ThrowWaitMode:
+		case ThrowWaitMode:
 			state = ThrowMode;
 			break;
-		case Framework::Player::ThrowMode:
+			//
+		case ThrowMode:
 			state = NormalMode;
 			break;
 		default:
 			break;
 		}
+		RBtrigger = true;
 	}
+	if (!xinput.Buttons[9]) {
+		RBtrigger = false;
+	}
+
+	//投げ方向
+	//Vector2 throwDirection = Vector2(xinput.ThumbRX, xinput.ThumbRY);
+	//throwDirection.Normalize();
 
 	return true;
 }
