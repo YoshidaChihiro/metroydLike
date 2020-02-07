@@ -16,8 +16,13 @@ Framework::Game::Game(int windowWidth, int windowHeight, std::string windowText,
 
 	unq_resourceController = std::make_unique<ResouceController>();
 	unq_sceneManager = std::make_unique<SceneManager>();
+	unq_collision2DManager = std::make_unique<Collision2DManager>();
 
 	targetScreenHundle = MakeScreen(windowWidth, windowHeight, TRUE);
+
+	auto data = CSVReader::GetMatrixByFile("testMap.csv");
+
+
 }
 
 bool Framework::Game::Draw()
@@ -38,12 +43,16 @@ bool Framework::Game::Draw()
 bool Framework::Game::Update()
 {
 	Game::GetInstance();
+	unq_collision2DManager->Update();
 	return unq_sceneManager->Update();
+
 }
 
 bool Framework::Game::ResourceLoad()
 {
 	unq_resourceController->LoadTexture("sample.png");
+
+	unq_resourceController->LoadTexture("sample2.png");
 
 	return true;
 }
@@ -91,4 +100,9 @@ std::unique_ptr<Framework::ResouceController>& Framework::Game::GetResourceContr
 std::unique_ptr<Framework::SceneManager>& Framework::Game::GetSceneManager()
 {
 	return unq_sceneManager;
+}
+
+std::unique_ptr<Framework::Collision2DManager>& Framework::Game::GetCollision2DManager()
+{
+	return unq_collision2DManager;
 }
