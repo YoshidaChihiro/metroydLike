@@ -15,7 +15,7 @@ bool Framework::Collision2DManager::Update()
 			if (itr == otherItr)continue;
 
 			if ((*itr)->IsHit((*otherItr))|| (*otherItr)->IsHit((*itr))) {
-				(*itr)->OnHit((*otherItr));
+
 			}
 		}
 	}

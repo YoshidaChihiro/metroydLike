@@ -8,12 +8,13 @@ namespace Framework {
 	{
 	public:
 		virtual std::shared_ptr<MapChipObject> Clone(Vector3 position)=0;
+		std::shared_ptr<Collision2D_Rectangle> GetShpCollision() { return shp_collisionRect; };
 	protected:
 		friend class ObjectFactory;
 		MapChipObject(std::shared_ptr<GameObjectManager> arg_manager) :GameObject(ObjectFactory::Create<Transform>(), arg_manager) {}
-		MapChipObject(std::shared_ptr<Transform> arg_transform,std::shared_ptr<GameObjectManager> arg_manager) :GameObject(arg_transform, arg_manager) {
-		
-		}
+		MapChipObject(std::shared_ptr<Transform> arg_transform,std::shared_ptr<GameObjectManager> arg_manager) :GameObject(arg_transform, arg_manager) {}
+
+		std::shared_ptr<Collision2D_Rectangle> shp_collisionRect;
 	};
 
 	class MapChip_Space :public MapChipObject {
@@ -38,6 +39,5 @@ namespace Framework {
 	private:
 		MapChip_Test(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager);
 		std::shared_ptr< Resource_Texture> shp_texture;
-		std::shared_ptr<Collision2D_Rectangle> shp_collisionRect;
 	};
 }

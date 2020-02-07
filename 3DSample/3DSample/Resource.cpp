@@ -29,7 +29,7 @@ Framework::Resource_Texture::~Resource_Texture()
 
 bool Framework::Resource_Texture::Draw()
 {
-	if(DrawRotaGraph3(transform->GetPosition().x,transform->GetPosition().y,0,0,transform->GetScale().x,transform->GetScale().y,transform->GetRotation().z,handle,true,xFlip,yFlip)==0)
+	if(DrawRotaGraph3(transform->GetPosition().x-8,transform->GetPosition().y-8,0,0,transform->GetScale().x,transform->GetScale().y,transform->GetRotation().z,handle,true,xFlip,yFlip)==0)
 	return true;
 	else {
 		return false;
