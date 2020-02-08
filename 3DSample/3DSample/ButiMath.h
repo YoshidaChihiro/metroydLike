@@ -1,6 +1,7 @@
 #pragma once
 #include<DirectXMath.h>
 #include <memory>
+#include <vector>
 namespace Framework {
 
 	struct Vector2;
@@ -537,10 +538,10 @@ namespace Framework {
 		inline Rectangle(float arg_width, float  arg_height, Vector2 arg_position) :width(arg_width), height(arg_height), position(arg_position), outerCircleRadius(GetRectangleOuterCircleRadius(width, height)) {};
 		inline Rectangle(float arg_width, float  arg_height, Vector2 arg_position, float arg_outerCircleRadius) :width(arg_width), height(arg_height), position(arg_position), outerCircleRadius(arg_outerCircleRadius) {};
 		inline Rectangle(float arg_width, float  arg_height, float x, float y) :width(arg_width), height(arg_height), position(Vector2(x, y)), outerCircleRadius(GetRectangleOuterCircleRadius(width, height)) {};
-		inline Point2D* GetVertecies()
+		inline std::vector< Point2D> GetVertecies()
 		{
-			 Point2D out[]{
-				Point2D(position.x - width / 2, position.y - height / 2),
+			 std::vector<Point2D> out{
+					Point2D(position.x - width / 2, position.y - height / 2),
 					Point2D(position.x + width / 2, position.y - height / 2),
 					Point2D(position.x + width / 2, position.y + height / 2),
 					Point2D(position.x - width / 2, position.y + height / 2)
@@ -550,27 +551,28 @@ namespace Framework {
 		}
 			
 		inline void GetVertecies(Point2D* out) {
-			out = GetVertecies();
+			out = GetVertecies().data();
 		}
-		inline bool IsIntersects(std::shared_ptr< Rectangle> other) {
 
-			auto d = other->position.GetDistance(position);
-			if (other->position.GetDistance(position) > other->outerCircleRadius + outerCircleRadius) {
-				return false;
-			}
-			auto otherVertecies = other->GetVertecies();
-			for (auto i=0; i<4; i++)
-			{
-				if (IsContain(otherVertecies[ i])) {
-					return true;
-				}
-			}
-			return false;
-		}
 		inline bool IsContain(Point2D arg_point2D) {
 			if (arg_point2D.x >= position.x - width / 2 && arg_point2D.x <= position.x + width / 2
 				&& arg_point2D.y >= position.y - height / 2 && arg_point2D.y <= position.y + height / 2) {
 				return true;
+			}
+			return false;
+		}
+		inline bool IsIntersects(std::shared_ptr< Rectangle> other) {
+
+			/*auto d = other->position.GetDistance(position);
+			if (other->position.GetDistance(position) > other->outerCircleRadius + outerCircleRadius) {
+				return false;
+			}*/
+			auto otherVertecies = other->GetVertecies();
+			for (auto i=0; i<4; i++)
+			{
+				if (IsContain(otherVertecies.at(i))) {
+					return true;
+				}
 			}
 			return false;
 		}

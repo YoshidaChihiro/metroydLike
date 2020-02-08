@@ -13,6 +13,7 @@ namespace Framework {
 		bool Update()override;
 		std::shared_ptr<Resource_Texture> shp_texture;
 		std::shared_ptr<Collision2D_Rectangle>shp_collisionRect;
+		int anotherHandle,handle;
 	};
 }
 

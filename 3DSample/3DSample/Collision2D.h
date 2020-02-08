@@ -27,7 +27,13 @@ namespace Framework {
 
 		inline bool IsHit(std::shared_ptr<Collision2D_Base> other) {
 			if (other->IsThis<Collision2D_Rectangle>()) {
-				return rect->IsIntersects(other->GetThis<Collision2D_Rectangle>()->rect);
+				auto otherRect = other->GetThis<Collision2D_Rectangle>()->rect;
+				auto result= rect->IsIntersects(otherRect)||otherRect->IsIntersects(rect);
+				if (result) { 
+					OnHit(other);
+					other->OnHit(GetThis<Collision2D_Rectangle>());
+				}
+				return result;
 			}
 
 			return false;
@@ -35,7 +41,15 @@ namespace Framework {
 		std::shared_ptr<Rectangle> rect;
 	};
 	class Collision2D_Terrain :public Collision2D_Base {
+	public:
 
+		Collision2D_Terrain( std::shared_ptr<GameObject> gameObj);
+		void Initialize()override;
+		void PreInitialize()override;
+
+		bool Update()override;
+
+		bool IsHit(std::shared_ptr<Collision2D_Base> other);
 	};
 
 }

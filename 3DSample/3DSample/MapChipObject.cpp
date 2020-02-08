@@ -25,7 +25,7 @@ bool Framework::MapChip_Test::Update()
 
 	shp_collisionRect->Update();
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
-	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
+	//Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
 	return true;
 }
 
@@ -40,3 +40,4 @@ Framework::MapChip_Test::MapChip_Test(std::shared_ptr<Transform> arg_transform, 
 	:MapChipObject(arg_transform,arg_manager->GetThis<GameObjectManager>())
 {
 }
+
