@@ -6,7 +6,7 @@ Framework::Player::Player(std::shared_ptr<Transform> shp_arg_transform, std::sha
 {
 	velocity = Vector2(0.0f, 0.0f);
 	speed = 1.0f;
-	gravity = 0.1f;
+	gravity = 0.2f;
 	maxFallSpeed = 1.0f;
 	isJump = true;
 	isSecondJump = true;
