@@ -1,5 +1,5 @@
 #include "Resource.h"
-
+#include"Game.h"
 bool Framework::Resource_MV1::Draw()
 {
 	return true;
@@ -12,18 +12,64 @@ Framework::Resource_Texture::Resource_Texture(int arg_handle, std::shared_ptr<Tr
 	if (isYFlip) {
 		yFlip = 1;
 	}
-};
+	GetGraphSize(handle, &width, &height);
+}
+Framework::Resource_Texture::Resource_Texture(std::string key, std::shared_ptr<Transform> arg_transform, bool isXFlip, bool isYFlip) : transform(arg_transform->GetThis<Transform>()) {
+	if (isXFlip) {
+		xFlip = 1;
+	}
+	if (isYFlip) {
+		yFlip = 1;
+	}
+	handle = (Game::GetInstance()->GetResourceController()->GetTexture(key));
+
+	GetGraphSize(handle, &width, &height);
+}
+Framework::Resource_Texture::~Resource_Texture()
+{
+}
+;
 
 bool Framework::Resource_Texture::Draw()
 {
-	if(DrawRotaGraph3(transform->GetPosition().x,transform->GetPosition().y,0,0,transform->GetScale().x,transform->GetScale().y,transform->GetRotation().z,handle,true,xFlip,yFlip)==0)
+	if(DrawRotaGraph3(transform->GetPosition().x-width/2,transform->GetPosition().y-height/2,0,0,transform->GetScale().x,transform->GetScale().y,transform->GetRotation().z,handle,true,xFlip,yFlip)==0)
 	return true;
 	else {
 		return false;
 	}
 }
 
+Framework::Resource_Texture::Resource_Texture(std::shared_ptr<Transform> arg_transform) : transform(arg_transform->GetThis<Transform>())
+{
+}
+
 bool Framework::Resource_Sound::Play()
 {
 	return false;
+}
+
+
+
+Framework::Resource_Text_String::Resource_Text_String(std::string source, std::shared_ptr<Transform> arg_transform, int arg_color, bool arg_isCenter)
+	:Resource_Texture(arg_transform)
+{
+	text = source;
+	color = arg_color;
+	isCenter = arg_isCenter;
+}
+
+Framework::Resource_Text_String::~Resource_Text_String()
+{
+}
+
+bool Framework::Resource_Text_String::Draw()
+{
+	if (!isCenter) {
+		DrawFormatString(transform->GetPosition().GetVector2().x, transform->GetPosition().GetVector2().y, color, text.c_str());
+	}
+	else
+	{
+
+	}
+	return true;
 }

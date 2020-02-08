@@ -38,7 +38,7 @@ bool Framework::Player::Move() {
 	else if (xinput.ThumbLX < 0) {
 		velocity.x = -1.0f;
 	}
-	else{
+	else {
 		velocity.x = 0.0f;
 	}
 	transform->localPosition += velocity * speed;
@@ -65,7 +65,7 @@ bool Framework::Player::Jump() {
 		LBtrigger = false;
 	}
 	//ジャンプ中
-	if(isJump == true) {
+	if (isJump == true) {
 		//2段ジャンプ
 		if (state == ThrowWaitMode && isSecondJump == false && xinput.Buttons[8] && LBtrigger == false) {
 			velocity.y = -3.0f;

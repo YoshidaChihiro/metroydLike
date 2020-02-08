@@ -4,7 +4,7 @@
 
 #include "DxLib.h"
 namespace Framework {
-	class Player:public GameObject
+	class Player :public GameObject
 	{
 	public:
 		Player(std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager);
@@ -15,7 +15,7 @@ namespace Framework {
 		bool Move();
 		bool Jump();
 		bool Throw();
-		
+
 		XINPUT_STATE xinput;
 		Vector2 velocity;
 		float speed,
