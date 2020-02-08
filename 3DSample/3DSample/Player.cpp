@@ -14,16 +14,32 @@ Framework::Player::Player(std::shared_ptr<Transform> shp_arg_transform, std::sha
 	RBtrigger = false;
 	state = NormalMode;
 
-	int handle = LoadGraph("Resource/Texture/apple.png");
+	handle = LoadGraph("Resource/Texture/apple.png");
 	shp_texture = ObjectFactory::Create<Resource_Texture>(handle, transform, false, false);
 }
 
 
 Framework::Player::~Player() {}
 
+void Framework::Player::Hit(std::shared_ptr<GameObject> other)
+{
+	int color = GetColor(0, 0, 0);
+	auto text = ObjectFactory::Create<Resource_Text_String>("Hit", transform, color, false);
+	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
+
+}
+
+void Framework::Player::PreInitialize()
+{
+	handle = Game::GetInstance()->GetResourceController()->GetTexture("apple.png");
+	//shp_texture = ObjectFactory::Create<Resource_Texture>(handle, transform, false, false);
+	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(16, 16, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
+}
 
 bool Framework::Player::Update() {
+	shp_collisionRect->Update();
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
+	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
 	GetJoypadXInputState(DX_INPUT_PAD1, &xinput);
 	Move();
 	Jump();
@@ -47,8 +63,7 @@ bool Framework::Player::Move() {
 
 bool Framework::Player::Jump() {
 	//‰¼’u‚«///’…’n//////
-	if (transform->localPosition.y > 200.0f) {
-
+	if (transform->localPosition.y > 335) {
 		isJump = false;
 		isSecondJump = false;
 		velocity.y = 0.0f;
@@ -96,10 +111,6 @@ bool Framework::Player::Throw() {
 		case ThrowWaitMode:
 			state = ThrowMode;
 			break;
-			//
-		case ThrowMode:
-			state = NormalMode;
-			break;
 		default:
 			break;
 		}
@@ -109,9 +120,15 @@ bool Framework::Player::Throw() {
 		RBtrigger = false;
 	}
 
-	//“Š‚°•ûŒü
-	//Vector2 throwDirection = Vector2(xinput.ThumbRX, xinput.ThumbRY);
-	//throwDirection.Normalize();
+	//“Š‚°
+	if (state == ThrowMode) {
+		//“Š‚°•ûŒü
+		//Vector2 throwDirection = Vector2(xinput.ThumbRX, xinput.ThumbRY);
+		//throwDirection.Normalize();
+		state = NormalMode;
+	}
+
+
 
 	return true;
 }
