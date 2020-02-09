@@ -4,7 +4,7 @@
 #include<time.h>
 #include<ctime>
 #include <chrono>
-
+#include <DxLib.h>
 
 int WINAPI WinMain(
 	_In_ HINSTANCE hInstance,
@@ -13,8 +13,12 @@ int WINAPI WinMain(
 	_In_ int nCmdShow
 )
 {
+	int win_width = 952,
+		win_height = 720;
+	SetGraphMode(win_width, win_height, 32);
+
 	//initMethod
-	Framework::Game::CreateInstance(720,480,"test",Framework::Color(0xff,0xff,0xff,0));
+	Framework::Game::CreateInstance(win_width, win_height,"test",Framework::Color(0xff,0xff,0xff,0));
 	int i = 0;
 	Framework::Game::GetInstance()->ResourceLoad();
 	Framework::Game::GetInstance()->SceneInitialize();

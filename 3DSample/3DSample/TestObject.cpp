@@ -16,9 +16,7 @@ Framework::TestObject::~TestObject()
 
 void Framework::TestObject::Hit(std::shared_ptr<GameObject> other)
 {
-	int color = GetColor(0, 0, 0);
-	auto text = ObjectFactory::Create<Resource_Text_String>("Hit!!!!!!!!!!!!",transform,color,true,"testFont");
-	Game::GetInstance()->GetResourceController()->AddText(text);
+
 
 }
 

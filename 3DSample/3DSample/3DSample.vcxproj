@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Child.cpp" />
     <ClCompile Include="Collision2D.cpp" />
     <ClCompile Include="Collision2DManager.cpp" />
     <ClCompile Include="CSVReader.cpp" />
@@ -151,6 +152,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MapChipObject.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="ResouceController.cpp" />
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="SceneManager.cpp" />
@@ -162,6 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ButiMath.h" />
+    <ClInclude Include="Child.h" />
     <ClInclude Include="Collision2D.h" />
     <ClInclude Include="Collision2DManager.h" />
     <ClInclude Include="CSVReader.h" />
@@ -174,6 +177,7 @@
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapChipObject.h" />
     <ClInclude Include="MathInclude.cpp" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="ResouceController.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SceneManager.h" />

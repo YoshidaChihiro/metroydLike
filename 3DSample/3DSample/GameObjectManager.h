@@ -1,6 +1,8 @@
 #pragma once
 #include"GameObject.h"
 #include "TestObject.h"
+#include "Player.h"
+#include "Child.h"
 #include<vector>
 namespace Framework {
 	class GameObjectManager:public IObject
