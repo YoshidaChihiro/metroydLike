@@ -25,8 +25,6 @@ Framework::Child::~Child() {}
 
 void Framework::Child::Hit(std::shared_ptr<GameObject> other)
 {
-	int color = GetColor(0, 0, 0);
-	auto text = ObjectFactory::Create<Resource_Text_String>("Hit", transform, color, false);
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
 
 }

@@ -16,17 +16,14 @@ Framework::TestObject::~TestObject()
 
 void Framework::TestObject::Hit(std::shared_ptr<GameObject> other)
 {
-	int color = GetColor(0, 0, 0);
-	auto text = ObjectFactory::Create<Resource_Text_String>("Hit",transform,color,false);
-	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
+
 
 }
 
 void Framework::TestObject::PreInitialize()
 {
 	handle = Game::GetInstance()->GetResourceController()->GetTexture("sample.png");
-	anotherHandle = Game::GetInstance()->GetResourceController()->GetTexture("sample2.png");
-	shp_texture = ObjectFactory::Create<Resource_Texture>(handle, transform, false, false);
+	shp_texture = ObjectFactory::Create<Resource_Texture>("sample.png", transform, false, false);
 	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(16,16,transform->GetPosition().GetVector2(),Rectangle::GetRectangleOuterCircleRadius(16,16)),GetThis<GameObject>());
 }
 
