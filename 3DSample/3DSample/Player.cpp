@@ -81,7 +81,7 @@ bool Framework::Player::Jump() {
 	if (isJump == true) {
 		//2’iƒWƒƒƒ“ƒv
 		if (state == ThrowWaitMode && isSecondJump == false && xinput.Buttons[8] && LBtrigger == false) {
-			velocity.y = -3.0f;
+			velocity.y = -5.0f;
 			isSecondJump = true;
 			state = NormalMode;
 			LBtrigger = true;

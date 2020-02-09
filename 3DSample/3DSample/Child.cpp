@@ -90,11 +90,10 @@ bool Framework::Child::Jump() {
 	if (isJump == true) {
 		//2’iƒWƒƒƒ“ƒv
 		if (state == ThrowWaitMode && isSecondJump == false && xinput.Buttons[8] && LBtrigger == false) {
-			velocity.y = -3.0f;
 			isSecondJump = true;
 			LBtrigger = true;
 			//‰º‚É—Ž‚¿‚é
-			velocity.y = 1.0f;
+			velocity.y = 2.0f;
 			groundHeight = 672 + 32;
 		}
 
