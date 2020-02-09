@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Child.cpp" />
     <ClCompile Include="Collision2D.cpp" />
     <ClCompile Include="Collision2DManager.cpp" />
     <ClCompile Include="CSVReader.cpp" />
@@ -163,6 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ButiMath.h" />
+    <ClInclude Include="Child.h" />
     <ClInclude Include="Collision2D.h" />
     <ClInclude Include="Collision2DManager.h" />
     <ClInclude Include="CSVReader.h" />

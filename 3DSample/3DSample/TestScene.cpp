@@ -15,6 +15,8 @@ void Framework::TestScene::Initialize()
 	shp_gameObjectManager->AddObject_Init(ObjectFactory::Create<TestObject>(shp_transform, shp_gameObjectManager));
 	auto shp_transform2 = ObjectFactory::Create<Transform>(Vector3(20, 310, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
 	shp_gameObjectManager->AddObject_Init(ObjectFactory::Create<Player>(shp_transform2, shp_gameObjectManager));
+	auto shp_transform3 = ObjectFactory::Create<Transform>(Vector3(20, 310, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
+	shp_gameObjectManager->AddObject_Init(ObjectFactory::Create<Child>(shp_transform3, shp_gameObjectManager));
 
 	auto shp_objectTransform = ObjectFactory::Create<Transform>(Vector3(64, 32, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
 
