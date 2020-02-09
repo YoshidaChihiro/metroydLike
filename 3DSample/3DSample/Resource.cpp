@@ -50,12 +50,15 @@ bool Framework::Resource_Sound::Play()
 
 
 
-Framework::Resource_Text_String::Resource_Text_String(std::string source, std::shared_ptr<Transform> arg_transform, int arg_color, bool arg_isCenter)
+
+
+Framework::Resource_Text_String::Resource_Text_String(std::string source, std::shared_ptr<Transform> arg_transform, int arg_color, bool arg_isCenter, std::string fontName)
 	:Resource_Texture(arg_transform)
 {
 	text = source;
 	color = arg_color;
 	isCenter = arg_isCenter;
+	shp_resource_font = Game::GetInstance()->GetResourceController()->GetFont(fontName);
 }
 
 Framework::Resource_Text_String::~Resource_Text_String()
@@ -65,11 +68,12 @@ Framework::Resource_Text_String::~Resource_Text_String()
 bool Framework::Resource_Text_String::Draw()
 {
 	if (!isCenter) {
-		DrawFormatString(transform->GetPosition().GetVector2().x, transform->GetPosition().GetVector2().y, color, text.c_str());
+		DrawFormatStringToHandle(transform->GetPosition().GetVector2().x, transform->GetPosition().GetVector2().y, color, shp_resource_font->handle,text.c_str());
 	}
 	else
 	{
-
+		float xModify = shp_resource_font->size*(float)text.size() / 4;
+		DrawFormatStringToHandle(transform->GetPosition().GetVector2().x-xModify, transform->GetPosition().GetVector2().y-shp_resource_font->size/2, color, shp_resource_font->handle, text.c_str());
 	}
 	return true;
 }

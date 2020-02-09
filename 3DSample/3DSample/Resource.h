@@ -9,6 +9,12 @@ namespace Framework {
 		void Initialize()override {};
 	};
 
+	struct Resource_Font :Resource_base {
+		Resource_Font(int arg_handle,int arg_size) :handle(arg_handle),size(arg_size){};
+
+		int handle;
+		int size;
+	};
 	struct Resource_MV1 :Resource_base {
 		Resource_MV1(int arg_handle, std::shared_ptr<Transform> arg_transform) :handle(arg_handle), transform(arg_transform->GetThis<Transform>()) {};
 		
@@ -32,12 +38,13 @@ namespace Framework {
 		Resource_Texture( std::shared_ptr<Transform> arg_transform);
 	}; 
 	struct Resource_Text_String :Resource_Texture {
-		Resource_Text_String(std::string source, std::shared_ptr<Transform> arg_transform,int color, bool isCenter);
+		Resource_Text_String(std::string source, std::shared_ptr<Transform> arg_transform, int color, bool isCenter, std::string fontName);
 		~Resource_Text_String();
 		bool Draw() override;
 		std::string text;
 		bool isCenter;
 		int color;
+		std::shared_ptr<Resource_Font> shp_resource_font;
 	};
 
 	struct Resource_Sound :Resource_base {
