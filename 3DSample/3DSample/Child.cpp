@@ -1,6 +1,5 @@
 #include "Child.h"
 #include "Game.h"
-#include "Player.h"
 
 Framework::Child::Child(std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager) :GameObject(shp_arg_transform, shp_arg_gameObjectManager)
 {
@@ -34,18 +33,25 @@ bool Framework::Child::Update() {
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
 	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
 
-	/*switch (Player::GetState())
+	std::shared_ptr<Player> player;
+	switch (player->GetState())
 	{
 	case 0:
+		transform->localPosition = (player->transform->GetPosition()) + Vector3(-player->transform->GetScale().x, 0.0f, 0.0f);
 		break;
 	case 1:
+		transform->localPosition = (player->transform->GetPosition()) + Vector3(0.0f, player->transform->GetScale().y, 0.0f);
 		break;
 	case 2:
 		break;
 	default:
 		break;
-	}*/
+	}
 	transform->localPosition += velocity * speed;
 
 	return true;
+}
+
+void Framework::Child::SetVelocity(Framework::Vector2 velocity) {
+	Framework::Child::velocity = velocity;
 }

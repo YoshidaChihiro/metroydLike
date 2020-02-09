@@ -1,5 +1,5 @@
 #include "Player.h"
-
+#include "Child.h"
 #include "Game.h"
 
 Framework::Player::Player(std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager) :GameObject(shp_arg_transform, shp_arg_gameObjectManager)
@@ -123,10 +123,15 @@ bool Framework::Player::Throw() {
 	//“Š‚°
 	if (state == ThrowMode) {
 		//“Š‚°•ûŒü
-		//Vector2 throwDirection = Vector2(xinput.ThumbRX, xinput.ThumbRY);
-		//throwDirection.Normalize();
+		Vector2 throwDirection = Vector2(xinput.ThumbRX, xinput.ThumbRY);
+		std::shared_ptr<Child> child;
+		child->SetVelocity(throwDirection);
 		state = NormalMode;
 	}
 
 	return true;
+}
+
+int Framework::Player::GetState() {
+	return state;
 }

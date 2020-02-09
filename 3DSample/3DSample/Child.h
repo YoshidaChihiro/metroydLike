@@ -15,6 +15,7 @@ namespace Framework {
 		std::shared_ptr<Resource_Texture> shp_texture;
 		std::shared_ptr<Collision2D_Rectangle>shp_collisionRect;
 
+		void SetVelocity(Vector2 velocity);
 	private:
 		Vector2 velocity;
 		float speed;
