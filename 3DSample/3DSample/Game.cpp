@@ -69,7 +69,7 @@ bool Framework::Game::CreateInstance(int windowWidth, int windowHeight, std::str
 		return false;
 	}
 	instance = std::make_unique<Framework::Game>(windowWidth, windowHeight, windowText, color);
-
+	Framework::ButiRandom::Initialize();
 	Framework::Input::Initialize();
 	return true;
 }

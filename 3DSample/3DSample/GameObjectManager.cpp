@@ -15,7 +15,7 @@ void Framework::GameObjectManager::AddObject_Init(std::shared_ptr<GameObject> sh
 void Framework::GameObjectManager::AddObject(std::shared_ptr<GameObject> shp_arg_gameObject)
 {
 
-	vec_shp_new_gameObjects.push_back(shp_arg_gameObject->GetThis<GameObject>());
+	vec_shp_new_gameObjects.push_back(shp_arg_gameObject);
 }
 
 void Framework::GameObjectManager::Release()

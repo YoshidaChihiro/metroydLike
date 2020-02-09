@@ -33,16 +33,7 @@ bool Framework::TestObject::Update()
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
 	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
 
-	int ph= Game::GetInstance()->GetResourceController()->GetTexture("sample.png");
-	if (c < 0) {
-		auto part = ObjectFactory::Create<Particle>(ph, 0, transform->GetClone(), Vector3(1, 0, 0), 1, 1, 1, 1, Vector3(0, 0, 0), 20, manager);
-		manager->AddObject(part);
-		c = 60;
-	}
-	else
-	{
-		c--;
-	}
+	
 	if (Input::GetKey(KEY_INPUT_D)) {
 		transform->localPosition.x++;
 	}
