@@ -5,6 +5,7 @@
 Framework::Player::Player(std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager) :GameObject(shp_arg_transform, shp_arg_gameObjectManager)
 {
 	velocity = Vector2(0.0f, 0.0f);
+	prevPosition = Vector2(0.0f, 0.0f);
 	speed = 1.0f;
 	gravity = 0.2f;
 	maxFallSpeed = 1.0f;
@@ -24,7 +25,7 @@ Framework::Player::~Player() {}
 void Framework::Player::Hit(std::shared_ptr<GameObject> other)
 {
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
-
+	transform->localPosition = prevPosition;
 }
 
 void Framework::Player::PreInitialize()
@@ -39,6 +40,7 @@ bool Framework::Player::Update() {
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
 	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
 	GetJoypadXInputState(DX_INPUT_PAD1, &xinput);
+	prevPosition = transform->localPosition;
 	Move();
 	Jump();
 	Throw();

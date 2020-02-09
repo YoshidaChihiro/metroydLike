@@ -30,7 +30,8 @@ namespace Framework {
 		bool Throw();
 
 		XINPUT_STATE xinput;
-		Vector2 velocity;
+		Vector2 velocity,
+			prevPosition;
 		float speed,
 			gravity,
 			maxFallSpeed;

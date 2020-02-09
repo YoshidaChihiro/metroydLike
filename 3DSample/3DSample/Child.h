@@ -23,6 +23,7 @@ namespace Framework {
 
 		XINPUT_STATE xinput;
 		Vector2 velocity,
+			prevPosition,
 			throwDirection;
 		float speed,
 			gravity,

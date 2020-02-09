@@ -5,6 +5,7 @@ Framework::Child::Child(std::shared_ptr<Transform> shp_arg_transform, std::share
 	:GameObject(shp_arg_transform, shp_arg_gameObjectManager)
 {
 	velocity = Vector2(0.0f, 0.0f);
+	prevPosition = Vector2(0.0f, 0.0f);
 	throwDirection = Vector2(0.0f, 0.0f);
 	speed = 1.0f;
 	gravity = 0.2f;
@@ -26,7 +27,7 @@ Framework::Child::~Child() {}
 void Framework::Child::Hit(std::shared_ptr<GameObject> other)
 {
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
-
+	transform->localPosition = prevPosition;
 }
 
 void Framework::Child::PreInitialize()
@@ -41,7 +42,7 @@ bool Framework::Child::Update() {
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
 	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
 	GetJoypadXInputState(DX_INPUT_PAD1, &xinput);
-	
+	prevPosition = transform->localPosition;
 	Move();
 	if (state != FixMode) {
 		Jump();
@@ -115,7 +116,7 @@ bool Framework::Child::Throw() {
 		{
 		case NormalMode:
 			state = ThrowWaitMode;
-			transform->localPosition += Vector3(32.0f, -32.0f, 0.0f);
+			transform->localPosition += Vector3(35.0f, -40.0f, 0.0f);
 			groundHeight += -32.0f;
 			break;
 		case ThrowWaitMode:
