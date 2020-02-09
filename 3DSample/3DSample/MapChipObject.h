@@ -24,6 +24,7 @@ namespace Framework {
 		std::shared_ptr<MapChipObject> Clone(Vector3 position) override{ return nullptr; }
 		void Initialize()override {};
 		void PreInitialize()override {};
+		bool Update()override { return false; }
 	private:
 		MapChip_Space(std::shared_ptr<Transform> arg_transform,std::shared_ptr<GameObjectManager> arg_manager);
 		

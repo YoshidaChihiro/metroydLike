@@ -1,6 +1,7 @@
 #include "TestObject.h"
 
 #include "Game.h"
+#include"Particle.h"
 Framework::TestObject::TestObject(std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager):GameObject(shp_arg_transform,shp_arg_gameObjectManager)
 {
 	auto a =std::make_shared< Rectangle>(100, 100, Vector2(0,0));
@@ -16,9 +17,6 @@ Framework::TestObject::~TestObject()
 
 void Framework::TestObject::Hit(std::shared_ptr<GameObject> other)
 {
-	int color = GetColor(0, 0, 0);
-	auto text = ObjectFactory::Create<Resource_Text_String>("Hit!!!!!!!!!!!!",transform,color,true,"testFont");
-	Game::GetInstance()->GetResourceController()->AddText(text);
 
 }
 
@@ -34,6 +32,17 @@ bool Framework::TestObject::Update()
 	shp_collisionRect->Update();
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
 	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
+
+	int ph= Game::GetInstance()->GetResourceController()->GetTexture("sample.png");
+	if (c < 0) {
+		auto part = ObjectFactory::Create<Particle>(ph, 0, transform->GetClone(), Vector3(1, 0, 0), 1, 1, 1, 1, Vector3(0, 0, 0), 20, manager);
+		manager->AddObject(part);
+		c = 60;
+	}
+	else
+	{
+		c--;
+	}
 	if (Input::GetKey(KEY_INPUT_D)) {
 		transform->localPosition.x++;
 	}

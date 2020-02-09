@@ -2,6 +2,7 @@
 #include<memory>
 #include<string>
 #include<stdexcept>
+#include<random>
 namespace Framework {
 	class Util
 	{
@@ -108,6 +109,39 @@ namespace Framework {
 		virtual void PreInitialize() = 0;
 		virtual void Initialize() = 0;
 
+	};
+	class ButiRandom {
+	public:
+
+		static void Initialize();
+
+
+		template<class T>
+		inline static T GetRandom(T min,T max,int pase) {
+			if (min == max) {
+				return min;
+			}
+			if (min > max) {
+				auto b = min;
+				min = max;
+				max = min;
+			}
+
+			shp_randRange = std::make_shared< std::uniform_int_distribution<>>(min*pase, max*pase);
+			return (T)(*shp_randRange)(*shp_mt) / pase;
+
+		};
+
+		
+		
+
+	private:
+		static std::shared_ptr< std::random_device> shp_rnd_device;// = std::make_shared<std::random_device>();
+		static std::shared_ptr<std::mt19937>shp_mt;// = std::make_shared<std::mt19937>((*shp_rnd_device)());
+		static std::shared_ptr< std::uniform_int_distribution<>> shp_randRange;// = std::make_shared< std::uniform_int_distribution<>>(0, 1);
+
+		ButiRandom() {};
+		~ButiRandom() {};
 	};
 	template<typename T>
 	std::shared_ptr<void> SharedPtrToVoid(const std::shared_ptr<T>& SrcPtr);

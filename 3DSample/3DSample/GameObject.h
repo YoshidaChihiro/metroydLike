@@ -12,7 +12,7 @@ namespace Framework {
 
 		virtual bool Release();
 
-		virtual bool Update();
+		virtual bool Update()=0;
 
 		virtual void Hit(std::shared_ptr<GameObject> other) {};
 
@@ -28,7 +28,7 @@ namespace Framework {
 
 		std::shared_ptr<GameObjectManager> manager;
 
-	private:
+	protected:
 		bool isDead;
 	};
 }

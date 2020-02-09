@@ -47,3 +47,14 @@ template<typename T>
 std::shared_ptr<T> Framework::VoidToShared(const std::shared_ptr<void>& SrcPtr) {
 
 }
+std::shared_ptr< std::random_device> Framework::ButiRandom::shp_rnd_device=nullptr;
+std::shared_ptr<std::mt19937>Framework::ButiRandom::shp_mt=nullptr;// 
+std::shared_ptr< std::uniform_int_distribution<>> Framework::ButiRandom::shp_randRange=nullptr;
+
+void Framework::ButiRandom::Initialize()
+{
+	 shp_rnd_device = std::make_shared<std::random_device>();
+	shp_mt= std::make_shared<std::mt19937>((*shp_rnd_device)());
+	 shp_randRange = std::make_shared< std::uniform_int_distribution<>>(0, 1);
+
+}

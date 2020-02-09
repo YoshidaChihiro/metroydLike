@@ -79,3 +79,8 @@ std::unique_ptr<Framework::Transform> Framework::Transform::GetNutral()
 	auto outputTrans = std::make_unique<Transform>();
 	return std::move(outputTrans);
 }
+
+std::shared_ptr<Framework::Transform> Framework::Transform::GetClone()
+{
+	return ObjectFactory::Create<Transform>(localPosition,rotation,scale);
+}
