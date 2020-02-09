@@ -128,7 +128,5 @@ bool Framework::Player::Throw() {
 		state = NormalMode;
 	}
 
-
-
 	return true;
 }

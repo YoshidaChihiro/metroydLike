@@ -13,6 +13,7 @@ namespace Framework {
 		void Hit(std::shared_ptr<GameObject> other)override;
 		void PreInitialize()override;
 		bool Update()override;
+
 		std::shared_ptr<Resource_Texture> shp_texture;
 		std::shared_ptr<Collision2D_Rectangle>shp_collisionRect;
 
@@ -38,6 +39,7 @@ namespace Framework {
 		};
 		State state;
 		int handle;
+
 	};
 }
 
