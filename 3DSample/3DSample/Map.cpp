@@ -22,7 +22,7 @@ bool Framework::Map::Update()
 {
 	shp_collision->Update();
 	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collision);
-	return false;
+	return true;
 }
 
 void Framework::Map::ChangeMapChipBlock(const int & arg_objectID, const int & x, const int & y)

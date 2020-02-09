@@ -32,7 +32,7 @@ bool Framework::MapChip_Test::Update()
 void Framework::MapChip_Test::Initialize()
 {
 	shp_texture = ObjectFactory::Create<Resource_Texture>("sample2.png", transform, false, false);
-	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(16, 16, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
+	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
 
 }
 

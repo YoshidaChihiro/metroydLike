@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include"Resource.h"
 #include"Collision2D.h"
+#include "DxLib.h"
 
 namespace Framework {
 	class Child :public GameObject
@@ -15,13 +16,26 @@ namespace Framework {
 		std::shared_ptr<Resource_Texture> shp_texture;
 		std::shared_ptr<Collision2D_Rectangle>shp_collisionRect;
 
-		void SetVelocity(Vector2 velocity);
 	private:
-		Vector2 velocity;
-		float speed;
+		bool Move();
+		bool Jump();
+		bool Throw();
+
+		XINPUT_STATE xinput;
+		Vector2 velocity,
+			throwDirection;
+		float speed,
+			gravity,
+			maxFallSpeed,
+			groundHeight;
+		bool isJump,
+			isSecondJump, 
+			LBtrigger,
+			RBtrigger;
 		enum State {
 			NormalMode,
 			ThrowWaitMode,
+			ThrowMode,
 			FixMode,
 		};
 		State state;

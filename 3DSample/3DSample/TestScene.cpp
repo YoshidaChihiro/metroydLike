@@ -13,14 +13,14 @@ void Framework::TestScene::Initialize()
 {
 	auto shp_transform = ObjectFactory::Create<Transform>(Vector3(300, 0, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
 	shp_gameObjectManager->AddObject_Init(ObjectFactory::Create<TestObject>(shp_transform, shp_gameObjectManager));
-	auto shp_transform2 = ObjectFactory::Create<Transform>(Vector3(20, 310, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
+	auto shp_transform2 = ObjectFactory::Create<Transform>(Vector3(67, 650, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
 	shp_gameObjectManager->AddObject_Init(ObjectFactory::Create<Player>(shp_transform2, shp_gameObjectManager));
-	auto shp_transform3 = ObjectFactory::Create<Transform>(Vector3(20, 310, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
+	auto shp_transform3 = ObjectFactory::Create<Transform>(Vector3(35, 650, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
 	shp_gameObjectManager->AddObject_Init(ObjectFactory::Create<Child>(shp_transform3, shp_gameObjectManager));
 
 	auto shp_objectTransform = ObjectFactory::Create<Transform>(Vector3(64, 32, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
 
-	auto obj = ObjectFactory::Create<Map>("Map1.csv",16,shp_gameObjectManager);
+	auto obj = ObjectFactory::Create<Map>("Map1.csv",32,shp_gameObjectManager);
 	//shp_gameObjectManager->AddObject(obj);
 	shp_gameObjectManager->AddObject_Init(obj);
 	

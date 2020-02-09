@@ -5,6 +5,13 @@
 
 #include "DxLib.h"
 namespace Framework {
+	enum State
+	{
+		NormalMode,
+		ThrowWaitMode,
+		ThrowMode,
+	};
+
 	class Player :public GameObject
 	{
 	public:
@@ -16,8 +23,6 @@ namespace Framework {
 
 		std::shared_ptr<Resource_Texture> shp_texture;
 		std::shared_ptr<Collision2D_Rectangle>shp_collisionRect;
-		
-		int GetState();
 
 	private:
 		bool Move();
@@ -33,12 +38,6 @@ namespace Framework {
 			isSecondJump,
 			LBtrigger,
 			RBtrigger;
-		enum State
-		{
-			NormalMode,
-			ThrowWaitMode,
-			ThrowMode,
-		};
 		State state;
 		int handle;
 

@@ -9,7 +9,7 @@ Framework::Player::Player(std::shared_ptr<Transform> shp_arg_transform, std::sha
 	gravity = 0.2f;
 	maxFallSpeed = 1.0f;
 	isJump = true;
-	isSecondJump = true;
+	isSecondJump = false;
 	LBtrigger = false;
 	RBtrigger = false;
 	state = NormalMode;
@@ -33,7 +33,7 @@ void Framework::Player::PreInitialize()
 {
 	handle = Game::GetInstance()->GetResourceController()->GetTexture("apple.png");
 	//shp_texture = ObjectFactory::Create<Resource_Texture>(handle, transform, false, false);
-	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(16, 16, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
+	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
 }
 
 bool Framework::Player::Update() {
@@ -63,9 +63,9 @@ bool Framework::Player::Move() {
 
 bool Framework::Player::Jump() {
 	//‰¼’u‚«///’…’n//////
-	if (transform->localPosition.y > 335) {
+	if (transform->localPosition.y > 672) {
 		isJump = false;
-		isSecondJump = false;
+		//isSecondJump = false;
 		velocity.y = 0.0f;
 	}
 	////////////////////
@@ -124,14 +124,8 @@ bool Framework::Player::Throw() {
 	if (state == ThrowMode) {
 		//“Š‚°•ûŒü
 		Vector2 throwDirection = Vector2(xinput.ThumbRX, xinput.ThumbRY);
-		std::shared_ptr<Child> child;
-		child->SetVelocity(throwDirection);
 		state = NormalMode;
 	}
 
 	return true;
-}
-
-int Framework::Player::GetState() {
-	return state;
 }
