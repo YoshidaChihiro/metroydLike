@@ -1,5 +1,8 @@
+#pragma once
 #include "TestScene.h"
 #include"Map.h"
+#include"ParticleEmitter.h"
+#include "Game.h"
 Framework::TestScene::TestScene() {
 	shp_gameObjectManager = ObjectFactory::Create<GameObjectManager>();
 
@@ -24,6 +27,12 @@ void Framework::TestScene::Initialize()
 	//shp_gameObjectManager->AddObject(obj);
 	shp_gameObjectManager->AddObject_Init(obj);
 	
+	auto param = new ParticleEmitterParameter();
+	param->graphHandle = Game::GetInstance()->GetResourceController()->GetTexture("sample.png");
+
+	//auto shp_emittertransform = ObjectFactory::Create<Transform>(Vector3(300, 0, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
+	auto shp_emitter = ObjectFactory::Create<ParticleEmitter>(shp_transform->GetThis<Transform>(),param, shp_gameObjectManager);
+	shp_gameObjectManager->AddObject_Init(shp_emitter);
 }
 
 void Framework::TestScene::PreInitialize()

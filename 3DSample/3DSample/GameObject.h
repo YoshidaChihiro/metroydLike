@@ -6,13 +6,15 @@ namespace Framework {
 	{
 	public:
 		inline
-			GameObject(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager) :transform(arg_transform),manager(arg_manager) {}
+			GameObject(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager) :transform(arg_transform),manager(arg_manager) {
+
+		}
 
 		virtual ~GameObject() {};
 
 		virtual bool Release();
 
-		virtual bool Update();
+		virtual bool Update()=0;
 
 		virtual void Hit(std::shared_ptr<GameObject> other) {};
 
@@ -28,7 +30,7 @@ namespace Framework {
 
 		std::shared_ptr<GameObjectManager> manager;
 
-	private:
+	protected:
 		bool isDead;
 	};
 }

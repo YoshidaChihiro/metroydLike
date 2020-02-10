@@ -23,7 +23,7 @@ namespace Framework {
 		~Transform();
 		static  std::unique_ptr<Transform> GetNutral();
 		std::shared_ptr<Transform> baseTransform = nullptr;
-
+		std::shared_ptr<Transform> GetClone();
 	};
 }
 

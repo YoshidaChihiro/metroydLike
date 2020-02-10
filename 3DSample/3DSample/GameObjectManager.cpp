@@ -1,5 +1,4 @@
 #include "GameObjectManager.h"
-
 Framework::GameObjectManager::GameObjectManager()
 {
 }
@@ -16,7 +15,7 @@ void Framework::GameObjectManager::AddObject_Init(std::shared_ptr<GameObject> sh
 void Framework::GameObjectManager::AddObject(std::shared_ptr<GameObject> shp_arg_gameObject)
 {
 
-	vec_shp_new_gameObjects.push_back(shp_arg_gameObject->GetThis<GameObject>());
+	vec_shp_new_gameObjects.push_back(shp_arg_gameObject);
 }
 
 void Framework::GameObjectManager::Release()
@@ -35,10 +34,13 @@ bool Framework::GameObjectManager::Update()
 {
 
 	for (auto itr = vec_shp_new_gameObjects.begin(); itr != vec_shp_new_gameObjects.end(); itr++) {
-		AddObject_Init(*itr);
+		vec_shp_gameObjects.push_back(*itr);
 	}
 
+	vec_shp_new_gameObjects.clear();
+	auto i = 0;
 	for (auto itr = vec_shp_gameObjects.begin(); itr != vec_shp_gameObjects.end(); itr++) {
+		i++;
 		if (!(*itr)->Update()) {
 			return false;
 		}
