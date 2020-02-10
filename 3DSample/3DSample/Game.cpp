@@ -1,5 +1,5 @@
 #include "Game.h"
-
+#include"MapScene.h"
 std::unique_ptr<Framework::Game> Framework::Game::instance=nullptr;
 
 Framework::Game::Game(int windowWidth, int windowHeight, std::string windowText, Framework::Vector4 color):width(windowWidth),height(windowHeight)
@@ -14,7 +14,7 @@ Framework::Game::Game(int windowWidth, int windowHeight, std::string windowText,
 	SetMainWindowText(windowText.c_str());
 	DxLib_Init();
 
-	unq_resourceController = std::make_unique<ResouceController>();
+	unq_resourceController = std::make_unique<ResouceController>(windowWidth, windowHeight);;
 	unq_sceneManager = std::make_unique<SceneManager>();
 	unq_collision2DManager = std::make_unique<Collision2DManager>();
 
@@ -61,6 +61,9 @@ bool Framework::Game::ResourceLoad()
 void Framework::Game::SceneInitialize()
 {
 	unq_sceneManager->Initialize();
+	unq_sceneManager->LoadScene(ObjectFactory::Create<TestScene>());
+	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map1.csv"));
+	unq_sceneManager->ChangeScene("TestScene");
 }
 
 bool Framework::Game::CreateInstance(int windowWidth, int windowHeight, std::string windowText, Framework::Color color)

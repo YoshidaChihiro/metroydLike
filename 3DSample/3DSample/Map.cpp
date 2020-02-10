@@ -10,6 +10,9 @@ Framework::Map::Map(const std::string & filePath, int arg_glidSize, std::shared_
 
 void Framework::Map::Reload()
 {
+
+	Game::GetInstance()->GetResourceController()->GetScreenInformation()->SetFieldWidth(glidSize*mapWidth);
+	Game::GetInstance()->GetResourceController()->GetScreenInformation()->SetFieldHeight(glidSize*mapHeight);
 }
 
 void Framework::Map::Initialize()
@@ -52,6 +55,8 @@ void Framework::Map::GenerateMap(std::shared_ptr< CSVData> csvData, int arg_glid
 			manager->AddObject_Init(mapObjects[x][y]);
 		}
 	}
+	Game::GetInstance()->GetResourceController()->GetScreenInformation()->SetFieldWidth(glidSize*mapWidth);
+	Game::GetInstance()->GetResourceController()->GetScreenInformation()->SetFieldHeight(glidSize*mapHeight);
 }
 
 std::vector<std::shared_ptr<Framework:: MapChipObject>> Framework::Map::GetAroundObjects(Vector2 point)

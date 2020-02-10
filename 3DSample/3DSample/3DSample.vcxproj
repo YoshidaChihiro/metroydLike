@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Cameraman.cpp" />
     <ClCompile Include="Child.cpp" />
     <ClCompile Include="Collision2D.cpp" />
     <ClCompile Include="Collision2DManager.cpp" />
@@ -152,8 +153,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MapChipObject.cpp" />
+    <ClCompile Include="MapScene.cpp" />
     <ClCompile Include="Player.cpp" />
-
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="ParticleEmitter.cpp" />
     <ClCompile Include="ResouceController.cpp" />
@@ -168,6 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ButiMath.h" />
+    <ClInclude Include="Cameraman.h" />
     <ClInclude Include="Child.h" />
     <ClInclude Include="Collision2D.h" />
     <ClInclude Include="Collision2DManager.h" />
@@ -180,6 +182,7 @@
     <ClInclude Include="Library.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapChipObject.h" />
+    <ClInclude Include="MapScene.h" />
     <ClInclude Include="MathInclude.cpp" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Particle.h" />

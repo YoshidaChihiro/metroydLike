@@ -32,7 +32,8 @@ Framework::Resource_Texture::~Resource_Texture()
 
 bool Framework::Resource_Texture::Draw()
 {
-	if(DrawRotaGraph3(transform->GetPosition().x-width/2,transform->GetPosition().y-height/2,0,0,transform->GetScale().x,transform->GetScale().y,transform->GetRotation().z,handle,true,xFlip,yFlip)==0)
+	auto modify = Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetScrollModify();
+	if(DrawRotaGraph3(transform->GetPosition().x-width/2-modify.x,transform->GetPosition().y-height/2-modify.y,0,0,transform->GetScale().x,transform->GetScale().y,transform->GetRotation().z,handle,true,xFlip,yFlip)==0)
 	return true;
 	else {
 		return false;
