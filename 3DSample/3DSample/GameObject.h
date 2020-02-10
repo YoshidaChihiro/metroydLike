@@ -2,6 +2,9 @@
 #include"Transform.h"
 namespace Framework {
 	class GameObjectManager;
+	enum class ObjectTag {
+		enemy,block,player,playerChild,none
+	};
 	class GameObject:public IObject
 	{
 	public:
@@ -28,6 +31,11 @@ namespace Framework {
 
 		std::shared_ptr<GameObjectManager> manager;
 
+		ObjectTag GetTag()const {
+			return tag;
+		}
+	protected:
+		ObjectTag tag = ObjectTag::none;
 	private:
 		bool isDead;
 	};

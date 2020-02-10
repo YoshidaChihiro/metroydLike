@@ -20,12 +20,19 @@ Framework::Child::Child(std::shared_ptr<Transform> shp_arg_transform, std::share
 
 	handle = LoadGraph("Resource/Texture/orange.png");
 	shp_texture = ObjectFactory::Create<Resource_Texture>(handle, transform, false, false);
+	tag = ObjectTag::playerChild;
 }
 
 Framework::Child::~Child() {}
 
 void Framework::Child::Hit(std::shared_ptr<GameObject> other)
 {
+	if (other->GetTag() == ObjectTag::player) {
+		return;
+	}
+	if (other->GetTag() == ObjectTag::playerChild) {
+		return;
+	}
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
 	transform->localPosition = prevPosition;
 }

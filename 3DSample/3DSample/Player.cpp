@@ -17,6 +17,7 @@ Framework::Player::Player(std::shared_ptr<Transform> shp_arg_transform, std::sha
 
 	handle = LoadGraph("Resource/Texture/apple.png");
 	shp_texture = ObjectFactory::Create<Resource_Texture>(handle, transform, false, false);
+	tag = ObjectTag::player;
 }
 
 
@@ -24,6 +25,9 @@ Framework::Player::~Player() {}
 
 void Framework::Player::Hit(std::shared_ptr<GameObject> other)
 {
+	if (other->GetTag() == ObjectTag::playerChild) {
+		return;
+	}
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
 	transform->localPosition = prevPosition;
 }
@@ -38,7 +42,7 @@ void Framework::Player::PreInitialize()
 bool Framework::Player::Update() {
 	shp_collisionRect->Update();
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
-	//Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
+	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
 	GetJoypadXInputState(DX_INPUT_PAD1, &xinput);
 	prevPosition = transform->localPosition;
 	Move();
@@ -83,7 +87,7 @@ bool Framework::Player::Jump() {
 	if (isJump == true) {
 		//2’iƒWƒƒƒ“ƒv
 		if (state == ThrowWaitMode && isSecondJump == false && xinput.Buttons[8] && LBtrigger == false) {
-			velocity.y = -5.0f;
+			velocity.y = -3.0f;
 			isSecondJump = true;
 			state = NormalMode;
 			LBtrigger = true;
