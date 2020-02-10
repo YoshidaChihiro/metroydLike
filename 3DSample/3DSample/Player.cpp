@@ -6,7 +6,7 @@ Framework::Player::Player(std::shared_ptr<Transform> shp_arg_transform, std::sha
 {
 	velocity = Vector2(0.0f, 0.0f);
 	prevPosition = Vector2(0.0f, 0.0f);
-	speed = 1.0f;
+	speed = 4.0f;
 	gravity = 0.2f;
 	maxFallSpeed = 1.0f;
 	isJump = true;
@@ -38,7 +38,7 @@ void Framework::Player::PreInitialize()
 bool Framework::Player::Update() {
 	shp_collisionRect->Update();
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
-	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
+	//Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
 	GetJoypadXInputState(DX_INPUT_PAD1, &xinput);
 	prevPosition = transform->localPosition;
 	Move();

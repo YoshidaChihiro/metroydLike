@@ -7,7 +7,7 @@ Framework::Child::Child(std::shared_ptr<Transform> shp_arg_transform, std::share
 	velocity = Vector2(0.0f, 0.0f);
 	prevPosition = Vector2(0.0f, 0.0f);
 	throwDirection = Vector2(0.0f, 0.0f);
-	speed = 1.0f;
+	speed = 4.0f;
 	gravity = 0.2f;
 	maxFallSpeed = 1.0f;
 	groundHeight = 672;
