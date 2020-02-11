@@ -13,6 +13,8 @@ namespace Framework {
 		bool Update()override;
 
 		void Release()override;
+	private:
+		std::shared_ptr<Player> shp_player;
 	};
 
 }

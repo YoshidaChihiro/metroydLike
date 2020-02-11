@@ -54,6 +54,10 @@ bool Framework::Game::ResourceLoad()
 
 	unq_resourceController->LoadTexture("sample2.png");
 
+	unq_resourceController->LoadTexture("orange.png");
+
+	unq_resourceController->LoadTexture("apple.png");
+
 	unq_resourceController->LoadCreateFont("testFont", "‚l‚r –¾’©", 32, -1, DX_FONTTYPE_NORMAL);
 	return true;
 }

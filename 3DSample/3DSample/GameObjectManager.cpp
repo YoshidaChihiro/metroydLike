@@ -38,6 +38,8 @@ bool Framework::GameObjectManager::Update()
 		AddObject_Init(*itr);
 	}
 
+	vec_shp_new_gameObjects.clear();
+
 	for (auto itr = vec_shp_gameObjects.begin(); itr != vec_shp_gameObjects.end(); itr++) {
 		if (!(*itr)->Update()) {
 			return false;

@@ -15,9 +15,11 @@ Framework::Player::Player(std::shared_ptr<Transform> shp_arg_transform, std::sha
 	RBtrigger = false;
 	state = NormalMode;
 
-	handle = LoadGraph("Resource/Texture/apple.png");
-	shp_texture = ObjectFactory::Create<Resource_Texture>(handle, transform, false, false);
 	tag = ObjectTag::player;
+
+	//shp_gameObjectManager = shp_arg_gameObjectManager->GetThis<Transform>();
+	//shp_gameObjectManager = ObjectFactory::Create<GameObjectManager>();
+
 }
 
 
@@ -34,8 +36,9 @@ void Framework::Player::Hit(std::shared_ptr<GameObject> other)
 
 void Framework::Player::PreInitialize()
 {
-	handle = Game::GetInstance()->GetResourceController()->GetTexture("apple.png");
-	//shp_texture = ObjectFactory::Create<Resource_Texture>(handle, transform, false, false);
+	auto handle = Game::GetInstance()->GetResourceController()->GetTexture("apple.png");
+
+	shp_texture = ObjectFactory::Create<Resource_Texture>(handle, transform, false, false);
 	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
 }
 
@@ -44,10 +47,12 @@ bool Framework::Player::Update() {
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
 	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
 	GetJoypadXInputState(DX_INPUT_PAD1, &xinput);
+
 	prevPosition = transform->localPosition;
 	Move();
 	Jump();
 	Throw();
+
 	return true;
 }
 

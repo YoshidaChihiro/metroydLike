@@ -2,8 +2,9 @@
 #include "GameObject.h"
 #include"Resource.h"
 #include"Collision2D.h"
-
+#include"Child.h"
 #include "DxLib.h"
+
 namespace Framework {
 	enum State
 	{
@@ -25,6 +26,8 @@ namespace Framework {
 		std::shared_ptr<Collision2D_Rectangle>shp_collisionRect;
 
 	private:
+		std::shared_ptr<Transform> shp_gameObjectManager;
+
 		bool Move();
 		bool Jump();
 		bool Throw();
@@ -40,7 +43,6 @@ namespace Framework {
 			LBtrigger,
 			RBtrigger;
 		State state;
-		int handle;
 
 	};
 }
