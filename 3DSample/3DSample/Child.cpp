@@ -38,9 +38,7 @@ void Framework::Child::Initialize()
 	speed = 4.0f;
 	gravity = 0.2f;
 	maxFallSpeed = 1.0f;
-	groundHeight = 672;
-	isJump = true;
-	isSecondJump = false;
+	groundHeight = 672.0f;
 	LBtrigger = false;
 	RBtrigger = false;
 	state = NormalMode;
@@ -56,9 +54,8 @@ bool Framework::Child::Update() {
 	GetJoypadXInputState(DX_INPUT_PAD1, &xinput);
 	prevPosition = transform->localPosition;
 
-	Move();
-	if (state != FixMode) {
-		//Jump();
+	if (state == NormalMode) {
+		Move();
 	}
 	Throw();
 	transform->localPosition += velocity * speed;
@@ -87,48 +84,6 @@ bool Framework::Child::Move() {
 	return true;
 }
 
-bool Framework::Child::Jump() {
-	//仮置き///着地//////
-	if (transform->localPosition.y > groundHeight) {
-		isJump = false;
-		velocity.y = 0.0f;
-		if (isSecondJump == true) {
-			state = FixMode;
-		}
-	}
-	////////////////////
-
-	//Button[8]…LB
-	if (isJump == false && xinput.Buttons[8] && LBtrigger == false) {
-		velocity.y = -3.0f;
-		isJump = true;
-		LBtrigger = true;
-	}
-	if (!xinput.Buttons[8]) {
-		LBtrigger = false;
-	}
-	//ジャンプ中
-	if (isJump == true) {
-		//2段ジャンプ
-		if (state == ThrowWaitMode && isSecondJump == false && xinput.Buttons[8] && LBtrigger == false) {
-			isSecondJump = true;
-			LBtrigger = true;
-			//下に落ちる
-			velocity.y = 2.0f;
-			groundHeight = 672 + 32;
-		}
-
-		//重力
-		velocity.y += gravity;
-		//落下速度制限
-		if (velocity.y > maxFallSpeed) {
-			velocity.y = maxFallSpeed;
-		}
-	}
-
-	return true;
-}
-
 bool Framework::Child::Throw() {
 	//Button[9]…RB
 	if (xinput.Buttons[9] && RBtrigger == false) {
@@ -136,7 +91,6 @@ bool Framework::Child::Throw() {
 		{
 		case NormalMode:
 			state = ThrowWaitMode;
-			transform->localPosition += Vector3(35.0f, -40.0f, 0.0f);
 			groundHeight += -32.0f;
 			break;
 		case ThrowWaitMode:
@@ -162,6 +116,10 @@ bool Framework::Child::Throw() {
 		RBtrigger = false;
 	}
 
+	//投げ待ち
+	if (state == ThrowWaitMode) {
+		transform->localPosition = shp_player_transform->GetPosition().GetVector2() - Vector2(0.0f, 32.0f);
+	}
 	//投げ
 	if (state == ThrowMode) {
 		velocity = throwDirection * 2;

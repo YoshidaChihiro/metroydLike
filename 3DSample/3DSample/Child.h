@@ -20,7 +20,6 @@ namespace Framework {
 	private:
 
 		bool Move();
-		bool Jump();
 		bool Throw();
 
 		XINPUT_STATE xinput;
@@ -38,8 +37,6 @@ namespace Framework {
 			groundHeight;
 		bool
 			isChase,
-			isJump,
-			isSecondJump, 
 			LBtrigger,
 			RBtrigger;
 		enum State {
@@ -49,7 +46,6 @@ namespace Framework {
 			FixMode,
 		};
 		State state;
-		int
-			lastSide;
+		int lastSide;
 	};
 }
