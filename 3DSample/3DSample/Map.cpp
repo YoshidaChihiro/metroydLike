@@ -24,6 +24,7 @@ void Framework::Map::Initialize()
 bool Framework::Map::Update()
 {
 	shp_collision->Update();
+
 	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collision);
 	return true;
 }
