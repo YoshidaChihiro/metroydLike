@@ -31,7 +31,26 @@ void Framework::Player::Hit(std::shared_ptr<GameObject> other)
 		return;
 	}
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
-	transform->localPosition = prevPosition;
+	if (transform->localPosition.x != prevPosition.x) {
+		if (transform->localPosition.x < prevPosition.x) {
+			transform->localPosition.x = prevPosition.x;
+		}
+		else{
+			transform->localPosition.x -= velocity.x * speed;
+		}
+		transform->localPosition.x /= 32.0f;
+		transform->localPosition.x *= 32.0f;
+	}
+	if (transform->localPosition.y != prevPosition.y) {
+		if (transform->localPosition.y < prevPosition.y) {
+			transform->localPosition.y = prevPosition.y;
+		}
+		else{
+			transform->localPosition.y -= velocity.y * speed;
+		}
+		transform->localPosition.y /= 32.0f;
+		transform->localPosition.y *= 32.0f;
+	}
 }
 
 void Framework::Player::PreInitialize()
