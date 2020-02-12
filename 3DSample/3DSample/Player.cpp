@@ -26,7 +26,7 @@ Framework::Player::~Player() {}
 
 void Framework::Player::Hit(std::shared_ptr<GameObject> other)
 {
-	if (other->GetTag() == ObjectTag::playerChild|| other->GetTag() == ObjectTag::sencer) {
+	if (other->GetObjectTag() == ObjectTag::supporter|| other->GetObjectTag() == ObjectTag::sencer) {
 		return;
 	}
 	//
@@ -69,7 +69,7 @@ void Framework::Player::PreInitialize()
 
 
 	std::vector<ObjectTag> tags;
-	tags.push_back(ObjectTag::block);
+	tags.push_back(ObjectTag::obstacle);
 
 	sencerInputs.push_back(nullptr);
 	sencerInputs.push_back(nullptr);

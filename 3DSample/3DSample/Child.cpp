@@ -6,17 +6,17 @@ Framework::Child::Child(int delay,int waitPointDis, std::shared_ptr<Transform> s
 	:GameObject(shp_arg_transform, shp_arg_gameObjectManager->GetThis<GameObjectManager>()), delay(delay),waitPointDistance(waitPointDis)
 {
 	shp_player_transform = shp_arg_player_transform->GetThis<Transform>();
-	tag = ObjectTag::playerChild;
+	tag = ObjectTag::supporter;
 }
 
 Framework::Child::~Child() {}
 
 void Framework::Child::Hit(std::shared_ptr<GameObject> other)
 {
-	if (other->GetTag() == ObjectTag::player) {
+	if (other->GetObjectTag() == ObjectTag::player) {
 		return;
 	}
-	if (other->GetTag() == ObjectTag::playerChild) {
+	if (other->GetObjectTag() == ObjectTag::supporter) {
 		return;
 	}
 }

@@ -46,7 +46,6 @@ namespace Framework {
 		ObjectTag tag = ObjectTag::none;
 	private:
 		bool isDead;
-		ObjectTag tag = ObjectTag::none;
 	};
 }
 

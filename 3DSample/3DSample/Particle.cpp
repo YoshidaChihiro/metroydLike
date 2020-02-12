@@ -13,7 +13,7 @@ bool Framework::Particle::Update()
 {
 	lifeSpan--;
 	if (lifeSpan < 0) {
-		isDead = true;
+		SetIsDead( true);
 	}
 	transform->localPosition += moveVelocity*speed+phisicsForce;
 	transform->rotation += rotatePase;

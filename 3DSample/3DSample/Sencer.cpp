@@ -34,7 +34,7 @@ bool Framework::Sencer::Update()
 void Framework::Sencer::Hit(std::shared_ptr<GameObject> other)
 {
 	for (auto itr = vec_checkTags.begin(); itr != vec_checkTags.end(); itr++) {
-		if ((*itr) == other->GetTag()) {
+		if ((*itr) == other->GetObjectTag()) {
 			*output = other;
 		}
 	}
