@@ -73,8 +73,12 @@
     <ClCompile Include="Util.cpp">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="Cameraman.cpp" />
-    <ClCompile Include="MapScene.cpp" />
+    <ClCompile Include="MapScene.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Cameraman.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ButiMath.h">
@@ -155,8 +159,12 @@
     <ClInclude Include="MathInclude.cpp">
       <Filter>source</Filter>
     </ClInclude>
-    <ClInclude Include="Cameraman.h" />
-    <ClInclude Include="MapScene.h" />
+    <ClInclude Include="MapScene.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="Cameraman.h">
+      <Filter>header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="header">

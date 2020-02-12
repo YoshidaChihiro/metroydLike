@@ -2,6 +2,11 @@
 #include"Transform.h"
 namespace Framework {
 	class GameObjectManager;
+
+	enum class ObjectTag {
+		player,enemy,obstacle,none,camera,supporter
+	};
+
 	class GameObject:public IObject
 	{
 	public:
@@ -20,6 +25,8 @@ namespace Framework {
 
 		void PreInitialize() override;
 
+		void SetGameObjectManager(std::shared_ptr<GameObjectManager> arg_manager);
+
 		void Initialize()override;
 
 		bool GetIsDead() { return isDead; };
@@ -30,8 +37,15 @@ namespace Framework {
 
 		std::shared_ptr<GameObjectManager> manager;
 
+		ObjectTag GetObjectTag()const {
+			return tag;
+		}
+		void SetObjectTag(ObjectTag arg_tag) {
+			tag = arg_tag;
+		}
 	protected:
 		bool isDead;
+		ObjectTag tag = ObjectTag::none;
 	};
 }
 

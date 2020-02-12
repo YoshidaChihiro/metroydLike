@@ -4,6 +4,7 @@
 Framework::Cameraman::Cameraman(std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_manager)
 	:GameObject(shp_arg_transform->GetThis<Transform>(),shp_arg_manager->GetThis<GameObjectManager>())
 {
+	tag = ObjectTag::camera;
 }
 
 bool Framework::Cameraman::Update()
@@ -19,6 +20,11 @@ void Framework::Cameraman::SetScrollFocus()
 
 Framework::Cameraman_Chase::Cameraman_Chase(std::shared_ptr<Transform> shp_target_transform, std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_manager)
 	:Cameraman(shp_arg_transform->GetThis<Transform>(), shp_arg_manager->GetThis<GameObjectManager>()),target(shp_target_transform->GetThis<Transform>())
+{
+}
+
+Framework::Cameraman_Chase::Cameraman_Chase(std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_manager)
+	: Cameraman(shp_arg_transform->GetThis<Transform>(), shp_arg_manager->GetThis<GameObjectManager>()), target(shp_arg_transform->GetThis<Transform>())
 {
 }
 

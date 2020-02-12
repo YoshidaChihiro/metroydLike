@@ -11,8 +11,12 @@ namespace Framework {
 		std::shared_ptr<Collision2D_Rectangle> GetShpCollision() { return shp_collisionRect; };
 	protected:
 		friend class ObjectFactory;
-		MapChipObject(std::shared_ptr<GameObjectManager> arg_manager) :GameObject(ObjectFactory::Create<Transform>(), arg_manager) {}
-		MapChipObject(std::shared_ptr<Transform> arg_transform,std::shared_ptr<GameObjectManager> arg_manager) :GameObject(arg_transform, arg_manager) {}
+		MapChipObject(std::shared_ptr<GameObjectManager> arg_manager) :GameObject(ObjectFactory::Create<Transform>(), arg_manager) {
+			tag = ObjectTag::obstacle;
+		}
+		MapChipObject(std::shared_ptr<Transform> arg_transform,std::shared_ptr<GameObjectManager> arg_manager) :GameObject(arg_transform, arg_manager) {
+			tag = ObjectTag::obstacle;
+		}
 
 		std::shared_ptr<Collision2D_Rectangle> shp_collisionRect;
 	};
@@ -39,6 +43,23 @@ namespace Framework {
 		void PreInitialize()override {};
 	private:
 		MapChip_Test(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager);
+		std::shared_ptr< Resource_Texture> shp_texture;
+	};
+	class MapChip_Gate :public MapChipObject {
+	public:
+		friend  class ObjectFactory;
+
+		MapChip_Gate(std::string arg_changeScenesName,Vector2 arg_exitPosition,std::shared_ptr<GameObjectManager> arg_manager);
+		std::shared_ptr<MapChipObject> Clone(Vector3 position)override;
+		bool Update()override;
+		void Hit(std::shared_ptr<GameObject> other)override;
+		void Initialize()override;
+		void PreInitialize()override {};
+		void SetExitPosition(Vector2 arg_exitPosition) { exitPosition = arg_exitPosition; }
+	private:
+		std::string changeScenesName;
+		Vector2 exitPosition=Vector2();
+		MapChip_Gate(std::string arg_changeScenesName, Vector2 arg_exitPosition, std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager);
 		std::shared_ptr< Resource_Texture> shp_texture;
 	};
 }

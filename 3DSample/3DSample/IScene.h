@@ -2,7 +2,15 @@
 #include"Util.h"
 #include "GameObjectManager.h"
 namespace Framework {
-	struct SceneOverObjects {
+	class SceneOverObjects:public IObject {
+	public:
+		SceneOverObjects(){}
+		SceneOverObjects(std::vector<std::shared_ptr< GameObject>> vec_arg_shp_gameObjects) :vec_shp_gameObjects(vec_arg_shp_gameObjects){}
+		void Initialize()override{}
+		void PreInitialize()override{}
+		std::vector<std::shared_ptr< GameObject>> GetSceneOverGameObjects();
+		void AddSceneOverGameObject(std::shared_ptr< GameObject> arg_gameObject);
+	private:
 		std::vector<std::shared_ptr< GameObject>> vec_shp_gameObjects;
 	};
 	class IScene:public IObject

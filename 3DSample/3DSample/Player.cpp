@@ -16,6 +16,8 @@ Framework::Player::Player(std::shared_ptr<Transform> shp_arg_transform, std::sha
 
 	handle = LoadGraph("Resource/Texture/apple.png");
 	shp_texture = ObjectFactory::Create<Resource_Texture>(handle, transform, false, false);
+
+	tag = ObjectTag::player;
 }
 
 
@@ -23,7 +25,6 @@ Framework::Player::~Player() {}
 
 void Framework::Player::Hit(std::shared_ptr<GameObject> other)
 {
-	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
 
 }
 

@@ -1,5 +1,6 @@
 #include "Game.h"
 #include"MapScene.h"
+#include <chrono>
 std::unique_ptr<Framework::Game> Framework::Game::instance=nullptr;
 
 Framework::Game::Game(int windowWidth, int windowHeight, std::string windowText, Framework::Vector4 color):width(windowWidth),height(windowHeight)
@@ -27,22 +28,28 @@ Framework::Game::Game(int windowWidth, int windowHeight, std::string windowText,
 
 bool Framework::Game::Draw()
 {
+	timespec befTime;
+	timespec nowTime;
+	timespec delta;
 
-	SetDrawScreen(targetScreenHundle);
+	timespec_get(&befTime, TIME_UTC);
+	SetDrawScreen(DX_SCREEN_BACK);
 	ClearDrawScreen();
 
 	unq_resourceController->Draw();
 
-	SetDrawScreen(DX_SCREEN_BACK);
-	ClearDrawScreen();
-	DrawExtendGraph(0, 0, width, height, targetScreenHundle, TRUE);
+	//ClearDrawScreen();
 	ScreenFlip();
+
+	timespec_get(&nowTime, TIME_UTC);
+	ButiTime::timespecSubstruction(&nowTime, &befTime, &delta);
+	auto deltaMiliTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::nanoseconds{ delta.tv_nsec });
+
 	return true;
 }
 
 bool Framework::Game::Update()
 {
-	Game::GetInstance();
 	unq_collision2DManager->Update();
 	return unq_sceneManager->Update();
 

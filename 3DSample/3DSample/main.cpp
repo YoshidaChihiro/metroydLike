@@ -25,38 +25,49 @@ int WINAPI WinMain(
 
 	timespec befTime;
 	timespec nowTime;
+	timespec deltaTime;
 
 	timespec_get(&befTime, TIME_UTC);
 	timespec_get(&nowTime, TIME_UTC);
 
+	std::chrono::milliseconds deltaMilliSeconds;
 
 	//mainLoop
 	while (1) 
 	{
-		auto deltaTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::nanoseconds{ nowTime.tv_nsec - befTime.tv_nsec });
-		if (deltaTime.count() > 0 && deltaTime.count() < 20) {
-			WaitTimer(20 - deltaTime.count());
+		
+		//auto miliDelta = std::chrono::milliseconds{ nowTime.tv_sec - befTime.tv_sec };
+		//deltaTime += miliDelta;
+
+		
+
+		if (deltaMilliSeconds .count()> 0&&deltaMilliSeconds.count()<16 ) {
+			WaitTimer(16 - deltaMilliSeconds.count());
 		}
 
 
-		timespec_get(&befTime, TIME_UTC);
 
 		Framework::Input::Update();
 
 		//XV‹——£
 
 		Framework::Game::GetInstance()->Update();
+
 		//•`‰æˆ—
 
+		timespec_get(&befTime, TIME_UTC);
 		Framework::Game::GetInstance()->Draw();
 
+		timespec_get(&nowTime, TIME_UTC);
 		if (ProcessMessage() == -1)
 			break;
 		if (CheckHitKey(KEY_INPUT_ESCAPE) == 1)
 			break;
 
+		Framework::ButiTime::timespecSubstruction(&nowTime, &befTime, &deltaTime);
+		deltaMilliSeconds = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::nanoseconds{ deltaTime.tv_nsec });
 
-		timespec_get(&nowTime, TIME_UTC);
+
 	}
 	//exitMethod
 	

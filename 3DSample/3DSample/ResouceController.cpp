@@ -1,5 +1,4 @@
 #include "ResouceController.h"
-
 Framework::ResouceController::ResouceController(int screenWidth, int screenHeight)
 {
 	unq_screenInformation = std::make_unique<ScreenInformation>(screenWidth, screenHeight);
@@ -7,6 +6,7 @@ Framework::ResouceController::ResouceController(int screenWidth, int screenHeigh
 
 void Framework::ResouceController::Draw()
 {
+
 	for (auto itr = vec_textures.begin(); itr != vec_textures.end(); itr++) {
 		(*itr)->Draw();
 	}
@@ -15,6 +15,9 @@ void Framework::ResouceController::Draw()
 	}
 	vec_textures.clear();
 	vec_texts.clear();
+
+	
+
 }
 
 void Framework::ResouceController::LoadTexture(std::string fileName, std::string filePath)

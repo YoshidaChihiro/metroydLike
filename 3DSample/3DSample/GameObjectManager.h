@@ -17,11 +17,17 @@ namespace Framework {
 
 		void AddObject(std::shared_ptr<GameObject> shp_arg_gameObject);
 
+		void InportObject(std::shared_ptr<GameObject> shp_arg_gameObject);
+
 		void Initialize()override {};
 
 		void PreInitialize()override {};
 
 		void Release();
+
+		std::shared_ptr<GameObject> SerchGameObject(ObjectTag serchObjectsTag);
+
+		std::vector<std::shared_ptr<GameObject>>SerchGameObjects(ObjectTag serchObjectsTag);
 
 		bool Update();
 

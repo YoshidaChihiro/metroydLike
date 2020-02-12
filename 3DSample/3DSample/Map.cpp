@@ -35,10 +35,17 @@ void Framework::Map::ChangeMapChipBlock(const int & arg_objectID, const int & x,
 void Framework::Map::GenerateMap(std::shared_ptr< CSVData> csvData, int arg_glidSize)
 {
 	float mapchipOuterCircleRadius = Rectangle::GetRectangleOuterCircleRadius(arg_glidSize, arg_glidSize);
-	mapChips = {ObjectFactory::Create<MapChip_Space>(manager),ObjectFactory::Create<MapChip_Test>(manager) };
 	glidSize = arg_glidSize;
 	mapWidth = csvData->size_x;
 	mapHeight = csvData->size_y;
+
+	Game::GetInstance()->GetResourceController()->GetScreenInformation()->SetFieldWidth(glidSize*mapWidth);
+	Game::GetInstance()->GetResourceController()->GetScreenInformation()->SetFieldHeight(glidSize*mapHeight);
+	Game::GetInstance()->GetResourceController()->GetScreenInformation()->SetGlidSize(glidSize);
+
+	mapChips = { ObjectFactory::Create<MapChip_Space>(manager),ObjectFactory::Create<MapChip_Test>(manager)
+	,ObjectFactory::Create<MapChip_Gate>("Map1Scene",Vector2(128,672),manager),ObjectFactory::Create<MapChip_Gate>("TestScene",Vector2(128,600),manager)
+	};
 
 	InitializeArray();
 
@@ -55,8 +62,6 @@ void Framework::Map::GenerateMap(std::shared_ptr< CSVData> csvData, int arg_glid
 			manager->AddObject_Init(mapObjects[x][y]);
 		}
 	}
-	Game::GetInstance()->GetResourceController()->GetScreenInformation()->SetFieldWidth(glidSize*mapWidth);
-	Game::GetInstance()->GetResourceController()->GetScreenInformation()->SetFieldHeight(glidSize*mapHeight);
 }
 
 std::vector<std::shared_ptr<Framework:: MapChipObject>> Framework::Map::GetAroundObjects(Vector2 point)
