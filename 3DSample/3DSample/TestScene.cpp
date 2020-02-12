@@ -28,7 +28,7 @@ void Framework::TestScene::Initialize()
 	
 	auto shp_objectTransform = ObjectFactory::Create<Transform>(Vector3(64, 32, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
 
-	shp_map = ObjectFactory::Create<Map>("Map2.csv",32,shp_gameObjectManager);
+	shp_map = ObjectFactory::Create<Map>("Map1.csv",32,shp_gameObjectManager);
 	//shp_gameObjectManager->AddObject(obj);
 	shp_gameObjectManager->AddObject_Init(shp_map);
 	

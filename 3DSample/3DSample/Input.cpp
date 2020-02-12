@@ -51,7 +51,7 @@ bool Framework::Input::GetButton(int code)
 
 float Framework::Input::GetLettStickHolizon()
 {
-	return buttonState.ThumbLX;
+	return (float)buttonState.ThumbLX / (float)32767;
 }
 
 float Framework::Input::GetLettStickVertical()

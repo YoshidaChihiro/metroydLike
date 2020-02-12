@@ -97,6 +97,7 @@ bool Framework::Game::Exit()
 	}
 	else
 	{
+		unq_sceneManager->Release();
 		return true;
 	}
 }

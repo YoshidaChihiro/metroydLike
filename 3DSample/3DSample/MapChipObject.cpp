@@ -75,6 +75,12 @@ void Framework::MapChip_Gate::Hit(std::shared_ptr<GameObject> other)
 	other->transform->localPosition = exitPosition;
 	auto sceneOverOgjs = ObjectFactory::Create<SceneOverObjects>();
 	sceneOverOgjs->AddSceneOverGameObject(manager->SerchGameObject(ObjectTag::player));
+	auto vec_playersChilds = manager->SerchGameObject(ObjectTag::player)->GetChildObjects();
+
+	for (auto itr = vec_playersChilds.begin(); itr != vec_playersChilds.end(); itr++) {
+		sceneOverOgjs->AddSceneOverGameObject(*itr);
+	}
+
 	Game::GetInstance()->GetSceneManager()->ChangeScene(changeScenesName, 0, sceneOverOgjs);
 }
 

@@ -80,7 +80,7 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="Sencer.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +168,9 @@
     <ClInclude Include="Cameraman.h">
       <Filter>header</Filter>
     </ClInclude>
+    <ClInclude Include="Sencer.h">
+      <Filter>header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="header">
@@ -176,8 +179,5 @@
     <Filter Include="source">
       <UniqueIdentifier>{1b310c15-f063-4255-bf10-bbb6279615c2}</UniqueIdentifier>
     </Filter>
-    <ClInclude Include="Sencer.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

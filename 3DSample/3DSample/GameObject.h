@@ -42,10 +42,14 @@ namespace Framework {
 		void SetObjectTag(ObjectTag arg_tag) {
 			tag = arg_tag;
 		}
+		void AddChildObject(std::shared_ptr<GameObject> arg_chid);
+
+		std::vector<std::shared_ptr<GameObject>> GetChildObjects();
 	protected:
 		ObjectTag tag = ObjectTag::none;
 	private:
 		bool isDead;
+		std::vector<std::shared_ptr<GameObject>> childs;
 	};
 }
 
