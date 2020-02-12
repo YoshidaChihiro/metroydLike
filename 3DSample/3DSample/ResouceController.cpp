@@ -20,9 +20,6 @@ void Framework::ResouceController::Draw()
 		(*itr)->Draw();
 	}
 	vec_texts.clear();
-
-	
-
 }
 
 void Framework::ResouceController::LoadTexture(std::string fileName, std::string filePath)
@@ -100,6 +97,7 @@ void Framework::ResouceController::AddLayer(int addLayerCount)
 	}
 
 }
+
 
 void Framework::ResouceController::AddText(std::shared_ptr<Resource_Text_String> shp_arg_resource_text)
 {

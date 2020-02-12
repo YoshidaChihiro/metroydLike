@@ -4,9 +4,8 @@ namespace Framework {
 	class GameObjectManager;
 
 	enum class ObjectTag {
-		player,enemy,obstacle,none,camera,supporter
+		player,enemy,obstacle,none,camera,supporter,sencer
 	};
-
 	class GameObject:public IObject
 	{
 	public:
@@ -44,6 +43,8 @@ namespace Framework {
 			tag = arg_tag;
 		}
 	protected:
+		ObjectTag tag = ObjectTag::none;
+	private:
 		bool isDead;
 		ObjectTag tag = ObjectTag::none;
 	};

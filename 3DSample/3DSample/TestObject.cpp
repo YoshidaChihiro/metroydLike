@@ -17,7 +17,6 @@ Framework::TestObject::~TestObject()
 
 void Framework::TestObject::Hit(std::shared_ptr<GameObject> other)
 {
-
 }
 
 void Framework::TestObject::PreInitialize()

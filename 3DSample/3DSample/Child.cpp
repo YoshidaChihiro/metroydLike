@@ -1,50 +1,59 @@
 #include "Child.h"
 #include "Game.h"
+#include"GameObjectManager.h"
 
-Framework::Child::Child(std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager)
-	:GameObject(shp_arg_transform, shp_arg_gameObjectManager)
+Framework::Child::Child(int delay,int waitPointDis, std::shared_ptr<Transform> shp_arg_player_transform, std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager)
+	:GameObject(shp_arg_transform, shp_arg_gameObjectManager->GetThis<GameObjectManager>()), delay(delay),waitPointDistance(waitPointDis)
 {
-	velocity = Vector2(0.0f, 0.0f);
-	throwDirection = Vector2(0.0f, 0.0f);
-	speed = 10.0f;
-	gravity = 0.2f;
-	maxFallSpeed = 1.0f;
-	groundHeight = 672;
-	isJump = true;
-	isSecondJump = false;
-	LBtrigger = false;
-	RBtrigger = false;
-	state = NormalMode;
-
-
-	handle = LoadGraph("Resource/Texture/orange.png");
-	shp_texture = ObjectFactory::Create<Resource_Texture>(handle, transform, false, false);
+	shp_player_transform = shp_arg_player_transform->GetThis<Transform>();
+	tag = ObjectTag::playerChild;
 }
 
 Framework::Child::~Child() {}
 
 void Framework::Child::Hit(std::shared_ptr<GameObject> other)
 {
-	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
-
+	if (other->GetTag() == ObjectTag::player) {
+		return;
+	}
+	if (other->GetTag() == ObjectTag::playerChild) {
+		return;
+	}
 }
 
 void Framework::Child::PreInitialize()
 {
-	handle = Game::GetInstance()->GetResourceController()->GetTexture("orange.png");
-	//shp_texture = ObjectFactory::Create<Resource_Texture>(handle, transform, false, false);
+	auto handle = Game::GetInstance()->GetResourceController()->GetTexture("orange.png");
+	shp_texture = ObjectFactory::Create<Resource_Texture>(handle, transform, false, false);
 	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
+}
+
+void Framework::Child::Initialize()
+{
+	velocity = Vector2(0.0f, 0.0f);
+	prevPosition = Vector2(0.0f, 0.0f);
+	throwDirection = Vector2(0.0f, 0.0f);
+	speed = 4.0f;
+	gravity = 0.2f;
+	maxFallSpeed = 1.0f;
+	groundHeight = 672.0f;
+	LBtrigger = false;
+	RBtrigger = false;
+	state = NormalMode;
+	lastSide = 0;
 }
 
 bool Framework::Child::Update() {
 	shp_collisionRect->Update();
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
 	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
+
+
 	GetJoypadXInputState(DX_INPUT_PAD1, &xinput);
-	
-	Move();
-	if (state != FixMode) {
-		Jump();
+	prevPosition = transform->localPosition;
+
+	if (state == NormalMode) {
+		Move();
 	}
 	Throw();
 	transform->localPosition += velocity * speed;
@@ -53,76 +62,47 @@ bool Framework::Child::Update() {
 }
 
 bool Framework::Child::Move() {
-	if (xinput.ThumbLX > 0) {
-		velocity.x = 1.0f;
+	auto playerPos = shp_player_transform->GetPosition().GetVector2();
+	auto direction = transform->GetPosition().GetVector2().GetDistance(playerPos);
+
+	if (direction > delay) {
+		isChase = true;
 	}
-	else if (xinput.ThumbLX < 0) {
-		velocity.x = -1.0f;
-	}
-	else {
-		velocity.x = 0.0f;
+	if (direction <= waitPointDistance) {
+		isChase = false;
 	}
 
-	return true;
-}
-
-bool Framework::Child::Jump() {
-	//‰¼’u‚«///’…’n//////
-	if (transform->localPosition.y > groundHeight) {
-		isJump = false;
-		velocity.y = 0.0f;
-		if (isSecondJump == true) {
-			state = FixMode;
-		}
+	if (!isChase) {
+		return true;
 	}
-	////////////////////
-
-	//Button[8]cLB
-	if (isJump == false && xinput.Buttons[8] && LBtrigger == false) {
-		velocity.y = -3.0f;
-		isJump = true;
-		LBtrigger = true;
-	}
-	if (!xinput.Buttons[8]) {
-		LBtrigger = false;
-	}
-	//ƒWƒƒƒ“ƒv’†
-	if (isJump == true) {
-		//2’iƒWƒƒƒ“ƒv
-		if (state == ThrowWaitMode && isSecondJump == false && xinput.Buttons[8] && LBtrigger == false) {
-			velocity.y = -3.0f;
-			isSecondJump = true;
-			LBtrigger = true;
-			//‰º‚É—Ž‚¿‚é
-			velocity.y = 1.0f;
-			groundHeight = 672 + 32;
-		}
-
-		//d—Í
-		velocity.y += gravity;
-		//—Ž‰º‘¬“x§ŒÀ
-		if (velocity.y > maxFallSpeed) {
-			velocity.y = maxFallSpeed;
-		}
-	}
+	auto velocity3 = (Vector3)(shp_player_transform->GetPosition() - transform->GetPosition());
+	velocity3.Normalize();
+	transform->localPosition += velocity3 * speed;
 
 	return true;
 }
 
 bool Framework::Child::Throw() {
-	//Button[9]cRB
+	//Button[9]ï¿½cRB
 	if (xinput.Buttons[9] && RBtrigger == false) {
 		switch (state)
 		{
 		case NormalMode:
 			state = ThrowWaitMode;
-			transform->localPosition += Vector3(32.0f, -32.0f, 0.0f);
 			groundHeight += -32.0f;
 			break;
 		case ThrowWaitMode:
 			state = ThrowMode;
-			//“Š‚°•ûŒü
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			throwDirection = Vector2(xinput.ThumbRX, -xinput.ThumbRY);
+			if (throwDirection.y == 0.0f && throwDirection.x == 0.0f) {
+				if (lastSide == 0) {
+					throwDirection = Vector2(1.0f, 0.0f);
+				}
+				if (lastSide == 1) {
+					throwDirection = Vector2(-1.0f, 0.0f);
+				}
+			}
 			throwDirection.Normalize();
 			break;
 		default:
@@ -134,11 +114,15 @@ bool Framework::Child::Throw() {
 		RBtrigger = false;
 	}
 
-	//“Š‚°
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Ò‚ï¿½
+	if (state == ThrowWaitMode) {
+		transform->localPosition = shp_player_transform->GetPosition().GetVector2() - Vector2(0.0f, 32.0f);
+	}
+	//ï¿½ï¿½ï¿½ï¿½
 	if (state == ThrowMode) {
 		velocity = throwDirection * 2;
 	}
-	//ŒÅ’è
+	//ï¿½Å’ï¿½
 	if (state == FixMode) {
 		velocity = Vector2(0.0f, 0.0f);
 	}

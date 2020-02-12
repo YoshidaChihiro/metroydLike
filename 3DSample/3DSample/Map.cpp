@@ -71,11 +71,11 @@ std::vector<std::shared_ptr<Framework:: MapChipObject>> Framework::Map::GetAroun
 	int y = point.y / glidSize;
 	std::vector<std::shared_ptr<MapChipObject>> output;
 	for (int i = -1; i < 2; i++) {
-		if (i + x < 0||i+x>=mapWidth-1) {
+		if (i + x < 0||i+x>=mapWidth) {
 			continue;
 		}
 		for (int j = -1; j < 2; j++) {
-			if (j+y < 0|| j + y>=mapHeight-1) {
+			if (j+y < 0|| j + y>=mapHeight) {
 				continue;
 			}
 			if (mapObjects[i+x][j+y]) {

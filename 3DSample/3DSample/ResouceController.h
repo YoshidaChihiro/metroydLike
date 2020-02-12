@@ -28,8 +28,7 @@ namespace Framework {
 		};
 
 	private:
-		std::vector<
-		std::vector<std::shared_ptr< Resource_Texture>>> vec_texturesLayers;
+		std::vector<std::vector<std::shared_ptr< Resource_Texture>>> vec_texturesLayers;
 		std::vector<std::shared_ptr< Resource_Text_String>> vec_texts;
 		std::vector< std::shared_ptr<Resource_Sound>> vec_sounds;
 		std::vector< std::shared_ptr<Resource_MV1>> vec_mv1s;

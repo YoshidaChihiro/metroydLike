@@ -56,7 +56,7 @@ float Framework::Input::GetLettStickHolizon()
 
 float Framework::Input::GetLettStickVertical()
 {
-	return buttonState.ThumbLY;
+	return (float)buttonState.ThumbLY/(float)32767;
 }
 
 float Framework::Input::GetRightStickHolizon()
