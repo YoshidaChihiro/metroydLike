@@ -16,7 +16,7 @@ Framework::MapScene::~MapScene()
 
 void Framework::MapScene::Initialize()
 {
-	auto shp_transform = ObjectFactory::Create<Transform>(Vector3(300, 0, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
+	auto shp_transform = ObjectFactory::Create<Transform>(Vector3(400, -100, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
 	//shp_gameObjectManager->AddObject_Init(ObjectFactory::Create<TestObject>(shp_transform, shp_gameObjectManager));
 
 	//auto shp_transform2 = ObjectFactory::Create<Transform>(Vector3(67, 650, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
@@ -52,6 +52,8 @@ void Framework::MapScene::OnSet()
 	shp_gameObjectManager->SerchGameObject(ObjectTag::camera)->GetThis<Cameraman_Chase>()->SetTarget(
 		shp_gameObjectManager->SerchGameObject(ObjectTag::player)->transform
 	);
+	//shp_gameObjectManager->SerchGameObject(ObjectTag::camera)->transform->localPosition = shp_gameObjectManager->SerchGameObject(ObjectTag::player)->transform->GetPosition();
+
 }
 
 void Framework::MapScene::Release()

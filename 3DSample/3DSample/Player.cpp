@@ -1,18 +1,13 @@
 #include "Player.h"
-#include "Child.h"
 #include "Game.h"
-#include"MapChipObject.h"
 #include"Sencer.h"
 Framework::Player::Player(std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager) :GameObject(shp_arg_transform, shp_arg_gameObjectManager)
 {
 	velocity = Vector2(0.0f, 0.0f);
-	speed = 10.0f;
+	speed = 5.0f;
 	gravity = 0.6f;
 	maxFallSpeed = 6.0f;
 	isSecondJump = false;
-	LBtrigger = false;
-	RBtrigger = false;
-	state = NormalMode;
 
 	phisicsForce = Vector2(0,0);
 
@@ -32,7 +27,6 @@ void Framework::Player::Hit(std::shared_ptr<GameObject> other)
 		return;
 	}
 	//
-	Vector3 mapchipPos = other->transform->GetPosition();
 	auto otherRect= other->GetThis<MapChipObject>()->GetRectangle();
 	float overlap = 0.0f;
 
@@ -74,7 +68,6 @@ void Framework::Player::Hit(std::shared_ptr<GameObject> other)
 
 void Framework::Player::PreInitialize()
 {
-	auto handle = Game::GetInstance()->GetResourceController()->GetTexture("apple.png");
 
 
 	std::vector<ObjectTag> tags;
@@ -113,18 +106,27 @@ void Framework::Player::PreInitialize()
 	AddChildObject(sencer_left);
 	AddChildObject(sencer_right);
 
-	shp_texture = ObjectFactory::Create<Resource_Texture>(handle, transform, false, false);
+	shp_texture = ObjectFactory::Create<Resource_Texture>("apple.png", transform, false, false);
 	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(32, 32)), GetThis<GameObject>());
 }
 
 bool Framework::Player::Update() {
 	
-	GetJoypadXInputState(DX_INPUT_PAD1, &xinput);
 	Jump();
 	Move();
 	Throw();
+	if (Input::GetKeyDown(KEY_INPUT_A)) {
+		//manager->SerchGameObject(ObjectTag::map)->GetThis<Map>()->ChangeGlid(2, 19,26);
+
+
+		auto childTransform = ObjectFactory::Create<Transform>(transform->GetPosition());
+
+		auto child = ObjectFactory::Create<Child>(50+50*vec_childs.size(),40,transform,childTransform,manager);
+
+		vec_childs.push_back(child->GetThis<Child>());
+		manager->AddObject(child);
+	}
 	shp_collisionRect->Update();
-	Game::GetInstance()->GetResourceController()->GetScreenInformation()->SetScrollModify(transform->GetPosition().GetVector2());
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture, 1);
 	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
 	for (int i = 0; i < 4; i++) {
@@ -150,52 +152,18 @@ bool Framework::Player::Move() {
 }
 
 bool Framework::Player::Jump() {
-	////////////////////
-
-	//Button[8]�cLB
 	if (
 		(isGround) &&
 		Input::GetButtonDown(XINPUT_BUTTON_LEFT_SHOULDER)) {
 		phisicsForce.y = -15.0f;
 	}
-	//if (isGround) {
-	//	//2�i�W�����v
-	//	if (state == ThrowWaitMode && isSecondJump == false && Input::GetButtonDown(XINPUT_BUTTON_LEFT_SHOULDER)) {
-	//		phisicsForce.y = -3.0f;
-	//		isSecondJump = true;
-	//		state = NormalMode;
-	//	}
-	//}
-
 	return true;
 }
 
 bool Framework::Player::Throw() {
 	//Button[9]�cRB
-	if (xinput.Buttons[9] && RBtrigger == false) {
-		switch (state)
-		{
-		case NormalMode:
-			state = ThrowWaitMode;
-			break;
-		case ThrowWaitMode:
-			state = ThrowMode;
-			break;
-		default:
-			break;
-		}
-		RBtrigger = true;
+	if (Input::GetKeyDown(KEY_INPUT_S)) {
+		vec_childs.at(0)->Throw(ObjectFactory::Create<Transform>( Vector3(1,0, 0)));
 	}
-	if (!xinput.Buttons[9]) {
-		RBtrigger = false;
-	}
-
-	//����
-	if (state == ThrowMode) {
-		//��������
-		Vector2 throwDirection = Vector2(xinput.ThumbRX, xinput.ThumbRY);
-		state = NormalMode;
-	}
-
 	return true;
 }

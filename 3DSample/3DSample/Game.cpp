@@ -76,6 +76,15 @@ void Framework::Game::SceneInitialize()
 	unq_sceneManager->Initialize();
 	unq_sceneManager->LoadScene(ObjectFactory::Create<TestScene>());
 	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map1.csv"));
+	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map2.csv"));
+	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map3.csv"));
+	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map4.csv"));
+	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map5.csv"));
+	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map6.csv"));
+	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map7.csv"));
+	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map8.csv"));
+	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map9.csv"));
+
 	unq_sceneManager->ChangeScene("TestScene");
 }
 

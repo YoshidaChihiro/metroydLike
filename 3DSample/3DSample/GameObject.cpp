@@ -4,6 +4,7 @@
 bool Framework::GameObject::Release()
 {
 	for (auto itr = childs.begin(); itr != childs.end(); itr++) {
+		if((*itr)!=nullptr)
 		(*itr)->SetIsDead(true);
 		(*itr) = nullptr;
 	}

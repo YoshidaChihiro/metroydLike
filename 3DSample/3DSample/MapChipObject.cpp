@@ -105,3 +105,39 @@ Framework::MapChip_Gate::MapChip_Gate(std::string arg_changeScenesName, Vector2 
 	exitPosition = arg_exitPosition;
 	changeScenesName = arg_changeScenesName;
 }
+
+Framework::MapChip_ChildBlock::MapChip_ChildBlock(std::shared_ptr<GameObjectManager> arg_manager)
+	: MapChipObject(arg_manager->GetThis<GameObjectManager>())
+{
+}
+
+std::shared_ptr<Framework::MapChipObject> Framework::MapChip_ChildBlock::Clone(Vector3 position)
+{
+	auto transform = ObjectFactory::Create<Transform>(position);
+	return ObjectFactory::Create<MapChip_ChildBlock>(transform, manager->GetThis<GameObjectManager>());
+}
+
+bool Framework::MapChip_ChildBlock::Update()
+{
+	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
+	return true;
+}
+
+void Framework::MapChip_ChildBlock::Initialize()
+{
+	shp_texture = ObjectFactory::Create<Resource_Texture>("orange.png", transform, false, false);
+	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(
+		Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetGlidSize(),
+		Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetGlidSize(),
+		transform->GetPosition().GetVector2(),
+		Rectangle::GetRectangleOuterCircleRadius(
+			Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetGlidSize() / 2,
+			Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetGlidSize() / 2)), GetThis<GameObject>());
+
+	shp_collisionRect->Update();
+}
+
+Framework::MapChip_ChildBlock::MapChip_ChildBlock(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager)
+	:MapChipObject(arg_transform, arg_manager->GetThis<GameObjectManager>()) 
+{
+}

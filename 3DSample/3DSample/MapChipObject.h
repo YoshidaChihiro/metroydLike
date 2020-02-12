@@ -33,19 +33,34 @@ namespace Framework {
 	private:
 		MapChip_Space(std::shared_ptr<Transform> arg_transform,std::shared_ptr<GameObjectManager> arg_manager);
 		
-	}; 
+	};
 	class MapChip_Test :public MapChipObject {
 	public:
 		friend class ObjectFactory;
-		MapChip_Test( std::shared_ptr<GameObjectManager> arg_manager);
-		std::shared_ptr<MapChipObject> Clone (Vector3 position)override;
+		MapChip_Test(std::shared_ptr<GameObjectManager> arg_manager);
+		std::shared_ptr<MapChipObject> Clone(Vector3 position)override;
 		bool Update()override;
-		void Initialize()override ;
+		void Initialize()override;
 		void PreInitialize()override {};
 	private:
 		MapChip_Test(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager);
 		std::shared_ptr< Resource_Texture> shp_texture;
 	};
+
+	class MapChip_ChildBlock :public MapChipObject {
+	public:
+		friend class ObjectFactory;
+		MapChip_ChildBlock(std::shared_ptr<GameObjectManager> arg_manager);
+		std::shared_ptr<MapChipObject> Clone(Vector3 position)override;
+		bool Update()override;
+		void Initialize()override;
+		void PreInitialize()override {};
+	private:
+		MapChip_ChildBlock(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager);
+		std::shared_ptr< Resource_Texture> shp_texture;
+	};
+
+
 	class MapChip_Gate :public MapChipObject {
 	public:
 		friend  class ObjectFactory;

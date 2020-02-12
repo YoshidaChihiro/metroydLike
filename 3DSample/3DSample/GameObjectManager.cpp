@@ -70,7 +70,7 @@ bool Framework::GameObjectManager::Update()
 		vec_shp_gameObjects.push_back(*itr);
 	}
 
-
+	vec_shp_new_gameObjects.clear();
 
 	auto itr = vec_shp_gameObjects.begin();
 	while (itr!=vec_shp_gameObjects.end())
