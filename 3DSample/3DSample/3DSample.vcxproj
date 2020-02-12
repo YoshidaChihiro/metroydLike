@@ -156,6 +156,7 @@
     <ClCompile Include="ResouceController.cpp" />
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Sencer.cpp" />
     <ClCompile Include="StringHelper.cpp" />
     <ClCompile Include="TestObject.cpp" />
     <ClCompile Include="TestScene.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="ResouceController.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Sencer.h" />
     <ClInclude Include="StringHelper.h" />
     <ClInclude Include="TestObject.h" />
     <ClInclude Include="TestScene.h" />

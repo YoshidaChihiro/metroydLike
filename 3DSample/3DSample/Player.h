@@ -32,13 +32,15 @@ namespace Framework {
 		bool Jump();
 		bool Throw();
 
+		std::vector< std::shared_ptr<GameObject>> sencerInputs;//0 top, 1 bottom,2 left.3 right
+
 		XINPUT_STATE xinput;
 		Vector2 velocity,
 			prevPosition;
 		float speed,
 			gravity,
 			maxFallSpeed;
-		bool isJump,
+		bool 
 			isSecondJump,
 			LBtrigger,
 			RBtrigger;

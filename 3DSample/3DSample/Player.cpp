@@ -1,7 +1,8 @@
 #include "Player.h"
 #include "Child.h"
 #include "Game.h"
-
+#include"MapChipObject.h"
+#include"Sencer.h"
 Framework::Player::Player(std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager) :GameObject(shp_arg_transform, shp_arg_gameObjectManager)
 {
 	velocity = Vector2(0.0f, 0.0f);
@@ -9,7 +10,6 @@ Framework::Player::Player(std::shared_ptr<Transform> shp_arg_transform, std::sha
 	speed = 4.0f;
 	gravity = 0.2f;
 	maxFallSpeed = 1.0f;
-	isJump = true;
 	isSecondJump = false;
 	LBtrigger = false;
 	RBtrigger = false;
@@ -27,35 +27,80 @@ Framework::Player::~Player() {}
 
 void Framework::Player::Hit(std::shared_ptr<GameObject> other)
 {
-	if (other->GetTag() == ObjectTag::playerChild) {
+	if (other->GetTag() == ObjectTag::playerChild|| other->GetTag() == ObjectTag::sencer) {
 		return;
 	}
-	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
-	if (transform->localPosition.x != prevPosition.x) {
-		if (transform->localPosition.x < prevPosition.x) {
-			transform->localPosition.x = prevPosition.x;
-		}
-		else{
-			transform->localPosition.x -= velocity.x * speed;
-		}
-		transform->localPosition.x /= 32.0f;
-		transform->localPosition.x *= 32.0f;
+	//
+	Vector3 mapchipPos = other->transform->GetPosition();
+	auto otherRect= other->GetThis<MapChipObject>()->GetRectangle();
+	float overlap = 0.0f;
+
+	//player上
+	if (sencerInputs[1]==other) {
+		overlap = shp_collisionRect->rect->GetBottom()-otherRect->GetTop() ;
+			transform->localPosition.y = (int)(transform->localPosition.y-overlap);
+			
+			//着地
+			//velocity.y = 0.0f;
+		
 	}
-	if (transform->localPosition.y != prevPosition.y) {
-		if (transform->localPosition.y < prevPosition.y) {
-			transform->localPosition.y = prevPosition.y;
-		}
-		else{
-			transform->localPosition.y -= velocity.y * speed;
-		}
-		transform->localPosition.y /= 32.0f;
-		transform->localPosition.y *= 32.0f;
+	//player下
+	if (sencerInputs[0] == other) {
+		overlap = otherRect->GetBottom() - shp_collisionRect->rect->GetTop();
+			transform->localPosition.y += overlap;
+			velocity.y = 0.0f;
 	}
+	//player左
+	if (sencerInputs[3] == other) {
+		overlap = shp_collisionRect->rect->GetRight() - otherRect->GetLeft();
+			transform->localPosition.x -= overlap;
+		
+	}
+	//player右
+	if (sencerInputs[2] == other) {
+		overlap = shp_collisionRect->rect->GetLeft() - otherRect->GetRight();
+			transform->localPosition.x -= overlap;
+	}
+	
 }
 
 void Framework::Player::PreInitialize()
 {
 	auto handle = Game::GetInstance()->GetResourceController()->GetTexture("apple.png");
+
+
+	std::vector<ObjectTag> tags;
+	tags.push_back(ObjectTag::block);
+
+	sencerInputs.push_back(nullptr);
+	sencerInputs.push_back(nullptr);
+	sencerInputs.push_back(nullptr);
+	sencerInputs.push_back(nullptr);
+
+
+	auto sencerTransform_top = ObjectFactory::Create<Transform>(Vector3(0, -16, 0));
+	sencerTransform_top ->baseTransform = (transform);
+	auto sencer_top = ObjectFactory::Create<Sencer>(sencerTransform_top, manager, tags, &sencerInputs.at(0));
+
+	auto sencerTransform_bottom = ObjectFactory::Create<Transform>(Vector3(0, 16, 0));
+	sencerTransform_bottom ->baseTransform = (transform);
+	auto sencer_bottom = ObjectFactory::Create<Sencer>(sencerTransform_bottom, manager, tags, &sencerInputs.at(1));
+
+	auto sencerTransform_left = ObjectFactory::Create<Transform>(Vector3(-16, 0, 0));
+		sencerTransform_left->baseTransform = (transform);
+	auto sencer_left = ObjectFactory::Create<Sencer>(sencerTransform_left, manager, tags, &sencerInputs.at(2));
+
+	auto sencerTransform_right = ObjectFactory::Create<Transform>(Vector3(16, 0, 0));
+	sencerTransform_right->baseTransform = (transform);
+	auto sencer_right = ObjectFactory::Create<Sencer>(sencerTransform_right, manager, tags, &sencerInputs.at(3));
+
+
+	manager->AddObject_Init(sencer_top);
+	manager->AddObject_Init(sencer_bottom);
+	manager->AddObject_Init(sencer_left);
+	manager->AddObject_Init(sencer_right);
+
+
 
 	shp_texture = ObjectFactory::Create<Resource_Texture>(handle, transform, false, false);
 	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
@@ -85,43 +130,39 @@ bool Framework::Player::Move() {
 	else {
 		velocity.x = 0.0f;
 	}
+	
 	transform->localPosition += velocity * speed;
+	
+	//重力
+	if (!sencerInputs.at(1))
+		velocity.y += gravity;
+	//落下速度制限
+	if (velocity.y > maxFallSpeed) {
+		velocity.y = maxFallSpeed;
+	}
+	
 	return true;
 }
 
 bool Framework::Player::Jump() {
-	//仮置き///着地//////
-	if (transform->localPosition.y > 672) {
-		isJump = false;
-		//isSecondJump = false;
-		velocity.y = 0.0f;
-	}
 	////////////////////
 
 	//Button[8]…LB
-	if (isJump == false && xinput.Buttons[8] && LBtrigger == false) {
+	if (!(sencerInputs.at(1)) && xinput.Buttons[8] && LBtrigger == false) {
 		velocity.y = -3.0f;
-		isJump = true;
 		LBtrigger = true;
 	}
 	if (!xinput.Buttons[8]) {
 		LBtrigger = false;
 	}
 	//ジャンプ中
-	if (isJump == true) {
+	if (sencerInputs.at(1)) {
 		//2段ジャンプ
 		if (state == ThrowWaitMode && isSecondJump == false && xinput.Buttons[8] && LBtrigger == false) {
 			velocity.y = -3.0f;
 			isSecondJump = true;
 			state = NormalMode;
 			LBtrigger = true;
-		}
-
-		//重力
-		velocity.y += gravity;
-		//落下速度制限
-		if (velocity.y > maxFallSpeed) {
-			velocity.y = maxFallSpeed;
 		}
 	}
 

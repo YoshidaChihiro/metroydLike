@@ -3,7 +3,7 @@
 namespace Framework {
 	class GameObjectManager;
 	enum class ObjectTag {
-		enemy,block,player,playerChild,none
+		enemy,block,player,playerChild,none,sencer
 	};
 	class GameObject:public IObject
 	{

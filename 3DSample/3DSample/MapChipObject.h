@@ -9,10 +9,16 @@ namespace Framework {
 	public:
 		virtual std::shared_ptr<MapChipObject> Clone(Vector3 position)=0;
 		std::shared_ptr<Collision2D_Rectangle> GetShpCollision() { return shp_collisionRect; };
+		std::shared_ptr< Rectangle> GetRectangle() { return shp_collisionRect->rect; }
 	protected:
 		friend class ObjectFactory;
-		MapChipObject(std::shared_ptr<GameObjectManager> arg_manager) :GameObject(ObjectFactory::Create<Transform>(), arg_manager) {}
-		MapChipObject(std::shared_ptr<Transform> arg_transform,std::shared_ptr<GameObjectManager> arg_manager) :GameObject(arg_transform, arg_manager) {}
+		MapChipObject(std::shared_ptr<GameObjectManager> arg_manager) :GameObject(ObjectFactory::Create<Transform>(), arg_manager) {
+			tag = ObjectTag::block;
+		}
+		MapChipObject(std::shared_ptr<Transform> arg_transform,std::shared_ptr<GameObjectManager> arg_manager) :GameObject(arg_transform, arg_manager) {
+			tag = ObjectTag::block;
+
+		}
 
 		std::shared_ptr<Collision2D_Rectangle> shp_collisionRect;
 	};
