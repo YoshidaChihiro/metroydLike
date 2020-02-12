@@ -38,7 +38,7 @@ void Framework::Player::PreInitialize()
 bool Framework::Player::Update() {
 	Game::GetInstance()->GetResourceController()->GetScreenInformation()->SetScrollModify(transform->GetPosition().GetVector2());
 	shp_collisionRect->Update();
-	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
+	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture,1);
 	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
 	GetJoypadXInputState(DX_INPUT_PAD1, &xinput);
 	Move();

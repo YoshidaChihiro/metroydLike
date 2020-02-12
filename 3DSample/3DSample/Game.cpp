@@ -57,6 +57,8 @@ bool Framework::Game::Update()
 
 bool Framework::Game::ResourceLoad()
 {
+	unq_resourceController->AddLayer(3);
+
 	unq_resourceController->LoadTexture("sample.png");
 
 	unq_resourceController->LoadTexture("sample2.png");

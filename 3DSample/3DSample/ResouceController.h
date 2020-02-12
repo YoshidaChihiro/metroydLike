@@ -17,7 +17,8 @@ namespace Framework {
 		int GetSound(std::string resourceName);
 		int GetMV1(std::string resourceName);
 		std::shared_ptr<Resource_Font> GetFont(std::string fontName);
-		void AddGraph(std::shared_ptr< Resource_Texture> shp_arg_resource_textue);
+		void AddGraph(std::shared_ptr< Resource_Texture> shp_arg_resource_textue, int i = 0);
+		void AddLayer(int addLayerCount);
 		void AddText(std::shared_ptr< Resource_Text_String> shp_arg_resource_text);
 		void AddMV1(std::shared_ptr< Resource_MV1> shp_arg_resource_MV1);
 		void AddSound(std::shared_ptr< Resource_Sound> shp_arg_resource_sound);
@@ -27,7 +28,8 @@ namespace Framework {
 		};
 
 	private:
-		std::vector<std::shared_ptr< Resource_Texture>> vec_textures;
+		std::vector<
+		std::vector<std::shared_ptr< Resource_Texture>>> vec_texturesLayers;
 		std::vector<std::shared_ptr< Resource_Text_String>> vec_texts;
 		std::vector< std::shared_ptr<Resource_Sound>> vec_sounds;
 		std::vector< std::shared_ptr<Resource_MV1>> vec_mv1s;

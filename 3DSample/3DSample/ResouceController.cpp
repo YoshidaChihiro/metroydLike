@@ -2,18 +2,23 @@
 Framework::ResouceController::ResouceController(int screenWidth, int screenHeight)
 {
 	unq_screenInformation = std::make_unique<ScreenInformation>(screenWidth, screenHeight);
+	vec_texturesLayers.push_back(std::vector< std::shared_ptr<Resource_Texture>>());
 }
 
 void Framework::ResouceController::Draw()
 {
+	for (int i = 0; i < vec_texturesLayers.size(); i++) {
 
-	for (auto itr = vec_textures.begin(); itr != vec_textures.end(); itr++) {
-		(*itr)->Draw();
+		for (auto itr = vec_texturesLayers.at(i).begin(); itr != vec_texturesLayers.at(i).end(); itr++) {
+			(*itr)->Draw();
+		}
+
+		vec_texturesLayers.at(i).clear();
 	}
+
 	for (auto itr = vec_texts.begin(); itr != vec_texts.end(); itr++) {
 		(*itr)->Draw();
 	}
-	vec_textures.clear();
 	vec_texts.clear();
 
 	
@@ -80,9 +85,20 @@ std::shared_ptr<Framework::Resource_Font> Framework::ResouceController::GetFont(
 	return fontResourceMap.at(fontName)->GetThis<Resource_Font>();
 }
 
-void Framework::ResouceController::AddGraph(std::shared_ptr<Resource_Texture> shp_arg_resource_textue)
+void Framework::ResouceController::AddGraph(std::shared_ptr<Resource_Texture> shp_arg_resource_textue,int layer)
 {
-	vec_textures.push_back(shp_arg_resource_textue->GetThis<Resource_Texture>());
+	if (layer + 1 > vec_texturesLayers.size()) {
+		return;
+	}
+	vec_texturesLayers.at(layer). push_back(shp_arg_resource_textue->GetThis<Resource_Texture>());
+}
+
+void Framework::ResouceController::AddLayer(int addLayerCount)
+{
+	for (int i = 0; i < addLayerCount; i++) {
+		vec_texturesLayers.push_back(std::vector< std::shared_ptr<Resource_Texture>>());
+	}
+
 }
 
 void Framework::ResouceController::AddText(std::shared_ptr<Resource_Text_String> shp_arg_resource_text)
