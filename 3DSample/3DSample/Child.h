@@ -17,17 +17,17 @@ namespace Framework {
 		std::shared_ptr<Resource_Texture> shp_texture;
 		std::shared_ptr<Collision2D_Rectangle>shp_collisionRect;
 
+		virtual bool Throw(std::shared_ptr<Transform> arg_target);
 	private:
 
+		std::vector< std::shared_ptr<GameObject>> sencerInputs;//0 top, 1 bottom,2 left.3 right
 		bool Move();
-		bool Throw();
-
-		XINPUT_STATE xinput;
-		Vector2 velocity,
-			prevPosition,
-			throwDirection;
+		void Shoot();
+		Vector3 velocity;
 
 		std::shared_ptr<Transform> shp_player_transform;
+
+		void CreateBlock();
 
 		int delay,waitPointDistance;
 
@@ -36,16 +36,7 @@ namespace Framework {
 			maxFallSpeed,
 			groundHeight;
 		bool
-			isChase,
-			LBtrigger,
-			RBtrigger;
-		enum State {
-			NormalMode,
-			ThrowWaitMode,
-			ThrowMode,
-			FixMode,
-		};
-		State state;
+			isChase, isThrown;
 		int lastSide;
 	};
 }

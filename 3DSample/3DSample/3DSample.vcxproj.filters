@@ -1,159 +1,183 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="ソース ファイル">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="ヘッダー ファイル">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="リソース ファイル">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Util.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Input.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Resource.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="IScene.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObjectManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="ResouceController.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Transform.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="TestObject.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="TestScene.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Child.cpp">
+      <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="Collision2D.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="Collision2DManager.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="CSVReader.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectManager.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="IScene.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="Map.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="StringHelper.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="MapChipObject.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleEmitter.cpp">
+      <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="Child.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="ResouceController.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenInformation.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="StringHelper.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="TestObject.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScene.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Util.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="MapScene.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Cameraman.cpp">
+      <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="Sencer.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Library.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="ButiMath.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Util.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="MathInclude.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Input.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="IScene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObjectManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="ResouceController.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Transform.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="TestObject.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="TestScene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Collision2D.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Collision2DManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="CSVReader.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="StringHelper.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="MapChipObject.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>header</Filter>
     </ClInclude>
     <ClInclude Include="Child.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision2D.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision2DManager.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="CSVReader.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectManager.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="IScene.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="Library.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="MapChipObject.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleEmitter.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="ResouceController.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenInformation.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="StringHelper.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="TestObject.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScene.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="Util.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="MathInclude.cpp">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="MapScene.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="Cameraman.h">
+      <Filter>header</Filter>
     </ClInclude>
     <ClInclude Include="Sencer.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>header</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="header">
+      <UniqueIdentifier>{efaa583f-40bb-42f1-858a-e50eeb2a622e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{1b310c15-f063-4255-bf10-bbb6279615c2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

@@ -1,19 +1,15 @@
 #include "Player.h"
-#include "Child.h"
 #include "Game.h"
-#include"MapChipObject.h"
 #include"Sencer.h"
 Framework::Player::Player(std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager) :GameObject(shp_arg_transform, shp_arg_gameObjectManager)
 {
 	velocity = Vector2(0.0f, 0.0f);
-	prevPosition = Vector2(0.0f, 0.0f);
-	speed = 4.0f;
-	gravity = 0.2f;
-	maxFallSpeed = 1.0f;
+	speed = 5.0f;
+	gravity = 0.6f;
+	maxFallSpeed = 6.0f;
 	isSecondJump = false;
-	LBtrigger = false;
-	RBtrigger = false;
-	state = NormalMode;
+
+	phisicsForce = Vector2(0,0);
 
 	tag = ObjectTag::player;
 
@@ -27,50 +23,55 @@ Framework::Player::~Player() {}
 
 void Framework::Player::Hit(std::shared_ptr<GameObject> other)
 {
-	if (other->GetTag() == ObjectTag::playerChild|| other->GetTag() == ObjectTag::sencer) {
+	if (other->GetObjectTag() == ObjectTag::supporter|| other->GetObjectTag() == ObjectTag::sencer) {
 		return;
 	}
 	//
-	Vector3 mapchipPos = other->transform->GetPosition();
 	auto otherRect= other->GetThis<MapChipObject>()->GetRectangle();
 	float overlap = 0.0f;
 
-	//playerã
 	if (sencerInputs[1]==other) {
 		overlap = shp_collisionRect->rect->GetBottom()-otherRect->GetTop() ;
-			transform->localPosition.y = (int)(transform->localPosition.y-overlap);
-			
-			//’…’n
-			//velocity.y = 0.0f;
+		overlap= abs(overlap);
+			transform->localPosition.y -=overlap;
+			isGround = true;
+			//ï¿½ï¿½ï¿½n
+			phisicsForce.y = 0.0f;
 		
 	}
-	//player‰º
 	if (sencerInputs[0] == other) {
 		overlap = otherRect->GetBottom() - shp_collisionRect->rect->GetTop();
+
+		overlap = abs(overlap);
 			transform->localPosition.y += overlap;
-			velocity.y = 0.0f;
 	}
-	//player¶
+
+	shp_collisionRect->Update();
 	if (sencerInputs[3] == other) {
 		overlap = shp_collisionRect->rect->GetRight() - otherRect->GetLeft();
-			transform->localPosition.x -= overlap;
-		
+		overlap = abs(overlap);
+		transform->localPosition.x -=overlap;
+		velocity.x = 0;
+		phisicsForce.x = 0;
 	}
-	//player‰E
+
 	if (sencerInputs[2] == other) {
-		overlap = shp_collisionRect->rect->GetLeft() - otherRect->GetRight();
-			transform->localPosition.x -= overlap;
+		overlap = otherRect->GetRight()- shp_collisionRect->rect->GetLeft() ;
+		overlap = abs(overlap);
+			transform->localPosition.x += overlap;
+			velocity.x = 0;
+			phisicsForce.x = 0;
 	}
-	
+
+	shp_collisionRect->Update();
 }
 
 void Framework::Player::PreInitialize()
 {
-	auto handle = Game::GetInstance()->GetResourceController()->GetTexture("apple.png");
 
 
 	std::vector<ObjectTag> tags;
-	tags.push_back(ObjectTag::block);
+	tags.push_back(ObjectTag::obstacle);
 
 	sencerInputs.push_back(nullptr);
 	sencerInputs.push_back(nullptr);
@@ -80,19 +81,19 @@ void Framework::Player::PreInitialize()
 
 	auto sencerTransform_top = ObjectFactory::Create<Transform>(Vector3(0, -16, 0));
 	sencerTransform_top ->baseTransform = (transform);
-	auto sencer_top = ObjectFactory::Create<Sencer>(sencerTransform_top, manager, tags, &sencerInputs.at(0));
+	auto sencer_top = ObjectFactory::Create<Sencer>(sencerTransform_top, manager, tags, &sencerInputs.at(0),1,8);
 
 	auto sencerTransform_bottom = ObjectFactory::Create<Transform>(Vector3(0, 16, 0));
 	sencerTransform_bottom ->baseTransform = (transform);
-	auto sencer_bottom = ObjectFactory::Create<Sencer>(sencerTransform_bottom, manager, tags, &sencerInputs.at(1));
+	auto sencer_bottom = ObjectFactory::Create<Sencer>(sencerTransform_bottom, manager, tags, &sencerInputs.at(1),1,8);
 
 	auto sencerTransform_left = ObjectFactory::Create<Transform>(Vector3(-16, 0, 0));
 		sencerTransform_left->baseTransform = (transform);
-	auto sencer_left = ObjectFactory::Create<Sencer>(sencerTransform_left, manager, tags, &sencerInputs.at(2));
+	auto sencer_left = ObjectFactory::Create<Sencer>(sencerTransform_left, manager, tags, &sencerInputs.at(2),8,1);
 
 	auto sencerTransform_right = ObjectFactory::Create<Transform>(Vector3(16, 0, 0));
 	sencerTransform_right->baseTransform = (transform);
-	auto sencer_right = ObjectFactory::Create<Sencer>(sencerTransform_right, manager, tags, &sencerInputs.at(3));
+	auto sencer_right = ObjectFactory::Create<Sencer>(sencerTransform_right, manager, tags, &sencerInputs.at(3),8,1);
 
 
 	manager->AddObject_Init(sencer_top);
@@ -100,101 +101,69 @@ void Framework::Player::PreInitialize()
 	manager->AddObject_Init(sencer_left);
 	manager->AddObject_Init(sencer_right);
 
+	AddChildObject(sencer_top);
+	AddChildObject(sencer_bottom);
+	AddChildObject(sencer_left);
+	AddChildObject(sencer_right);
 
-
-	shp_texture = ObjectFactory::Create<Resource_Texture>(handle, transform, false, false);
-	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
+	shp_texture = ObjectFactory::Create<Resource_Texture>("apple.png", transform, false, false);
+	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(32, 32)), GetThis<GameObject>());
 }
 
 bool Framework::Player::Update() {
-	shp_collisionRect->Update();
-	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
-	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
-	GetJoypadXInputState(DX_INPUT_PAD1, &xinput);
-
-	prevPosition = transform->localPosition;
-	Move();
+	
 	Jump();
+	Move();
 	Throw();
+	if (Input::GetKeyDown(KEY_INPUT_A)) {
+		//manager->SerchGameObject(ObjectTag::map)->GetThis<Map>()->ChangeGlid(2, 19,26);
 
+
+		auto childTransform = ObjectFactory::Create<Transform>(transform->GetPosition());
+
+		auto child = ObjectFactory::Create<Child>(50+50*vec_childs.size(),40,transform,childTransform,manager);
+
+		vec_childs.push_back(child->GetThis<Child>());
+		manager->AddObject(child);
+	}
+	shp_collisionRect->Update();
+	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture, 1);
+	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
+	for (int i = 0; i < 4; i++) {
+		sencerInputs[i] = nullptr;
+	}
+	isGround = false;
 	return true;
 }
 
 bool Framework::Player::Move() {
-	if (xinput.ThumbLX > 0) {
-		velocity.x = 1.0f;
-	}
-	else if (xinput.ThumbLX < 0) {
-		velocity.x = -1.0f;
-	}
-	else {
-		velocity.x = 0.0f;
-	}
+	velocity.x = Input::GetLettStickHolizon();
 	
-	transform->localPosition += velocity * speed;
+	//velocity.y =-1* Input::GetLettStickVertical();
+	velocity.Normalize();
+	transform->localPosition +=((Vector2) (velocity * speed)) + ((Vector2)(phisicsForce));
 	
-	//d—Í
-	if (!sencerInputs.at(1))
-		velocity.y += gravity;
-	//—Ž‰º‘¬“x§ŒÀ
-	if (velocity.y > maxFallSpeed) {
-		velocity.y = maxFallSpeed;
+		phisicsForce.y += gravity;
+	if (phisicsForce.y > maxFallSpeed) {
+		phisicsForce.y = maxFallSpeed;
 	}
 	
 	return true;
 }
 
 bool Framework::Player::Jump() {
-	////////////////////
-
-	//Button[8]cLB
-	if (!(sencerInputs.at(1)) && xinput.Buttons[8] && LBtrigger == false) {
-		velocity.y = -3.0f;
-		LBtrigger = true;
+	if (
+		(isGround) &&
+		Input::GetButtonDown(XINPUT_BUTTON_LEFT_SHOULDER)) {
+		phisicsForce.y = -15.0f;
 	}
-	if (!xinput.Buttons[8]) {
-		LBtrigger = false;
-	}
-	//ƒWƒƒƒ“ƒv’†
-	if (sencerInputs.at(1)) {
-		//2’iƒWƒƒƒ“ƒv
-		if (state == ThrowWaitMode && isSecondJump == false && xinput.Buttons[8] && LBtrigger == false) {
-			velocity.y = -3.0f;
-			isSecondJump = true;
-			state = NormalMode;
-			LBtrigger = true;
-		}
-	}
-
 	return true;
 }
 
 bool Framework::Player::Throw() {
-	//Button[9]cRB
-	if (xinput.Buttons[9] && RBtrigger == false) {
-		switch (state)
-		{
-		case NormalMode:
-			state = ThrowWaitMode;
-			break;
-		case ThrowWaitMode:
-			state = ThrowMode;
-			break;
-		default:
-			break;
-		}
-		RBtrigger = true;
+	//Button[9]ï¿½cRB
+	if (Input::GetKeyDown(KEY_INPUT_S)) {
+		vec_childs.at(0)->Throw(ObjectFactory::Create<Transform>( Vector3(1,0, 0)));
 	}
-	if (!xinput.Buttons[9]) {
-		RBtrigger = false;
-	}
-
-	//“Š‚°
-	if (state == ThrowMode) {
-		//“Š‚°•ûŒü
-		Vector2 throwDirection = Vector2(xinput.ThumbRX, xinput.ThumbRY);
-		state = NormalMode;
-	}
-
 	return true;
 }

@@ -34,17 +34,16 @@ namespace Framework {
 
 		std::vector< std::shared_ptr<GameObject>> sencerInputs;//0 top, 1 bottom,2 left.3 right
 
-		XINPUT_STATE xinput;
-		Vector2 velocity,
-			prevPosition;
+		std::vector< std::shared_ptr<Child>> vec_childs;
+
+
+		Vector2  velocity,
+			phisicsForce;
 		float speed,
 			gravity,
 			maxFallSpeed;
-		bool 
-			isSecondJump,
-			LBtrigger,
-			RBtrigger;
-		State state;
+		bool isGround,
+			isSecondJump;
 
 	};
 }

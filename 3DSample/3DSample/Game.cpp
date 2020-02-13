@@ -1,5 +1,6 @@
 #include "Game.h"
-
+#include"MapScene.h"
+#include <chrono>
 std::unique_ptr<Framework::Game> Framework::Game::instance=nullptr;
 
 Framework::Game::Game(int windowWidth, int windowHeight, std::string windowText, Framework::Vector4 color):width(windowWidth),height(windowHeight)
@@ -14,7 +15,7 @@ Framework::Game::Game(int windowWidth, int windowHeight, std::string windowText,
 	SetMainWindowText(windowText.c_str());
 	DxLib_Init();
 
-	unq_resourceController = std::make_unique<ResouceController>();
+	unq_resourceController = std::make_unique<ResouceController>(windowWidth, windowHeight);;
 	unq_sceneManager = std::make_unique<SceneManager>();
 	unq_collision2DManager = std::make_unique<Collision2DManager>();
 
@@ -27,22 +28,28 @@ Framework::Game::Game(int windowWidth, int windowHeight, std::string windowText,
 
 bool Framework::Game::Draw()
 {
+	timespec befTime;
+	timespec nowTime;
+	timespec delta;
 
-	SetDrawScreen(targetScreenHundle);
+	timespec_get(&befTime, TIME_UTC);
+	SetDrawScreen(DX_SCREEN_BACK);
 	ClearDrawScreen();
 
 	unq_resourceController->Draw();
 
-	SetDrawScreen(DX_SCREEN_BACK);
-	ClearDrawScreen();
-	DrawExtendGraph(0, 0, width, height, targetScreenHundle, TRUE);
+	//ClearDrawScreen();
 	ScreenFlip();
+
+	timespec_get(&nowTime, TIME_UTC);
+	ButiTime::timespecSubstruction(&nowTime, &befTime, &delta);
+	auto deltaMiliTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::nanoseconds{ delta.tv_nsec });
+
 	return true;
 }
 
 bool Framework::Game::Update()
 {
-	Game::GetInstance();
 	unq_collision2DManager->Update();
 	return unq_sceneManager->Update();
 
@@ -50,6 +57,8 @@ bool Framework::Game::Update()
 
 bool Framework::Game::ResourceLoad()
 {
+	unq_resourceController->AddLayer(3);
+
 	unq_resourceController->LoadTexture("sample.png");
 
 	unq_resourceController->LoadTexture("sample2.png");
@@ -58,13 +67,25 @@ bool Framework::Game::ResourceLoad()
 
 	unq_resourceController->LoadTexture("apple.png");
 
-	unq_resourceController->LoadCreateFont("testFont", "‚l‚r –¾’©", 32, -1, DX_FONTTYPE_NORMAL);
+	unq_resourceController->LoadCreateFont("testFont", "ï¿½lï¿½r ï¿½ï¿½ï¿½ï¿½", 32, -1, DX_FONTTYPE_NORMAL);
 	return true;
 }
 
 void Framework::Game::SceneInitialize()
 {
 	unq_sceneManager->Initialize();
+	unq_sceneManager->LoadScene(ObjectFactory::Create<TestScene>());
+	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map1.csv"));
+	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map2.csv"));
+	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map3.csv"));
+	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map4.csv"));
+	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map5.csv"));
+	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map6.csv"));
+	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map7.csv"));
+	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map8.csv"));
+	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map9.csv"));
+
+	unq_sceneManager->ChangeScene("TestScene");
 }
 
 bool Framework::Game::CreateInstance(int windowWidth, int windowHeight, std::string windowText, Framework::Color color)
@@ -73,7 +94,7 @@ bool Framework::Game::CreateInstance(int windowWidth, int windowHeight, std::str
 		return false;
 	}
 	instance = std::make_unique<Framework::Game>(windowWidth, windowHeight, windowText, color);
-
+	Framework::ButiRandom::Initialize();
 	Framework::Input::Initialize();
 	return true;
 }
@@ -85,6 +106,7 @@ bool Framework::Game::Exit()
 	}
 	else
 	{
+		unq_sceneManager->Release();
 		return true;
 	}
 }

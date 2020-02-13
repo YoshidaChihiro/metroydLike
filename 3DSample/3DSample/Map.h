@@ -14,6 +14,10 @@ namespace Framework {
 		void Reload();
 		void Initialize()override;
 		bool Update()override;
+		void ChangeGlid(int x, int y, std::shared_ptr<MapChipObject> arg_mapChipObj);
+		void AddMapChip(int x, int y, std::shared_ptr<MapChipObject> arg_mapChipObj);
+		void ChangeGlid(int x, int y, int mapChipNum);
+		void AddMapChip(int x, int y, int mapChipNum);
 		void ChangeMapChipBlock(const int& arg_objectID, const int& x, const int& y);
 		void GenerateMap(std::shared_ptr< CSVData> csvData,int glidSize);
 		std::vector< std::shared_ptr< MapChipObject>> GetAroundObjects(Vector2 point);

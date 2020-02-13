@@ -2,6 +2,8 @@
 #include<memory>
 #include<string>
 #include<stdexcept>
+#include<random>
+#include<time.h>
 namespace Framework {
 	class Util
 	{
@@ -39,7 +41,19 @@ namespace Framework {
 			return wstr_errorMessage;
 		}
 	};
+	namespace ButiTime {
+		inline timespec *timespecSubstruction(const struct timespec *A, const struct timespec *B, struct timespec *C)
+		{
+			C->tv_sec = A->tv_sec - B->tv_sec;
+			C->tv_nsec = A->tv_nsec - B->tv_nsec;
+			if (C->tv_nsec < 0) {
+				C->tv_sec--;
+				C->tv_nsec += 1000000000;
+			}
 
+			return C;
+		}
+	}
 
 	void ThrowButiException_Runtime(const std::wstring& message1, const std::wstring& message2, const std::wstring& message3);
 		//throw runtime_error function
@@ -109,8 +123,72 @@ namespace Framework {
 		virtual void Initialize() = 0;
 
 	};
+	class ButiRandom {
+	public:
+
+		static void Initialize();
+
+
+		template<class T>
+		inline static T GetRandom(T min,T max,int pase) {
+			if (min == max) {
+				return min;
+			}
+			if (min > max) {
+				auto b = min;
+				min = max;
+				max = min;
+			}
+
+			shp_randRange = std::make_shared< std::uniform_int_distribution<>>(min*pase, max*pase);
+			return (T)(*shp_randRange)(*shp_mt) / pase;
+
+		};
+
+		
+		
+
+	private:
+		static std::shared_ptr< std::random_device> shp_rnd_device;// = std::make_shared<std::random_device>();
+		static std::shared_ptr<std::mt19937>shp_mt;// = std::make_shared<std::mt19937>((*shp_rnd_device)());
+		static std::shared_ptr< std::uniform_int_distribution<>> shp_randRange;// = std::make_shared< std::uniform_int_distribution<>>(0, 1);
+
+		ButiRandom() {};
+		~ButiRandom() {};
+	};
 	template<typename T>
 	std::shared_ptr<void> SharedPtrToVoid(const std::shared_ptr<T>& SrcPtr);
 	template<typename T>
 	std::shared_ptr<T> VoidToShared(const std::shared_ptr<void>& SrcPtr);
+
+	class Timer {
+	public:
+		Timer(int max);
+		inline void Start() { isActive = true; }
+		inline void Stop() { isActive = false; }
+		void SetCount(int arg_nowCount);
+		void ChangeCountFrame(int arg_maxCount);
+		void Reset();
+		inline bool Update() {
+			if (!isActive) {
+				return false;
+			}
+			nowCountFrame++;
+			if (nowCountFrame >= maxCountFrame) {
+				nowCountFrame = 0;
+				return true;
+			}
+			return false;
+		}
+		inline float GetPercent() const {
+			if (maxCountFrame == 0)return 0;
+			return (float)nowCountFrame / (float)maxCountFrame;
+		}
+		inline int GetRemainFrame()const {
+			return maxCountFrame - nowCountFrame;
+		}
+	private:
+		int maxCountFrame,nowCountFrame;
+		bool isActive=false;
+	};
 }

@@ -1,6 +1,7 @@
 #include "TestObject.h"
 
 #include "Game.h"
+#include"Particle.h"
 Framework::TestObject::TestObject(std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager):GameObject(shp_arg_transform,shp_arg_gameObjectManager)
 {
 	auto a =std::make_shared< Rectangle>(100, 100, Vector2(0,0));
@@ -16,8 +17,6 @@ Framework::TestObject::~TestObject()
 
 void Framework::TestObject::Hit(std::shared_ptr<GameObject> other)
 {
-
-
 }
 
 void Framework::TestObject::PreInitialize()
@@ -32,6 +31,8 @@ bool Framework::TestObject::Update()
 	shp_collisionRect->Update();
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
 	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
+
+	
 	if (Input::GetKey(KEY_INPUT_D)) {
 		transform->localPosition.x++;
 	}
