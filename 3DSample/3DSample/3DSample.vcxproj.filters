@@ -82,6 +82,9 @@
     <ClCompile Include="Sencer.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="Kuribo.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ButiMath.h">
@@ -169,6 +172,9 @@
       <Filter>header</Filter>
     </ClInclude>
     <ClInclude Include="Sencer.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="Kuribo.h">
       <Filter>header</Filter>
     </ClInclude>
   </ItemGroup>

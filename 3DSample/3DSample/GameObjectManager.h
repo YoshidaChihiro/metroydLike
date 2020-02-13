@@ -3,6 +3,7 @@
 #include "TestObject.h"
 #include "Player.h"
 #include "Child.h"
+#include "Kuribo.h"
 #include<vector>
 namespace Framework {
 	class GameObjectManager:public IObject

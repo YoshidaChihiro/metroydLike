@@ -67,6 +67,9 @@ bool Framework::Game::ResourceLoad()
 
 	unq_resourceController->LoadTexture("apple.png");
 
+	unq_resourceController->LoadTexture("pumpkin.png");
+
+
 	unq_resourceController->LoadCreateFont("testFont", "�l�r ����", 32, -1, DX_FONTTYPE_NORMAL);
 	return true;
 }

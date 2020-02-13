@@ -150,6 +150,7 @@
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="IScene.cpp" />
+    <ClCompile Include="Kuribo.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MapChipObject.cpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="IScene.h" />
+    <ClInclude Include="Kuribo.h" />
     <ClInclude Include="Library.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapChipObject.h" />
