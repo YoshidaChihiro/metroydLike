@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bat.cpp" />
     <ClCompile Include="Cameraman.cpp" />
     <ClCompile Include="Child.cpp" />
     <ClCompile Include="Collision2D.cpp" />
@@ -170,6 +171,7 @@
     <ClCompile Include="Util.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bat.h" />
     <ClInclude Include="ButiMath.h" />
     <ClInclude Include="Cameraman.h" />
     <ClInclude Include="Child.h" />

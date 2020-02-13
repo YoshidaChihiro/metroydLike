@@ -1,13 +1,17 @@
-﻿#include "Kuribo.h"
+﻿#include "Bat.h"
 #include "Game.h"
 #include"MapChipObject.h"
 #include"Sencer.h"
-Framework::Kuribo::Kuribo(std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager) :GameObject(shp_arg_transform, shp_arg_gameObjectManager)
+#define PI 3.141592654f
+
+Framework::Bat::Bat(std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager) :GameObject(shp_arg_transform, shp_arg_gameObjectManager)
 {
 	velocity = Vector2(0.0f, 0.0f);
-	speed = 1.0f;
+	speed = 2.0f;
 	gravity = 0.6f;
 	maxFallSpeed = 6.0f;
+	flapCounter = 0.0f;
+	huwaCounter = 0.0f;
 	isBound = false;
 
 	phisicsForce = Vector2(0, 0);
@@ -16,9 +20,9 @@ Framework::Kuribo::Kuribo(std::shared_ptr<Transform> shp_arg_transform, std::sha
 }
 
 
-Framework::Kuribo::~Kuribo() {}
+Framework::Bat::~Bat() {}
 
-void Framework::Kuribo::Hit(std::shared_ptr<GameObject> other)
+void Framework::Bat::Hit(std::shared_ptr<GameObject> other)
 {
 	if (other->GetObjectTag() == ObjectTag::supporter || other->GetObjectTag() == ObjectTag::sencer) {
 		return;
@@ -72,9 +76,9 @@ void Framework::Kuribo::Hit(std::shared_ptr<GameObject> other)
 	shp_collisionRect->Update();
 }
 
-void Framework::Kuribo::PreInitialize()
+void Framework::Bat::PreInitialize()
 {
-	auto handle = Game::GetInstance()->GetResourceController()->GetTexture("pumpkin.png");
+	auto handle = Game::GetInstance()->GetResourceController()->GetTexture("potato.png");
 
 	std::vector<ObjectTag> tags;
 	tags.push_back(ObjectTag::obstacle);
@@ -116,7 +120,7 @@ void Framework::Kuribo::PreInitialize()
 	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(32, 32)), GetThis<GameObject>());
 }
 
-bool Framework::Kuribo::Update() {
+bool Framework::Bat::Update() {
 	Move();
 	shp_collisionRect->Update();
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture, 1);
@@ -128,20 +132,34 @@ bool Framework::Kuribo::Update() {
 	return true;
 }
 
-bool Framework::Kuribo::Move() {
+bool Framework::Bat::Move() {
 	if (isBound) {
 		velocity.x = 1;
 	}
-	else{
+	else {
 		velocity.x = -1;
 	}
+
+	//ふわふわ
+	huwaCounter++;
+	if (huwaCounter >= 360.0f) {
+		huwaCounter = 0.0f;
+	}
+	velocity.y = sin(PI * 2 / 60 * huwaCounter);
+
 	velocity.Normalize();
 	transform->localPosition += ((Vector2)(velocity * speed)) + ((Vector2)(phisicsForce));
 
-	phisicsForce.y += gravity;
-	if (phisicsForce.y > maxFallSpeed) {
-		phisicsForce.y = maxFallSpeed;
-	}
+	//float flapMax = 2.0f;
+	//flapCounter++;
+	//if (flapCounter > flapMax) {
+	//	gravity *= -1;
+	//	flapCounter = 0.0f;
+	//}
+	//phisicsForce.y += gravity;
+	//if (phisicsForce.y > maxFallSpeed) {
+	//	phisicsForce.y = maxFallSpeed;
+	//}
 
 	return true;
 }

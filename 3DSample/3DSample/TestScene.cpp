@@ -26,6 +26,10 @@ void Framework::TestScene::Initialize()
 	auto kuribo = ObjectFactory::Create<Kuribo>(shp_transform3, shp_gameObjectManager);
 	shp_gameObjectManager->AddObject_Init(kuribo);
 
+	auto shp_transform4 = ObjectFactory::Create<Transform>(Vector3(300, 650, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
+	auto bat = ObjectFactory::Create<Bat>(shp_transform4, shp_gameObjectManager);
+	shp_gameObjectManager->AddObject_Init(bat);
+
 	shp_gameObjectManager->AddObject_Init(ObjectFactory::Create<Cameraman_Chase>(shp_transform,shp_gameObjectManager));
 
 
