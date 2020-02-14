@@ -29,8 +29,7 @@ namespace Framework {
 		float speed,
 			gravity,
 			maxFallSpeed;
-		bool isGround,
-			isBound;
+		bool isGround;
 
 	};
 }

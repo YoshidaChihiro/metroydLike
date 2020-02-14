@@ -31,11 +31,11 @@ void Framework::Player::Hit(std::shared_ptr<GameObject> other)
 	if (other->GetObjectTag() == ObjectTag::supporter|| other->GetObjectTag() == ObjectTag::sencer) {
 		return;
 	}
-	if (other->GetObjectTag() == ObjectTag::enemy) {
-		//死亡
-		
+	if (other->GetObjectTag() == ObjectTag::kuribo || other->GetObjectTag() == ObjectTag::bat) {
+		SetIsDead(true);
 		return;
 	}
+
 	//
 	Vector3 mapchipPos = other->transform->GetPosition();
 	auto otherRect= other->GetThis<MapChipObject>()->GetRectangle();

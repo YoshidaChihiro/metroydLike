@@ -7,16 +7,16 @@
 Framework::Bat::Bat(std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager) :GameObject(shp_arg_transform, shp_arg_gameObjectManager)
 {
 	velocity = Vector2(0.0f, 0.0f);
-	speed = 2.0f;
+	tergetPos = Vector2(1.0f, 0.0f);
+	speed = 1.0f;
 	gravity = 0.6f;
 	maxFallSpeed = 6.0f;
 	flapCounter = 0.0f;
 	huwaCounter = 0.0f;
-	isBound = false;
 
 	phisicsForce = Vector2(0, 0);
 
-	tag = ObjectTag::enemy;
+	tag = ObjectTag::bat;
 }
 
 
@@ -24,15 +24,20 @@ Framework::Bat::~Bat() {}
 
 void Framework::Bat::Hit(std::shared_ptr<GameObject> other)
 {
-	if (other->GetObjectTag() == ObjectTag::supporter || other->GetObjectTag() == ObjectTag::sencer) {
+	if (other->GetObjectTag() == ObjectTag::supporter || other->GetObjectTag() == ObjectTag::sencer || other->GetObjectTag() == ObjectTag::player) {
 		return;
 	}
-	if (other->GetObjectTag() == ObjectTag::player) {
+
+	if (other->GetObjectTag() == ObjectTag::kuribo || other->GetObjectTag() == ObjectTag::bat) {
+		if (tergetPos.x == -1.0f) {
+			tergetPos.x = 1.0f;
+		}
+		else{
+			tergetPos.x = -1.0f;
+		}
 		return;
 	}
-	if (other->GetObjectTag() == ObjectTag::enemy) {
-		return;
-	}
+
 	//
 	Vector3 mapchipPos = other->transform->GetPosition();
 	auto otherRect = other->GetThis<MapChipObject>()->GetRectangle();
@@ -59,18 +64,14 @@ void Framework::Bat::Hit(std::shared_ptr<GameObject> other)
 		overlap = shp_collisionRect->rect->GetRight() - otherRect->GetLeft();
 		overlap = abs(overlap);
 		transform->localPosition.x -= overlap;
-		velocity.x = 0;
-		phisicsForce.x = 0;
-		isBound = false;
+		tergetPos.x = -1.0f;
 	}
 
 	if (sencerInputs[2] == other) {
 		overlap = otherRect->GetRight() - shp_collisionRect->rect->GetLeft();
 		overlap = abs(overlap);
 		transform->localPosition.x += overlap;
-		velocity.x = 0;
-		phisicsForce.x = 0;
-		isBound = true;
+		tergetPos.x = 1.0f;
 	}
 
 	shp_collisionRect->Update();
@@ -133,12 +134,7 @@ bool Framework::Bat::Update() {
 }
 
 bool Framework::Bat::Move() {
-	if (isBound) {
-		velocity.x = 1;
-	}
-	else {
-		velocity.x = -1;
-	}
+	velocity = tergetPos - transform->localPosition;
 
 	//ふわふわ
 	huwaCounter++;
@@ -149,17 +145,6 @@ bool Framework::Bat::Move() {
 
 	velocity.Normalize();
 	transform->localPosition += ((Vector2)(velocity * speed)) + ((Vector2)(phisicsForce));
-
-	//float flapMax = 2.0f;
-	//flapCounter++;
-	//if (flapCounter > flapMax) {
-	//	gravity *= -1;
-	//	flapCounter = 0.0f;
-	//}
-	//phisicsForce.y += gravity;
-	//if (phisicsForce.y > maxFallSpeed) {
-	//	phisicsForce.y = maxFallSpeed;
-	//}
 
 	return true;
 }

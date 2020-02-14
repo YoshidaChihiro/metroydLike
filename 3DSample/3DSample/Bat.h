@@ -25,14 +25,14 @@ namespace Framework {
 		std::vector< std::shared_ptr<GameObject>> sencerInputs;//0 top, 1 bottom,2 left.3 right
 
 		Vector2  velocity,
-			phisicsForce;
+			phisicsForce,
+			tergetPos;
 		float speed,
 			gravity,
 			maxFallSpeed,
 			flapCounter,
 			huwaCounter;
-		bool isGround,
-			isBound;
+		bool isGround;
 
 	};
 }

@@ -8,11 +8,10 @@ Framework::Kuribo::Kuribo(std::shared_ptr<Transform> shp_arg_transform, std::sha
 	speed = 1.0f;
 	gravity = 0.6f;
 	maxFallSpeed = 6.0f;
-	isBound = false;
 
 	phisicsForce = Vector2(0, 0);
 
-	tag = ObjectTag::enemy;
+	tag = ObjectTag::kuribo;
 }
 
 
@@ -20,15 +19,16 @@ Framework::Kuribo::~Kuribo() {}
 
 void Framework::Kuribo::Hit(std::shared_ptr<GameObject> other)
 {
-	if (other->GetObjectTag() == ObjectTag::supporter || other->GetObjectTag() == ObjectTag::sencer) {
+	if (other->GetObjectTag() == ObjectTag::supporter || other->GetObjectTag() == ObjectTag::sencer || other->GetObjectTag() == ObjectTag::player) {
 		return;
 	}
-	if (other->GetObjectTag() == ObjectTag::player) {
+
+	if (other->GetObjectTag() == ObjectTag::kuribo || other->GetObjectTag() == ObjectTag::bat) {
+
 		return;
 	}
-	if (other->GetObjectTag() == ObjectTag::enemy) {
-		return;
-	}
+
+
 	//
 	Vector3 mapchipPos = other->transform->GetPosition();
 	auto otherRect = other->GetThis<MapChipObject>()->GetRectangle();
@@ -55,18 +55,14 @@ void Framework::Kuribo::Hit(std::shared_ptr<GameObject> other)
 		overlap = shp_collisionRect->rect->GetRight() - otherRect->GetLeft();
 		overlap = abs(overlap);
 		transform->localPosition.x -= overlap;
-		velocity.x = 0;
-		phisicsForce.x = 0;
-		isBound = false;
+
 	}
 
 	if (sencerInputs[2] == other) {
 		overlap = otherRect->GetRight() - shp_collisionRect->rect->GetLeft();
 		overlap = abs(overlap);
 		transform->localPosition.x += overlap;
-		velocity.x = 0;
-		phisicsForce.x = 0;
-		isBound = true;
+
 	}
 
 	shp_collisionRect->Update();
@@ -74,6 +70,7 @@ void Framework::Kuribo::Hit(std::shared_ptr<GameObject> other)
 
 void Framework::Kuribo::PreInitialize()
 {
+	velocity.x = -1.0f;
 	auto handle = Game::GetInstance()->GetResourceController()->GetTexture("pumpkin.png");
 
 	std::vector<ObjectTag> tags;
@@ -129,12 +126,7 @@ bool Framework::Kuribo::Update() {
 }
 
 bool Framework::Kuribo::Move() {
-	if (isBound) {
-		velocity.x = 1;
-	}
-	else{
-		velocity.x = -1;
-	}
+
 	velocity.Normalize();
 	transform->localPosition += ((Vector2)(velocity * speed)) + ((Vector2)(phisicsForce));
 
