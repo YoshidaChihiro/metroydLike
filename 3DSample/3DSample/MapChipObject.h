@@ -63,4 +63,43 @@ namespace Framework {
 		MapChip_Gate(std::string arg_changeScenesName, Vector2 arg_exitPosition, std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager);
 		std::shared_ptr< Resource_Texture> shp_texture;
 	};
+	class MapChip_Kuribo :public MapChipObject {
+	public:
+		friend class ObjectFactory;
+		MapChip_Kuribo(std::shared_ptr<GameObjectManager> arg_manager);
+		std::shared_ptr<MapChipObject> Clone(Vector3 position)override;
+		bool Update()override;
+		void Initialize()override;
+		void PreInitialize()override {};
+	private:
+		MapChip_Kuribo(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager);
+		
+	};
+
+	class MapChip_Bat :public MapChipObject {
+	public:
+		friend class ObjectFactory;
+		MapChip_Bat(std::shared_ptr<GameObjectManager> arg_manager);
+		std::shared_ptr<MapChipObject> Clone(Vector3 position)override;
+		bool Update()override;
+		void Initialize()override;
+		void PreInitialize()override {};
+	private:
+		MapChip_Bat(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager);
+
+	};
+
+	class MapChip_Teresa :public MapChipObject {
+	public:
+		friend class ObjectFactory;
+		MapChip_Teresa(std::shared_ptr<GameObjectManager> arg_manager);
+		std::shared_ptr<MapChipObject> Clone(Vector3 position)override;
+		bool Update()override;
+		void Initialize()override;
+		void PreInitialize()override {};
+	private:
+		MapChip_Teresa(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager);
+
+	};
+
 }
