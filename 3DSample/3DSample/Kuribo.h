@@ -17,18 +17,23 @@ namespace Framework {
 		std::shared_ptr<Resource_Texture> shp_texture;
 		std::shared_ptr<Collision2D_Rectangle>shp_collisionRect;
 
+		std::shared_ptr< Rectangle> GetRectangle() { return shp_collisionRect->rect; }
 	private:
 		std::shared_ptr<Transform> shp_gameObjectManager;
 
 		bool Move();
 
 		std::vector< std::shared_ptr<GameObject>> sencerInputs;//0 top, 1 bottom,2 left.3 right
+		std::vector< std::shared_ptr<GameObject>> sencerInputs_kuribo;
+		std::vector< std::shared_ptr<GameObject>> sencerInputs_bat;
 
 		Vector2  velocity,
-			phisicsForce;
+			phisicsForce,
+			prevVelocity;
 		float speed,
 			gravity,
-			maxFallSpeed;
+			maxFallSpeed,
+			overlap;
 		bool isGround;
 
 	};
