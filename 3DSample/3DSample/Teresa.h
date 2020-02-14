@@ -8,12 +8,13 @@ namespace Framework {
 	class Teresa :public GameObject
 	{
 	public:
-		Teresa(std::shared_ptr<Transform> shp_arg_player_transform, std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager);
+		Teresa( std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager);
 		~Teresa();
 		void Hit(std::shared_ptr<GameObject> other)override;
 		void PreInitialize()override;
 		bool Update()override;
 
+		bool Release()override;
 		std::shared_ptr<Resource_Texture> shp_texture;
 		std::shared_ptr<Collision2D_Rectangle>shp_collisionRect;
 

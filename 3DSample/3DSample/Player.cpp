@@ -223,7 +223,7 @@ bool Framework::Player::Throw() {
 	if (vec_childs.size() == 0) {
 		return true;
 	}
-	if (Input::GetKeyDown(KEY_INPUT_S)) {
+	if (Input::GetButtonDown(XINPUT_BUTTON_RIGHT_SHOULDER)) {
 		auto throwChild = vec_childs.begin();
 		RemoveChildObject(vec_childs.at(0));
 		(*throwChild)->Throw(shp_cursol->GetWorldTransform());

@@ -3,15 +3,14 @@
 #include"MapChipObject.h"
 #include"Sencer.h"
 
-Framework::Teresa::Teresa(std::shared_ptr<Transform> shp_arg_player_transform, std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager) :GameObject(shp_arg_transform, shp_arg_gameObjectManager)
+Framework::Teresa::Teresa(std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager) :GameObject(shp_arg_transform, shp_arg_gameObjectManager)
 {
 	velocity = Vector2(0.0f, 0.0f);
 	speed = 1.0f;
 	spaceDistance = 400.0f;
 	phisicsForce = Vector2(0, 0);
 	
-	shp_player_transform = shp_arg_player_transform->GetThis<Transform>();
-	tag = ObjectTag::teresa;
+	tag = ObjectTag::enemy;
 }
 
 
@@ -19,12 +18,19 @@ Framework::Teresa::~Teresa() {}
 
 void Framework::Teresa::Hit(std::shared_ptr<GameObject> other)
 {
+	if (other->GetObjectTag() == ObjectTag::playerBullet) {
+		SetIsDead(true);
+		return;
+	}
 	return;
 }
 
 void Framework::Teresa::PreInitialize()
 {
 	auto handle = Game::GetInstance()->GetResourceController()->GetTexture("watermelon.png");
+
+
+	//shp_player_transform = manager->SerchGameObject(ObjectTag::player)->transform->GetThis<Transform>();
 
 	std::vector<ObjectTag> tags;
 	tags.push_back(ObjectTag::obstacle);
@@ -67,13 +73,23 @@ void Framework::Teresa::PreInitialize()
 }
 
 bool Framework::Teresa::Update() {
-	Move();
+	//AI‰ü‘P‚Ì‚½‚ß’âŽ~
+	//Move();
 	shp_collisionRect->Update();
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture, 1);
 	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
 	for (int i = 0; i < 4; i++) {
 		sencerInputs[i] = nullptr;
 	}
+	return true;
+}
+
+bool Framework::Teresa::Release()
+{
+	shp_collisionRect->Releace();
+	sencerInputs.clear();
+	shp_collisionRect = nullptr;
+	shp_texture = nullptr;
 	return true;
 }
 

@@ -11,6 +11,7 @@ namespace Framework {
 		std::shared_ptr<Collision2D_Rectangle> GetShpCollision() { return shp_collisionRect; };
 		std::shared_ptr< Rectangle> GetRectangle() { return shp_collisionRect->rect; }
 		bool Release()override;
+		virtual void Replace() {};
 	protected:
 		friend class ObjectFactory;
 		MapChipObject(std::shared_ptr<GameObjectManager> arg_manager) :GameObject(ObjectFactory::Create<Transform>(), arg_manager) {
@@ -133,6 +134,8 @@ namespace Framework {
 		bool Update()override;
 		void Initialize()override;
 		void PreInitialize()override {};
+		void Replace()override;
+		bool isClone=false;
 	private:
 		MapChip_Kuribo(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager);
 		
@@ -146,6 +149,8 @@ namespace Framework {
 		bool Update()override;
 		void Initialize()override;
 		void PreInitialize()override {};
+		bool isClone = false;
+		void Replace()override;
 	private:
 		MapChip_Bat(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager);
 
@@ -159,6 +164,8 @@ namespace Framework {
 		bool Update()override;
 		void Initialize()override;
 		void PreInitialize()override {};
+		bool isClone = false;
+		void Replace()override;
 	private:
 		MapChip_Teresa(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager);
 

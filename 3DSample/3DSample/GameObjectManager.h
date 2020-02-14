@@ -24,6 +24,8 @@ namespace Framework {
 
 		void RemoveObject(std::shared_ptr<GameObject> shp_arg_removeObject);
 
+		void DeathRemoveGameObjects(ObjectTag tag);
+
 		void Initialize()override {};
 
 		void PreInitialize()override {};

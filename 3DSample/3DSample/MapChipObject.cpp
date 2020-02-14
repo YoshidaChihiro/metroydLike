@@ -86,6 +86,7 @@ void Framework::MapChip_Gate::Hit(std::shared_ptr<GameObject> other)
 	}
 
 	manager->RemoveObject(player);
+	manager->DeathRemoveGameObjects(ObjectTag::enemy);
 	Game::GetInstance()->GetSceneManager()->ChangeScene(changeScenesName, 0, sceneOverOgjs);
 }
 
@@ -151,10 +152,13 @@ void Framework::MapChip_ChildBlock::Initialize()
 }
 
 Framework::MapChip_ChildBlock::MapChip_ChildBlock(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager)
+	:MapChipObject(arg_transform, arg_manager->GetThis<GameObjectManager>())
+{}
 
 
 Framework::MapChip_Kuribo::MapChip_Kuribo(std::shared_ptr<GameObjectManager> arg_manager) :MapChipObject(arg_manager->GetThis<GameObjectManager>())
 {
+	tag = ObjectTag::none;
 }
 std::shared_ptr<Framework::MapChipObject> Framework::MapChip_Kuribo::Clone(Vector3 position)
 {
@@ -167,11 +171,22 @@ bool Framework::MapChip_Kuribo::Update()
 }
 void Framework::MapChip_Kuribo::Initialize()
 {
+	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
+	
+	
+}
+void Framework::MapChip_Kuribo::Replace()
+{
+	if (isClone) {
+		auto enemyTransform = ObjectFactory::Create<Transform>(transform->GetPosition());
+		manager->AddObject_Init(ObjectFactory::Create<Kuribo>(enemyTransform, manager));
+	}
 }
 Framework::MapChip_Kuribo::MapChip_Kuribo(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager)
- origin/chihiro_side_enemy
 	:MapChipObject(arg_transform, arg_manager->GetThis<GameObjectManager>())
 {
+	tag = ObjectTag::none;
+	isClone = true;
 }
 
 Framework::MapChip_CrushBlock::MapChip_CrushBlock(std::shared_ptr<GameObjectManager> arg_manager) 
@@ -326,6 +341,7 @@ Framework::ChildSeedSpawner::ChildSeedSpawner(std::shared_ptr<Transform> arg_tra
 
 Framework::MapChip_Bat::MapChip_Bat(std::shared_ptr<GameObjectManager> arg_manager) : MapChipObject(arg_manager->GetThis<GameObjectManager>())
 {
+	tag = ObjectTag::none;
 }
 std::shared_ptr<Framework::MapChipObject> Framework::MapChip_Bat::Clone(Vector3 position)
 {
@@ -338,15 +354,28 @@ bool Framework::MapChip_Bat::Update()
 }
 void Framework::MapChip_Bat::Initialize()
 {
+	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
+
+	
+}
+void Framework::MapChip_Bat::Replace()
+{
+	if (isClone) {
+		auto enemyTransform = ObjectFactory::Create<Transform>(transform->GetPosition());
+		manager->AddObject_Init(ObjectFactory::Create<Bat>(enemyTransform, manager));
+	}
 }
 Framework::MapChip_Bat::MapChip_Bat(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager)
 	:MapChipObject(arg_transform, arg_manager->GetThis<GameObjectManager>())
 {
+	tag = ObjectTag::none;
+	isClone = true;
 }
 
 
 Framework::MapChip_Teresa::MapChip_Teresa(std::shared_ptr<GameObjectManager> arg_manager) : MapChipObject(arg_manager->GetThis<GameObjectManager>())
 {
+	tag = ObjectTag::none;
 }
 std::shared_ptr<Framework::MapChipObject> Framework::MapChip_Teresa::Clone(Vector3 position)
 {
@@ -359,8 +388,20 @@ bool Framework::MapChip_Teresa::Update()
 }
 void Framework::MapChip_Teresa::Initialize()
 {
+	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
+
+	
+}
+void Framework::MapChip_Teresa::Replace()
+{
+	if (isClone) {
+		auto enemyTransform = ObjectFactory::Create<Transform>(transform->GetPosition());
+		manager->AddObject_Init(ObjectFactory::Create<Teresa>(enemyTransform, manager));
+	}
 }
 Framework::MapChip_Teresa::MapChip_Teresa(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager)
 	:MapChipObject(arg_transform, arg_manager->GetThis<GameObjectManager>())
 {
+	tag = ObjectTag::none;
+	isClone = true;
 }

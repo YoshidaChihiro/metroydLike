@@ -38,6 +38,23 @@ void Framework::GameObjectManager::RemoveObject(std::shared_ptr<GameObject> shp_
 	}
 }
 
+void Framework::GameObjectManager::DeathRemoveGameObjects(ObjectTag tag)
+{
+	auto itr = vec_shp_gameObjects.begin();
+	while (itr!=vec_shp_gameObjects.end())
+	{
+		if ((*itr)->GetObjectTag() == tag) {
+			(*itr)->SetIsDead(true);
+			(*itr)->Release();
+			itr = vec_shp_gameObjects.erase(itr);
+		}
+		else {
+			itr++;
+		}
+	}
+
+}
+
 void Framework::GameObjectManager::Release()
 {
 

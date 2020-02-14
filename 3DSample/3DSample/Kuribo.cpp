@@ -13,7 +13,7 @@ Framework::Kuribo::Kuribo(std::shared_ptr<Transform> shp_arg_transform, std::sha
 
 	phisicsForce = Vector2(0, 0);
 
-	tag = ObjectTag::kuribo;
+	tag = ObjectTag::enemy;
 }
 
 
@@ -21,16 +21,18 @@ Framework::Kuribo::~Kuribo() {}
 
 void Framework::Kuribo::Hit(std::shared_ptr<GameObject> other)
 {
-	if (other->GetObjectTag() == ObjectTag::supporter || other->GetObjectTag() == ObjectTag::sencer
-		|| other->GetObjectTag() == ObjectTag::player || other->GetObjectTag() == ObjectTag::teresa) {
+	if (other->GetObjectTag() == ObjectTag::playerBullet ) {
+		SetIsDead(true);
 		return;
 	}
 
-	if (other->GetObjectTag() == ObjectTag::kuribo) {
+	if (other->GetObjectTag() == ObjectTag::enemy) {
+		//敵同士の当たり判定、いる？
+		return;
 		auto otherRect = other->GetThis<Kuribo>()->GetRectangle();
 		overlap = 0.0f;
 
-		if (sencerInputs_kuribo[3] == other) {
+		if (sencerInputs[3] == other) {
 			overlap = shp_collisionRect->rect->GetRight() - otherRect->GetLeft();
 			overlap = abs(overlap);
 			transform->localPosition.x -= overlap;
@@ -42,7 +44,7 @@ void Framework::Kuribo::Hit(std::shared_ptr<GameObject> other)
 			}
 		}
 
-		if (sencerInputs_kuribo[2] == other) {
+		if (sencerInputs[2] ==other) {
 			overlap = otherRect->GetRight() - shp_collisionRect->rect->GetLeft();
 			overlap = abs(overlap);
 			transform->localPosition.x += overlap;
@@ -56,11 +58,30 @@ void Framework::Kuribo::Hit(std::shared_ptr<GameObject> other)
 		shp_collisionRect->Update();
 		return;
 	}
-	if (other->GetObjectTag() == ObjectTag::bat) {
-		auto otherRect = other->GetThis<Bat>()->GetRectangle();
+
+	if (other->GetObjectTag() == ObjectTag::obstacle) {
+
+		auto otherRect = other->GetThis<MapChipObject>()->GetRectangle();
 		overlap = 0.0f;
 
-		if (sencerInputs_bat[3] == other) {
+		if (sencerInputs[1] == other) {
+			overlap = shp_collisionRect->rect->GetBottom() - otherRect->GetTop();
+			overlap = abs(overlap);
+			transform->localPosition.y -= overlap;
+			isGround = true;
+			//���n
+			phisicsForce.y = 0.0f;
+
+		}
+		if (sencerInputs[0] == other) {
+			overlap = otherRect->GetBottom() - shp_collisionRect->rect->GetTop();
+
+			overlap = abs(overlap);
+			transform->localPosition.y += overlap;
+		}
+
+		shp_collisionRect->Update();
+		if (sencerInputs[3] == other) {
 			overlap = shp_collisionRect->rect->GetRight() - otherRect->GetLeft();
 			overlap = abs(overlap);
 			transform->localPosition.x -= overlap;
@@ -72,7 +93,7 @@ void Framework::Kuribo::Hit(std::shared_ptr<GameObject> other)
 			}
 		}
 
-		if (sencerInputs_bat[2] == other) {
+		if (sencerInputs[2] == other) {
 			overlap = otherRect->GetRight() - shp_collisionRect->rect->GetLeft();
 			overlap = abs(overlap);
 			transform->localPosition.x += overlap;
@@ -83,57 +104,9 @@ void Framework::Kuribo::Hit(std::shared_ptr<GameObject> other)
 				velocity.x = 1;
 			}
 		}
+
 		shp_collisionRect->Update();
-		return;
 	}
-
-
-	Vector3 mapchipPos = other->transform->GetPosition();
-	auto otherRect = other->GetThis<MapChipObject>()->GetRectangle();
-	overlap = 0.0f;
-
-	if (sencerInputs[1] == other) {
-		overlap = shp_collisionRect->rect->GetBottom() - otherRect->GetTop();
-		overlap = abs(overlap);
-		transform->localPosition.y -= overlap;
-		isGround = true;
-		//���n
-		phisicsForce.y = 0.0f;
-
-	}
-	if (sencerInputs[0] == other) {
-		overlap = otherRect->GetBottom() - shp_collisionRect->rect->GetTop();
-
-		overlap = abs(overlap);
-		transform->localPosition.y += overlap;
-	}
-
-	shp_collisionRect->Update();
-	if (sencerInputs[3] == other) {
-		overlap = shp_collisionRect->rect->GetRight() - otherRect->GetLeft();
-		overlap = abs(overlap);
-		transform->localPosition.x -= overlap;
-		if (prevVelocity.x > 0) {
-			velocity.x = -1;
-		}
-		if (prevVelocity.x < 0) {
-			velocity.x = 1;
-		}
-	}
-
-	if (sencerInputs[2] == other) {
-		overlap = otherRect->GetRight() - shp_collisionRect->rect->GetLeft();
-		overlap = abs(overlap);
-		transform->localPosition.x += overlap;
-		if (prevVelocity.x > 0) {
-			velocity.x = -1;
-		}
-		if (prevVelocity.x < 0) {
-			velocity.x = 1;
-		}
-	}
-
-	shp_collisionRect->Update();
 }
 
 void Framework::Kuribo::PreInitialize()
@@ -176,55 +149,6 @@ void Framework::Kuribo::PreInitialize()
 	AddChildObject(sencer_left);
 	AddChildObject(sencer_right);
 
-#pragma region kuribo
-	std::vector<ObjectTag> tags_kuribo;
-	tags_kuribo.push_back(ObjectTag::kuribo);
-
-	sencerInputs_kuribo.push_back(nullptr);
-	sencerInputs_kuribo.push_back(nullptr);
-	sencerInputs_kuribo.push_back(nullptr);
-	sencerInputs_kuribo.push_back(nullptr);
-
-	auto sencer_top_kuribo = ObjectFactory::Create<Sencer>(sencerTransform_top, manager, tags_kuribo, &sencerInputs_kuribo.at(0), 1, 8);
-	auto sencer_bottom_kuribo = ObjectFactory::Create<Sencer>(sencerTransform_bottom, manager, tags_kuribo, &sencerInputs_kuribo.at(1), 1, 8);
-	auto sencer_left_kuribo = ObjectFactory::Create<Sencer>(sencerTransform_left, manager, tags_kuribo, &sencerInputs_kuribo.at(2), 8, 1);
-	auto sencer_right_kuribo = ObjectFactory::Create<Sencer>(sencerTransform_right, manager, tags_kuribo, &sencerInputs_kuribo.at(3), 8, 1);
-
-	manager->AddObject_Init(sencer_top_kuribo);
-	manager->AddObject_Init(sencer_bottom_kuribo);
-	manager->AddObject_Init(sencer_left_kuribo);
-	manager->AddObject_Init(sencer_right_kuribo);
-
-	AddChildObject(sencer_top_kuribo);
-	AddChildObject(sencer_bottom_kuribo);
-	AddChildObject(sencer_left_kuribo);
-	AddChildObject(sencer_right_kuribo);
-#pragma endregion
-
-#pragma region bat
-	std::vector<ObjectTag> tags_bat;
-	tags_bat.push_back(ObjectTag::bat);
-
-	sencerInputs_bat.push_back(nullptr);
-	sencerInputs_bat.push_back(nullptr);
-	sencerInputs_bat.push_back(nullptr);
-	sencerInputs_bat.push_back(nullptr);
-
-	auto sencer_top_bat = ObjectFactory::Create<Sencer>(sencerTransform_top, manager, tags_bat, &sencerInputs_bat.at(0), 1, 8);
-	auto sencer_bottom_bat = ObjectFactory::Create<Sencer>(sencerTransform_bottom, manager, tags_bat, &sencerInputs_bat.at(1), 1, 8);
-	auto sencer_left_bat = ObjectFactory::Create<Sencer>(sencerTransform_left, manager, tags_bat, &sencerInputs_bat.at(2), 8, 1);
-	auto sencer_right_bat = ObjectFactory::Create<Sencer>(sencerTransform_right, manager, tags_bat, &sencerInputs_bat.at(3), 8, 1);
-
-	manager->AddObject_Init(sencer_top_bat);
-	manager->AddObject_Init(sencer_bottom_bat);
-	manager->AddObject_Init(sencer_left_bat);
-	manager->AddObject_Init(sencer_right_bat);
-
-	AddChildObject(sencer_top_bat);
-	AddChildObject(sencer_bottom_bat);
-	AddChildObject(sencer_left_bat);
-	AddChildObject(sencer_right_bat);
-#pragma endregion
 
 	shp_texture = ObjectFactory::Create<Resource_Texture>(handle, transform, false, false);
 	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(32, 32)), GetThis<GameObject>());
@@ -237,10 +161,17 @@ bool Framework::Kuribo::Update() {
 	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
 	for (int i = 0; i < 4; i++) {
 		sencerInputs[i] = nullptr;
-		sencerInputs_kuribo[i] = nullptr;
-		sencerInputs_bat[i] = nullptr;
 	}
 	isGround = false;
+	return true;
+}
+
+bool Framework::Kuribo::Release()
+{
+	shp_collisionRect->Releace();
+	sencerInputs.clear();
+	shp_collisionRect = nullptr;
+	shp_texture = nullptr;
 	return true;
 }
 

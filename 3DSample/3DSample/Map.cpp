@@ -14,6 +14,14 @@ void Framework::Map::Reload()
 
 	Game::GetInstance()->GetResourceController()->GetScreenInformation()->SetFieldWidth(glidSize*mapWidth);
 	Game::GetInstance()->GetResourceController()->GetScreenInformation()->SetFieldHeight(glidSize*mapHeight);
+
+	for (int x = 0; x < mapWidth; x++) {
+		for (int y = 0; y < mapHeight; y++) {
+			if (mapObjects[x][y] != nullptr&&!mapObjects[x][y]->GetIsDead()) {
+				mapObjects[x][y]->GetThis<MapChipObject>()-> Replace();
+			}
+		}
+	}
 }
 
 void Framework::Map::Initialize()
@@ -152,6 +160,10 @@ void Framework::Map::GenerateMap(std::shared_ptr< CSVData> csvData, int arg_glid
 
 		ObjectFactory::Create<Medal>(manager),//28
 		ObjectFactory::Create<ChildSeedSpawner>(manager),//29
+
+		ObjectFactory::Create<MapChip_Kuribo>(manager),//30
+		ObjectFactory::Create<MapChip_Bat>(manager),//31
+		ObjectFactory::Create<MapChip_Teresa>(manager),//31
 			   
 	};
 
