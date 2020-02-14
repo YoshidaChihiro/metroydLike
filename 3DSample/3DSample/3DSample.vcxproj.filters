@@ -108,6 +108,15 @@
     </ClCompile>
     <ClCompile Include="ObjectDelayCreater.cpp" />
     <ClCompile Include="ChildSeed.cpp" />
+    <ClCompile Include="Kuribo.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Bat.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Teresa.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ButiMath.h">
@@ -223,6 +232,15 @@
     </ClInclude>
     <ClInclude Include="ObjectDelayCreater.h" />
     <ClInclude Include="ChildSeed.h" />
+    <ClInclude Include="Kuribo.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="Bat.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="Teresa.h">
+      <Filter>header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="header">

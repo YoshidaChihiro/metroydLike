@@ -141,6 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AbsTimer.cpp" />
+    <ClCompile Include="Bat.cpp" />
     <ClCompile Include="Cameraman.cpp" />
     <ClCompile Include="Child.cpp" />
     <ClCompile Include="ChildSeed.cpp" />
@@ -156,6 +157,7 @@
     <ClCompile Include="GameTime.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="IScene.cpp" />
+    <ClCompile Include="Kuribo.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MapChipObject.cpp" />
@@ -173,6 +175,7 @@
     <ClCompile Include="Sencer.cpp" />
     <ClCompile Include="StopWatch.cpp" />
     <ClCompile Include="StringHelper.cpp" />
+    <ClCompile Include="Teresa.cpp" />
     <ClCompile Include="TestObject.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="Transform.cpp" />
@@ -180,6 +183,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbsTimer.h" />
+    <ClInclude Include="Bat.h" />
     <ClInclude Include="ButiMath.h" />
     <ClInclude Include="Cameraman.h" />
     <ClInclude Include="Child.h" />
@@ -196,6 +200,7 @@
     <ClInclude Include="GameTime.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="IScene.h" />
+    <ClInclude Include="Kuribo.h" />
     <ClInclude Include="Library.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapChipObject.h" />
@@ -214,6 +219,7 @@
     <ClInclude Include="Sencer.h" />
     <ClInclude Include="StopWatch.h" />
     <ClInclude Include="StringHelper.h" />
+    <ClInclude Include="Teresa.h" />
     <ClInclude Include="TestObject.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="Transform.h" />

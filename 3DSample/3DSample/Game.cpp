@@ -78,6 +78,13 @@ bool Framework::Game::ResourceLoad()
 	unq_resourceController->LoadTexture("cursol.png");
 
 	unq_resourceController->LoadCreateFont("testFont", "MS　明朝", 32, -1, DX_FONTTYPE_NORMAL);
+	unq_resourceController->LoadTexture("pumpkin.png");
+
+	unq_resourceController->LoadTexture("potato.png");
+
+	unq_resourceController->LoadTexture("watermelon.png");
+
+
 	return true;
 }
 

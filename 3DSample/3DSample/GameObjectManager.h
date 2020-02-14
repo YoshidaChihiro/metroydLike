@@ -3,6 +3,9 @@
 #include "TestObject.h"
 #include "Player.h"
 #include "Child.h"
+#include "Kuribo.h"
+#include "Bat.h"
+#include "Teresa.h"
 #include<vector>
 namespace Framework {
 	class GameObjectManager:public IObject

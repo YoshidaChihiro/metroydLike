@@ -151,6 +151,25 @@ void Framework::MapChip_ChildBlock::Initialize()
 }
 
 Framework::MapChip_ChildBlock::MapChip_ChildBlock(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager)
+
+
+Framework::MapChip_Kuribo::MapChip_Kuribo(std::shared_ptr<GameObjectManager> arg_manager) :MapChipObject(arg_manager->GetThis<GameObjectManager>())
+{
+}
+std::shared_ptr<Framework::MapChipObject> Framework::MapChip_Kuribo::Clone(Vector3 position)
+{
+	auto transform = ObjectFactory::Create<Transform>(position);
+	return ObjectFactory::Create<MapChip_Kuribo>(transform, manager->GetThis<GameObjectManager>());
+}
+bool Framework::MapChip_Kuribo::Update()
+{
+	return true;
+}
+void Framework::MapChip_Kuribo::Initialize()
+{
+}
+Framework::MapChip_Kuribo::MapChip_Kuribo(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager)
+ origin/chihiro_side_enemy
 	:MapChipObject(arg_transform, arg_manager->GetThis<GameObjectManager>())
 {
 }
@@ -303,4 +322,45 @@ Framework::ChildSeedSpawner::ChildSeedSpawner(std::shared_ptr<Transform> arg_tra
 
 	:MapChipObject(arg_transform->GetThis<Transform>(), arg_manager->GetThis<GameObjectManager>()) {
 	tag = ObjectTag::item;
+}
+
+Framework::MapChip_Bat::MapChip_Bat(std::shared_ptr<GameObjectManager> arg_manager) : MapChipObject(arg_manager->GetThis<GameObjectManager>())
+{
+}
+std::shared_ptr<Framework::MapChipObject> Framework::MapChip_Bat::Clone(Vector3 position)
+{
+	auto transform = ObjectFactory::Create<Transform>(position);
+	return ObjectFactory::Create<MapChip_Bat>(transform, manager->GetThis<GameObjectManager>());
+}
+bool Framework::MapChip_Bat::Update()
+{
+	return true;
+}
+void Framework::MapChip_Bat::Initialize()
+{
+}
+Framework::MapChip_Bat::MapChip_Bat(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager)
+	:MapChipObject(arg_transform, arg_manager->GetThis<GameObjectManager>())
+{
+}
+
+
+Framework::MapChip_Teresa::MapChip_Teresa(std::shared_ptr<GameObjectManager> arg_manager) : MapChipObject(arg_manager->GetThis<GameObjectManager>())
+{
+}
+std::shared_ptr<Framework::MapChipObject> Framework::MapChip_Teresa::Clone(Vector3 position)
+{
+	auto transform = ObjectFactory::Create<Transform>(position);
+	return ObjectFactory::Create<MapChip_Teresa>(transform, manager->GetThis<GameObjectManager>());
+}
+bool Framework::MapChip_Teresa::Update()
+{
+	return true;
+}
+void Framework::MapChip_Teresa::Initialize()
+{
+}
+Framework::MapChip_Teresa::MapChip_Teresa(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager)
+	:MapChipObject(arg_transform, arg_manager->GetThis<GameObjectManager>())
+{
 }

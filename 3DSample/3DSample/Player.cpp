@@ -30,6 +30,10 @@ void Framework::Player::Hit(std::shared_ptr<GameObject> other)
 	if (other->GetObjectTag() == ObjectTag::playerBullet) {
 		return;
 	}
+	if (other->GetObjectTag() == ObjectTag::enemy) {
+		SetIsDead(true);
+		return;
+	}
 	if (other->GetObjectTag() == ObjectTag::obstacle) {
 		//
 		auto otherRect = other->GetThis<MapChipObject>()->GetRectangle();
@@ -39,6 +43,7 @@ void Framework::Player::Hit(std::shared_ptr<GameObject> other)
 			overlap = shp_collisionRect->rect->GetBottom() - otherRect->GetTop();
 			overlap = abs(overlap);
 			transform->localPosition.y -= overlap;
+	
 			isGround = true;
 			//���n
 			phisicsForce.y = 0.0f;
