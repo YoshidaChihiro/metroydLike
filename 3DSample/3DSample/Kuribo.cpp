@@ -27,6 +27,9 @@ void Framework::Kuribo::Hit(std::shared_ptr<GameObject> other)
 
 		return;
 	}
+	if (other->GetObjectTag() == ObjectTag::teresa) {
+		return;
+	}
 
 
 	//

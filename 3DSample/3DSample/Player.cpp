@@ -31,7 +31,7 @@ void Framework::Player::Hit(std::shared_ptr<GameObject> other)
 	if (other->GetObjectTag() == ObjectTag::supporter|| other->GetObjectTag() == ObjectTag::sencer) {
 		return;
 	}
-	if (other->GetObjectTag() == ObjectTag::kuribo || other->GetObjectTag() == ObjectTag::bat) {
+	if (other->GetObjectTag() == ObjectTag::kuribo || other->GetObjectTag() == ObjectTag::bat || other->GetObjectTag() == ObjectTag::teresa) {
 		SetIsDead(true);
 		return;
 	}

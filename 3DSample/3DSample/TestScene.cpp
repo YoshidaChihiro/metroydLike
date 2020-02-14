@@ -30,6 +30,10 @@ void Framework::TestScene::Initialize()
 	auto bat = ObjectFactory::Create<Bat>(shp_transform4, shp_gameObjectManager);
 	shp_gameObjectManager->AddObject_Init(bat);
 
+	auto shp_transform5 = ObjectFactory::Create<Transform>(Vector3(600, 650, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
+	auto teresa = ObjectFactory::Create<Teresa>(shp_transform2, shp_transform5, shp_gameObjectManager);
+	shp_gameObjectManager->AddObject_Init(teresa);
+
 	shp_gameObjectManager->AddObject_Init(ObjectFactory::Create<Cameraman_Chase>(shp_transform,shp_gameObjectManager));
 
 

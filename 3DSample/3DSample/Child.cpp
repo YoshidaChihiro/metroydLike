@@ -31,7 +31,6 @@ void Framework::Child::PreInitialize()
 void Framework::Child::Initialize()
 {
 	velocity = Vector2(0.0f, 0.0f);
-	prevPosition = Vector2(0.0f, 0.0f);
 	throwDirection = Vector2(0.0f, 0.0f);
 	speed = 4.0f;
 	gravity = 0.2f;
@@ -50,7 +49,6 @@ bool Framework::Child::Update() {
 
 
 	GetJoypadXInputState(DX_INPUT_PAD1, &xinput);
-	prevPosition = transform->localPosition;
 
 	if (state == NormalMode) {
 		Move();

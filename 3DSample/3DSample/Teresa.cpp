@@ -1,87 +1,30 @@
-﻿#include "Bat.h"
+#include "Teresa.h"
 #include "Game.h"
 #include"MapChipObject.h"
 #include"Sencer.h"
-#define PI 3.141592654f
 
-Framework::Bat::Bat(std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager) :GameObject(shp_arg_transform, shp_arg_gameObjectManager)
+Framework::Teresa::Teresa(std::shared_ptr<Transform> shp_arg_player_transform, std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager) :GameObject(shp_arg_transform, shp_arg_gameObjectManager)
 {
 	velocity = Vector2(0.0f, 0.0f);
-	tergetPos = Vector2(1.0f, 0.0f);
 	speed = 1.0f;
-	gravity = 0.6f;
-	maxFallSpeed = 6.0f;
-	huwaCounter = 0.0f;
-
+	spaceDistance = 400.0f;
 	phisicsForce = Vector2(0, 0);
-
-	tag = ObjectTag::bat;
+	
+	shp_player_transform = shp_arg_player_transform->GetThis<Transform>();
+	tag = ObjectTag::teresa;
 }
 
 
-Framework::Bat::~Bat() {}
+Framework::Teresa::~Teresa() {}
 
-void Framework::Bat::Hit(std::shared_ptr<GameObject> other)
+void Framework::Teresa::Hit(std::shared_ptr<GameObject> other)
 {
-	if (other->GetObjectTag() == ObjectTag::supporter || other->GetObjectTag() == ObjectTag::sencer || other->GetObjectTag() == ObjectTag::player) {
-		return;
-	}
-
-	if (other->GetObjectTag() == ObjectTag::kuribo || other->GetObjectTag() == ObjectTag::bat) {
-		if (tergetPos.x == -1.0f) {
-			tergetPos.x = 1.0f;
-		}
-		else{
-			tergetPos.x = -1.0f;
-		}
-		return;
-	}
-	if (other->GetObjectTag() == ObjectTag::teresa) {
-		return;
-	}
-
-	//
-	Vector3 mapchipPos = other->transform->GetPosition();
-	auto otherRect = other->GetThis<MapChipObject>()->GetRectangle();
-	float overlap = 0.0f;
-
-	if (sencerInputs[1] == other) {
-		overlap = shp_collisionRect->rect->GetBottom() - otherRect->GetTop();
-		overlap = abs(overlap);
-		transform->localPosition.y -= overlap;
-		isGround = true;
-		//���n
-		phisicsForce.y = 0.0f;
-
-	}
-	if (sencerInputs[0] == other) {
-		overlap = otherRect->GetBottom() - shp_collisionRect->rect->GetTop();
-
-		overlap = abs(overlap);
-		transform->localPosition.y += overlap;
-	}
-
-	shp_collisionRect->Update();
-	if (sencerInputs[3] == other) {
-		overlap = shp_collisionRect->rect->GetRight() - otherRect->GetLeft();
-		overlap = abs(overlap);
-		transform->localPosition.x -= overlap;
-		tergetPos.x = -1.0f;
-	}
-
-	if (sencerInputs[2] == other) {
-		overlap = otherRect->GetRight() - shp_collisionRect->rect->GetLeft();
-		overlap = abs(overlap);
-		transform->localPosition.x += overlap;
-		tergetPos.x = 1.0f;
-	}
-
-	shp_collisionRect->Update();
+	return;
 }
 
-void Framework::Bat::PreInitialize()
+void Framework::Teresa::PreInitialize()
 {
-	auto handle = Game::GetInstance()->GetResourceController()->GetTexture("potato.png");
+	auto handle = Game::GetInstance()->GetResourceController()->GetTexture("watermelon.png");
 
 	std::vector<ObjectTag> tags;
 	tags.push_back(ObjectTag::obstacle);
@@ -123,7 +66,7 @@ void Framework::Bat::PreInitialize()
 	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(32, 32)), GetThis<GameObject>());
 }
 
-bool Framework::Bat::Update() {
+bool Framework::Teresa::Update() {
 	Move();
 	shp_collisionRect->Update();
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture, 1);
@@ -131,20 +74,27 @@ bool Framework::Bat::Update() {
 	for (int i = 0; i < 4; i++) {
 		sencerInputs[i] = nullptr;
 	}
-	isGround = false;
 	return true;
 }
 
-bool Framework::Bat::Move() {
-	velocity = tergetPos - transform->localPosition;
+bool Framework::Teresa::Move() {
+	auto playerPos = shp_player_transform->GetPosition().GetVector2();
+	auto direction = transform->GetPosition().GetVector2().GetDistance(playerPos);
 
-	//ふわふわ
-	huwaCounter++;
-	if (huwaCounter >= 360.0f) {
-		huwaCounter = 0.0f;
+	if (direction < spaceDistance) {
+		isChase = true;
 	}
-	velocity.y = sin(PI * 2 / 60 * huwaCounter);
+	else {
+		isChase = false;
+	}
 
+	if (isChase) {
+		velocity = shp_player_transform->GetPosition() - transform->GetPosition();
+	}
+	else{
+		velocity = Vector2(0.0f, 0.0f);
+	}
+	
 	velocity.Normalize();
 	transform->localPosition += ((Vector2)(velocity * speed)) + ((Vector2)(phisicsForce));
 

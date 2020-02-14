@@ -5,11 +5,11 @@
 
 
 namespace Framework {
-	class Bat :public GameObject
+	class Teresa :public GameObject
 	{
 	public:
-		Bat(std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager);
-		~Bat();
+		Teresa(std::shared_ptr<Transform> shp_arg_player_transform, std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager);
+		~Teresa();
 		void Hit(std::shared_ptr<GameObject> other)override;
 		void PreInitialize()override;
 		bool Update()override;
@@ -19,19 +19,16 @@ namespace Framework {
 
 	private:
 		std::shared_ptr<Transform> shp_gameObjectManager;
+		std::shared_ptr<Transform> shp_player_transform;
 
 		bool Move();
 
 		std::vector< std::shared_ptr<GameObject>> sencerInputs;//0 top, 1 bottom,2 left.3 right
 
 		Vector2  velocity,
-			phisicsForce,
-			tergetPos;
+			phisicsForce;
 		float speed,
-			gravity,
-			maxFallSpeed,
-			huwaCounter;
-		bool isGround;
-
+			spaceDistance;
+		bool isChase;
 	};
 }

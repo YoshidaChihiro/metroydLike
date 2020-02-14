@@ -88,6 +88,9 @@
     <ClCompile Include="Bat.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="Teresa.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ButiMath.h">
@@ -181,6 +184,9 @@
       <Filter>header</Filter>
     </ClInclude>
     <ClInclude Include="Bat.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="Teresa.h">
       <Filter>header</Filter>
     </ClInclude>
   </ItemGroup>

@@ -4,7 +4,7 @@ namespace Framework {
 	class GameObjectManager;
 
 	enum class ObjectTag {
-		player,enemy,kuribo,bat,obstacle,none,camera,supporter,sencer
+		player,enemy,kuribo,bat,teresa,obstacle,none,camera,supporter,sencer
 	};
 	class GameObject:public IObject
 	{

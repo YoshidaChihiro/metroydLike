@@ -24,7 +24,6 @@ namespace Framework {
 
 		XINPUT_STATE xinput;
 		Vector2 velocity,
-			prevPosition,
 			throwDirection;
 
 		std::shared_ptr<Transform> shp_player_transform;
