@@ -12,7 +12,7 @@ Framework::Particle::Particle(int graphHandle, float layer, std::shared_ptr<Tran
 bool Framework::Particle::Update()
 {
 	lifeSpan--;
-	if (lifeSpan < 0) {
+	if (lifeSpan <= 0) {
 		SetIsDead( true);
 	}
 	transform->localPosition += moveVelocity*speed+phisicsForce;

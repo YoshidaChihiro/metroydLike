@@ -4,6 +4,7 @@
 #include"SceneManager.h"
 #include"Collision2DManager.h"
 #include "CSVReader.h"
+#include"GameTime.h"
 namespace Framework {
 	class Game
 	{
@@ -19,12 +20,14 @@ namespace Framework {
 		std::unique_ptr<ResouceController>& GetResourceController();
 		std::unique_ptr<SceneManager>& GetSceneManager();
 		std::unique_ptr<Collision2DManager>& GetCollision2DManager();
+		std::unique_ptr<GameTime>& GetGameTime();
 	private:
 		int width, height;
 		int targetScreenHundle;
 		std::unique_ptr<ResouceController> unq_resourceController;
 		std::unique_ptr<SceneManager> unq_sceneManager;
 		std::unique_ptr<Collision2DManager> unq_collision2DManager;
+		std::unique_ptr<GameTime> unq_gameTime;
 		static std::unique_ptr<Game> instance;
 	};
 }

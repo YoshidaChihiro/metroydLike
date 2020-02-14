@@ -15,13 +15,13 @@ Framework::Child::~Child() {}
 
 void Framework::Child::Hit(std::shared_ptr<GameObject> other)
 {
-	if (other->GetObjectTag() == ObjectTag::player) {
-		return;
-	}
-	if (other->GetObjectTag() == ObjectTag::supporter) {
-		return;
-	}
+	
 	if (isThrown&&other->GetObjectTag() == ObjectTag::obstacle) {
+
+		if (other->IsThis<MapChip_ChildBlock>()) {
+			SetIsDead(true);
+			return;
+		}
 
 		auto otherRect = other->GetThis<MapChipObject>()->GetRectangle();
 		float overlap = 0.0f;
@@ -59,6 +59,14 @@ void Framework::Child::Hit(std::shared_ptr<GameObject> other)
 	}
 }
 
+bool Framework::Child::Release()
+{
+	shp_collisionRect->Releace();
+	shp_collisionRect = nullptr;
+	shp_texture = nullptr;
+	return true;
+}
+
 void Framework::Child::PreInitialize()
 {
 	auto handle = Game::GetInstance()->GetResourceController()->GetTexture("orange.png");
@@ -74,6 +82,44 @@ void Framework::Child::PreInitialize()
 	sencerInputs.push_back(nullptr);
 
 
+	
+
+}
+
+void Framework::Child::Initialize()
+{
+	velocity = Vector3(0.0f, 0.0f,0.0f);
+	speed = 4.0f;
+	gravity = 0.2f;
+	maxFallSpeed = 1.0f;
+	groundHeight = 672.0f;
+	lastSide = 0;
+}
+
+bool Framework::Child::Update() {
+	shp_collisionRect->Update();
+	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
+	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
+	
+	if(!isThrown)
+	Move();
+	else
+	{
+		Shoot();
+		CheckGoal();
+	}
+	return true;
+}
+
+void Framework::Child::SetDelay(int arg_delay)
+{
+	delay = arg_delay;
+}
+
+bool Framework::Child::Throw(std::shared_ptr<Transform> arg_target)
+{
+	std::vector<ObjectTag> tags;
+	tags.push_back(ObjectTag::obstacle);
 	auto sencerTransform_top = ObjectFactory::Create<Transform>(Vector3(0, -16, 0));
 	sencerTransform_top->baseTransform = (transform);
 	auto sencer_top = ObjectFactory::Create<Sencer>(sencerTransform_top, manager, tags, &sencerInputs.at(0), 1, 8);
@@ -101,35 +147,10 @@ void Framework::Child::PreInitialize()
 	AddChildObject(sencer_left);
 	AddChildObject(sencer_right);
 
-}
-
-void Framework::Child::Initialize()
-{
-	velocity = Vector3(0.0f, 0.0f,0.0f);
-	speed = 4.0f;
-	gravity = 0.2f;
-	maxFallSpeed = 1.0f;
-	groundHeight = 672.0f;
-	lastSide = 0;
-}
-
-bool Framework::Child::Update() {
-	shp_collisionRect->Update();
-	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
-	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
-	if(!isThrown)
-	Move();
-	else
-	{
-		Shoot();
-	}
-	return true;
-}
-
-bool Framework::Child::Throw(std::shared_ptr<Transform> arg_target)
-{
 	isThrown = true;
 	velocity = arg_target->GetPosition().GetVector2()- transform->GetPosition().GetVector2();
+	targetPosition = arg_target->GetPosition();
+	tag = ObjectTag::playerBullet;
 	velocity.Normalize();
 	return true;
 }
@@ -148,9 +169,9 @@ bool Framework::Child::Move() {
 	if (!isChase) {
 		return true;
 	}
-	auto velocity3 = (Vector3)(shp_player_transform->GetPosition() - transform->GetPosition());
-	velocity3.Normalize();
-	transform->localPosition += velocity3 * speed;
+	velocity = (Vector3)(shp_player_transform->GetPosition() - transform->GetPosition());
+	velocity.Normalize();
+	transform->localPosition += velocity* speed;
 
 	return true;
 }
@@ -161,13 +182,23 @@ void Framework::Child::Shoot()
 	transform->localPosition +=velocity*speed;
 }
 
+void Framework::Child::CheckGoal()
+{
+	auto targetVec2 = targetPosition.GetVector2();
+	auto distance = transform->GetPosition().GetVector2().GetDistance(targetVec2);
+	if (distance < 5) {
+		CreateBlock();
+	}
+}
+
 void Framework::Child::CreateBlock()
 {
 	if (GetIsDead()) {
 		return;
 	}
-	int x = transform->GetPosition().x / Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetGlidSize();
-	int y = transform->GetPosition().y / Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetGlidSize();
+	int glidSize = Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetGlidSize();
+	int x = transform->GetPosition().x / (float)glidSize;
+	int y = transform->GetPosition().y /(float) glidSize;
 	manager->SerchGameObject(ObjectTag::map)->GetThis<Map>()->ChangeGlid(x, y, 26);
 	SetIsDead(true);
 }

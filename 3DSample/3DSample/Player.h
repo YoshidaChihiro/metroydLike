@@ -4,14 +4,8 @@
 #include"Collision2D.h"
 #include"Child.h"
 #include "DxLib.h"
-
+#include"Cursol.h"
 namespace Framework {
-	enum State
-	{
-		NormalMode,
-		ThrowWaitMode,
-		ThrowMode,
-	};
 
 	class Player :public GameObject
 	{
@@ -20,8 +14,10 @@ namespace Framework {
 		~Player();
 		void Hit(std::shared_ptr<GameObject> other)override;
 		void PreInitialize()override;
+		void Initialize()override;
 		bool Update()override;
-
+		bool Release()override;
+		void AddPlayerChild();
 		std::shared_ptr<Resource_Texture> shp_texture;
 		std::shared_ptr<Collision2D_Rectangle>shp_collisionRect;
 
@@ -36,6 +32,7 @@ namespace Framework {
 
 		std::vector< std::shared_ptr<Child>> vec_childs;
 
+		std::shared_ptr<Cursol> shp_cursol;
 
 		Vector2  velocity,
 			phisicsForce;

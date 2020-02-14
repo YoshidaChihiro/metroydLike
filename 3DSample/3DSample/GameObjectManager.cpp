@@ -28,6 +28,16 @@ void Framework::GameObjectManager::InportObject(std::shared_ptr<GameObject> shp_
 	AddObject_Init(shp_arg_gameObject);
 }
 
+void Framework::GameObjectManager::RemoveObject(std::shared_ptr<GameObject> shp_arg_removeObject)
+{
+	for (auto itr = vec_shp_gameObjects.begin(); itr != vec_shp_gameObjects.end(); itr++) {
+		if ((*itr) == shp_arg_removeObject) {
+			vec_shp_gameObjects.erase(itr);
+			break;
+		}
+	}
+}
+
 void Framework::GameObjectManager::Release()
 {
 
@@ -42,14 +52,12 @@ void Framework::GameObjectManager::Release()
 
 std::shared_ptr<Framework::GameObject> Framework::GameObjectManager::SerchGameObject(ObjectTag serchObjectsTag)
 {
-	std::shared_ptr<GameObject> object;
 	for (auto itr = vec_shp_gameObjects.begin(); itr != vec_shp_gameObjects.end(); itr++) {
 		if ((*itr)->GetObjectTag() == serchObjectsTag) {
-			object = (*itr)->GetThis<GameObject>();
-			break;
+			return (*itr)->GetThis<GameObject>();
 		}
 	}
-	return object;
+	return nullptr;
 }
 
 std::vector<std::shared_ptr<Framework::GameObject>> Framework::GameObjectManager::SerchGameObjects(ObjectTag serchObjectsTag)
@@ -73,12 +81,29 @@ bool Framework::GameObjectManager::Update()
 	vec_shp_new_gameObjects.clear();
 
 	auto itr = vec_shp_gameObjects.begin();
-	while (itr!=vec_shp_gameObjects.end())
+	while (itr != vec_shp_gameObjects.end())
 	{
-		if (!(*itr)->Update()) {
-			return false;
+		if (!(*itr)->GetIsDead()) {
+			(*itr)->Update();
 		}
-		if ((*itr)->GetIsDead()) {
+		else {
+			(*itr)->DeadUpdate();
+		}
+		itr++;
+	}
+
+	return true;
+
+}
+
+void Framework::GameObjectManager::RemoveCheck()
+{
+	auto itr = vec_shp_gameObjects.begin();
+	while (itr != vec_shp_gameObjects.end())
+	{
+		
+		(*itr)->DeadCheck();
+		if ((*itr)->GetIsRemove()) {
 			(*itr)->Release();
 			itr = vec_shp_gameObjects.erase(itr);
 		}
@@ -87,7 +112,4 @@ bool Framework::GameObjectManager::Update()
 			itr++;
 		}
 	}
-
-	return true;
-
 }

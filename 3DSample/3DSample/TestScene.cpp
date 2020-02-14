@@ -45,12 +45,9 @@ void Framework::TestScene::PreInitialize()
 
 bool Framework::TestScene::Update()
 {
-	if (Input::GetKeyDown(KEY_INPUT_SPACE)) {
-		auto sceneOverOgjs = ObjectFactory::Create<SceneOverObjects>();
-		sceneOverOgjs->AddSceneOverGameObject(shp_gameObjectManager->SerchGameObject(ObjectTag::player));
-		Game::GetInstance()->GetSceneManager()->ChangeScene("Map1Scene",0,sceneOverOgjs);
-	}
-	return shp_gameObjectManager->Update();
+	auto r= shp_gameObjectManager->Update();
+	shp_gameObjectManager->RemoveCheck();
+	return r;
 }
 
 void Framework::TestScene::OnSet()

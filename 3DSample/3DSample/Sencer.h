@@ -10,6 +10,7 @@ namespace Framework {
 		~Sencer();
 		void Initialize()override;
 		bool Update()override;
+		bool Release()override;
 		void Hit(std::shared_ptr<GameObject> other)override;
 	private:
 		std::shared_ptr<GameObject>* output;

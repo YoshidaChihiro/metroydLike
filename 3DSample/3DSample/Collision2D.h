@@ -18,11 +18,16 @@ namespace Framework {
 	public:
 		Collision2D_Rectangle(std::shared_ptr<Rectangle> rect, std::shared_ptr<GameObject> gameObj);
 		
-		~Collision2D_Rectangle() {};
+		~Collision2D_Rectangle() ;
 
 		void Initialize()override;
 		void PreInitialize()override;
 		
+
+		void Releace() {
+			gameObj = nullptr;
+		}
+
 		bool Update()override;
 
 		inline bool IsHit(std::shared_ptr<Collision2D_Base> other) {

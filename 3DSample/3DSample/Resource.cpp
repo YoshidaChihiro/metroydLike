@@ -78,3 +78,27 @@ bool Framework::Resource_Text_String::Draw()
 	}
 	return true;
 }
+
+Framework::Resource_UI::Resource_UI(int arg_handle, std::shared_ptr<Transform> arg_transform, bool isXFlip, bool isYFlip)
+	:Resource_Texture(arg_handle,arg_transform,xFlip,yFlip)
+{
+}
+
+Framework::Resource_UI::Resource_UI(std::string key, std::shared_ptr<Transform> arg_transform, bool isXFlip, bool isYFlip)
+	:Resource_Texture(key, arg_transform, xFlip, yFlip)
+{
+}
+
+Framework::Resource_UI::~Resource_UI()
+{
+}
+
+bool Framework::Resource_UI::Draw()
+{
+	auto modify = Vector2(0,0);
+	if (DrawRotaGraph3(transform->GetPosition().x - width / 2 - modify.x, transform->GetPosition().y - height / 2 - modify.y, 0, 0, transform->GetScale().x, transform->GetScale().y, transform->GetRotation().z, handle, true, xFlip, yFlip) == 0)
+		return true;
+	else {
+		return false;
+	}
+}

@@ -19,6 +19,8 @@ namespace Framework {
 
 		void InportObject(std::shared_ptr<GameObject> shp_arg_gameObject);
 
+		void RemoveObject(std::shared_ptr<GameObject> shp_arg_removeObject);
+
 		void Initialize()override {};
 
 		void PreInitialize()override {};
@@ -31,6 +33,7 @@ namespace Framework {
 
 		bool Update();
 
+		void RemoveCheck();
 	private:
 
 		std::vector<std::shared_ptr<GameObject>> vec_shp_gameObjects;

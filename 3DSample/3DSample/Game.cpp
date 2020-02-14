@@ -15,10 +15,11 @@ Framework::Game::Game(int windowWidth, int windowHeight, std::string windowText,
 	SetMainWindowText(windowText.c_str());
 	DxLib_Init();
 
+	unq_gameTime = std::make_unique<GameTime>();
+
 	unq_resourceController = std::make_unique<ResouceController>(windowWidth, windowHeight);;
 	unq_sceneManager = std::make_unique<SceneManager>();
 	unq_collision2DManager = std::make_unique<Collision2DManager>();
-
 	targetScreenHundle = MakeScreen(windowWidth, windowHeight, TRUE);
 
 	auto data = CSVReader::GetMatrixByFile("testMap.csv");
@@ -50,9 +51,10 @@ bool Framework::Game::Draw()
 
 bool Framework::Game::Update()
 {
-	unq_collision2DManager->Update();
-	return unq_sceneManager->Update();
+	auto result= unq_sceneManager->Update();
 
+	unq_collision2DManager->Update();
+	return result;
 }
 
 bool Framework::Game::ResourceLoad()
@@ -63,11 +65,19 @@ bool Framework::Game::ResourceLoad()
 
 	unq_resourceController->LoadTexture("sample2.png");
 
+	unq_resourceController->LoadTexture("sample3.png");
+
+	unq_resourceController->LoadTexture("sample4.png");
+
+	unq_resourceController->LoadTexture("sample5.png");
+
 	unq_resourceController->LoadTexture("orange.png");
 
 	unq_resourceController->LoadTexture("apple.png");
 
-	unq_resourceController->LoadCreateFont("testFont", "�l�r ����", 32, -1, DX_FONTTYPE_NORMAL);
+	unq_resourceController->LoadTexture("cursol.png");
+
+	unq_resourceController->LoadCreateFont("testFont", "MS　明朝", 32, -1, DX_FONTTYPE_NORMAL);
 	return true;
 }
 
@@ -132,4 +142,9 @@ std::unique_ptr<Framework::SceneManager>& Framework::Game::GetSceneManager()
 std::unique_ptr<Framework::Collision2DManager>& Framework::Game::GetCollision2DManager()
 {
 	return unq_collision2DManager;
+}
+
+std::unique_ptr<Framework::GameTime>& Framework::Game::GetGameTime()
+{
+	return unq_gameTime;
 }

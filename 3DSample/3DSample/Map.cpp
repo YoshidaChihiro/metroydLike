@@ -27,6 +27,15 @@ bool Framework::Map::Update()
 	shp_collision->Update();
 
 	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collision);
+
+	for (int x = 0; x < mapWidth; x++) {
+		for (int y = 0; y < mapHeight; y++) {
+			if (mapObjects[x][y] != nullptr&&mapObjects[x][y]->GetIsDead()) {
+				mapObjects[x][y] = nullptr;
+			}
+		}
+	}
+
 	return true;
 }
 
@@ -78,6 +87,12 @@ void Framework::Map::AddMapChip(int x, int y, int mapChipNum)
 
 void Framework::Map::ChangeMapChipBlock(const int & arg_objectID, const int & x, const int & y)
 {
+
+}
+
+Framework::Vector2 Framework::Map::GetCenterPosition()
+{
+	return Vector2(mapWidth*glidSize,mapHeight*glidSize)/2;
 }
 
 void Framework::Map::GenerateMap(std::shared_ptr< CSVData> csvData, int arg_glidSize)
@@ -131,8 +146,12 @@ void Framework::Map::GenerateMap(std::shared_ptr< CSVData> csvData, int arg_glid
 
 		ObjectFactory::Create<MapChip_Gate>("Map9Scene",Vector2(32 * 5,32 * 18),manager),//24
 		ObjectFactory::Create<MapChip_Gate>("Map1Scene",Vector2(32 * 2,32 * 2),manager),//25
-		
+
 		ObjectFactory::Create<MapChip_ChildBlock>(manager),//26
+		ObjectFactory::Create<MapChip_CrushBlock>(manager),//27
+
+		ObjectFactory::Create<Medal>(manager),//28
+		ObjectFactory::Create<ChildSeedSpawner>(manager),//29
 			   
 	};
 

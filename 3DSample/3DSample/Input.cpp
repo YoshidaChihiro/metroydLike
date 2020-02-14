@@ -61,12 +61,12 @@ float Framework::Input::GetLettStickVertical()
 
 float Framework::Input::GetRightStickHolizon()
 {
-	return buttonState.ThumbRX;
+	return (float)buttonState.ThumbRX / (float)32767;
 }
 
 float Framework::Input::GetRightStickVertical()
 {
-	return buttonState.ThumbRY;
+	return (float)buttonState.ThumbRY / (float)32767;
 }
 
 Framework::Vector2 Framework::Input::GetMousePos()

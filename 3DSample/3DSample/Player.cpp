@@ -1,6 +1,9 @@
 #include "Player.h"
 #include "Game.h"
 #include"Sencer.h"
+#include"ParticleEmitter.h"
+#include"Cameraman.h"
+#include"ObjectDelayCreater.h"
 Framework::Player::Player(std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager) :GameObject(shp_arg_transform, shp_arg_gameObjectManager)
 {
 	velocity = Vector2(0.0f, 0.0f);
@@ -19,51 +22,54 @@ Framework::Player::Player(std::shared_ptr<Transform> shp_arg_transform, std::sha
 }
 
 
-Framework::Player::~Player() {}
+Framework::Player::~Player() {
+}
 
 void Framework::Player::Hit(std::shared_ptr<GameObject> other)
 {
-	if (other->GetObjectTag() == ObjectTag::supporter|| other->GetObjectTag() == ObjectTag::sencer) {
+	if (other->GetObjectTag() == ObjectTag::playerBullet) {
 		return;
 	}
-	//
-	auto otherRect= other->GetThis<MapChipObject>()->GetRectangle();
-	float overlap = 0.0f;
+	if (other->GetObjectTag() == ObjectTag::obstacle) {
+		//
+		auto otherRect = other->GetThis<MapChipObject>()->GetRectangle();
+		float overlap = 0.0f;
 
-	if (sencerInputs[1]==other) {
-		overlap = shp_collisionRect->rect->GetBottom()-otherRect->GetTop() ;
-		overlap= abs(overlap);
-			transform->localPosition.y -=overlap;
+		if (sencerInputs[1] == other) {
+			overlap = shp_collisionRect->rect->GetBottom() - otherRect->GetTop();
+			overlap = abs(overlap);
+			transform->localPosition.y -= overlap;
 			isGround = true;
 			//���n
 			phisicsForce.y = 0.0f;
-		
-	}
-	if (sencerInputs[0] == other) {
-		overlap = otherRect->GetBottom() - shp_collisionRect->rect->GetTop();
 
-		overlap = abs(overlap);
+		}
+		if (sencerInputs[0] == other) {
+			overlap = otherRect->GetBottom() - shp_collisionRect->rect->GetTop();
+
+			overlap = abs(overlap);
 			transform->localPosition.y += overlap;
-	}
+		}
 
-	shp_collisionRect->Update();
-	if (sencerInputs[3] == other) {
-		overlap = shp_collisionRect->rect->GetRight() - otherRect->GetLeft();
-		overlap = abs(overlap);
-		transform->localPosition.x -=overlap;
-		velocity.x = 0;
-		phisicsForce.x = 0;
-	}
+		shp_collisionRect->Update();
+		if (sencerInputs[3] == other) {
+			overlap = shp_collisionRect->rect->GetRight() - otherRect->GetLeft();
+			overlap = abs(overlap);
+			transform->localPosition.x -= overlap;
+			velocity.x = 0;
+			phisicsForce.x = 0;
+		}
 
-	if (sencerInputs[2] == other) {
-		overlap = otherRect->GetRight()- shp_collisionRect->rect->GetLeft() ;
-		overlap = abs(overlap);
+		if (sencerInputs[2] == other) {
+			overlap = otherRect->GetRight() - shp_collisionRect->rect->GetLeft();
+			overlap = abs(overlap);
 			transform->localPosition.x += overlap;
 			velocity.x = 0;
 			phisicsForce.x = 0;
-	}
+		}
 
-	shp_collisionRect->Update();
+		shp_collisionRect->Update();
+	}
 }
 
 void Framework::Player::PreInitialize()
@@ -100,6 +106,7 @@ void Framework::Player::PreInitialize()
 	manager->AddObject_Init(sencer_bottom);
 	manager->AddObject_Init(sencer_left);
 	manager->AddObject_Init(sencer_right);
+	
 
 	AddChildObject(sencer_top);
 	AddChildObject(sencer_bottom);
@@ -108,6 +115,22 @@ void Framework::Player::PreInitialize()
 
 	shp_texture = ObjectFactory::Create<Resource_Texture>("apple.png", transform, false, false);
 	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(32, 32)), GetThis<GameObject>());
+	
+	shp_cursol = ObjectFactory::Create<Cursol>(ObjectFactory::Create<Transform>(transform->GetPosition()),transform,manager);
+	manager->AddObject_Init(shp_cursol);
+	AddChildObject(shp_cursol);
+}
+
+void Framework::Player::Initialize()
+{
+	auto camera = manager->SerchGameObject(ObjectTag::camera);
+	if (camera) {
+		camera->GetThis<Cameraman_Chase>()->SetTarget(transform);
+	}
+	for (int i = 0; i <
+		Game::GetInstance()->GetSceneManager()->GetGameMaster()->GetPlayerChildsCount(); i++) {
+		AddPlayerChild();
+	}
 }
 
 bool Framework::Player::Update() {
@@ -116,15 +139,10 @@ bool Framework::Player::Update() {
 	Move();
 	Throw();
 	if (Input::GetKeyDown(KEY_INPUT_A)) {
-		//manager->SerchGameObject(ObjectTag::map)->GetThis<Map>()->ChangeGlid(2, 19,26);
-
-
-		auto childTransform = ObjectFactory::Create<Transform>(transform->GetPosition());
-
-		auto child = ObjectFactory::Create<Child>(50+50*vec_childs.size(),40,transform,childTransform,manager);
-
-		vec_childs.push_back(child->GetThis<Child>());
-		manager->AddObject(child);
+		AddPlayerChild();
+	}
+	if (Input::GetKeyDown(KEY_INPUT_D)) {
+		SetIsDead(true);
 	}
 	shp_collisionRect->Update();
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture, 1);
@@ -135,6 +153,42 @@ bool Framework::Player::Update() {
 	isGround = false;
 	return true;
 }
+
+bool Framework::Player::Release()
+{
+
+	shp_collisionRect->Releace();
+	sencerInputs.clear();
+	shp_collisionRect = nullptr;
+	shp_cursol =   nullptr;
+	shp_texture = nullptr;
+	
+	manager->AddObject(ObjectFactory::Create<ObjectDelayCreater<Player>>(60,ObjectFactory::Create<Transform>(
+		Game::GetInstance()->GetSceneManager()->GetGameMaster()->GetRespawnPoint()
+		), manager
+		));
+	Game::GetInstance()->GetSceneManager()->GetGameMaster()->SetPlayerChildsCount(vec_childs.size());
+	return true;
+}
+
+void Framework::Player::AddPlayerChild()
+{
+	//manager->SerchGameObject(ObjectTag::map)->GetThis<Map>()->ChangeGlid(2, 19,26);
+	if (vec_childs.size() >Game::GetInstance()->GetSceneManager()->GetGameMaster()->GetChildsMax()) {
+		return;
+	}
+
+	auto childTransform = ObjectFactory::Create<Transform>(transform->GetPosition());
+
+	auto child = ObjectFactory::Create<Child>(50 + 50 * vec_childs.size(), 40, transform, childTransform, manager);
+
+
+
+	AddChildObject(child->GetThis<GameObject>());
+	vec_childs.push_back(child->GetThis<Child>());
+	manager->AddObject(child);
+}
+
 
 bool Framework::Player::Move() {
 	velocity.x = Input::GetLettStickHolizon();
@@ -161,9 +215,18 @@ bool Framework::Player::Jump() {
 }
 
 bool Framework::Player::Throw() {
-	//Button[9]�cRB
+	if (vec_childs.size() == 0) {
+		return true;
+	}
 	if (Input::GetKeyDown(KEY_INPUT_S)) {
-		vec_childs.at(0)->Throw(ObjectFactory::Create<Transform>( Vector3(1,0, 0)));
+		auto throwChild = vec_childs.begin();
+		RemoveChildObject(vec_childs.at(0));
+		(*throwChild)->Throw(shp_cursol->GetWorldTransform());
+		vec_childs.erase(vec_childs.begin());
+		for (int i = 0; i < vec_childs.size(); i++) {
+			vec_childs.at(i)->SetDelay(50 + 50 * i);
+		}
+
 	}
 	return true;
 }

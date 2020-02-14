@@ -377,6 +377,10 @@ namespace Framework {
 		{
 			*this = DirectX::XMVector3Normalize(DirectX::XMVECTOR(*this));
 		}
+		inline Vector3 GetNormalize()
+		{
+			return DirectX::XMVector3Normalize(DirectX::XMVECTOR(*this));
+		}
 	};
 
 	struct Vector4 :public DirectX::XMFLOAT4

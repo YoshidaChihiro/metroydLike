@@ -38,12 +38,10 @@ void Framework::MapScene::PreInitialize()
 
 bool Framework::MapScene::Update()
 {
-	if (Input::GetKeyDown(KEY_INPUT_SPACE)) {
-		auto sceneOverOgjs = ObjectFactory::Create<SceneOverObjects>();
-		sceneOverOgjs->AddSceneOverGameObject(shp_gameObjectManager->SerchGameObject(ObjectTag::player));
-		Game::GetInstance()->GetSceneManager()->ChangeScene("TestScene",0, sceneOverOgjs);
-	}
-	return shp_gameObjectManager->Update();
+	
+	auto r= shp_gameObjectManager->Update();
+	shp_gameObjectManager->RemoveCheck();
+	return r;
 }
 
 void Framework::MapScene::OnSet()
@@ -51,7 +49,7 @@ void Framework::MapScene::OnSet()
 	shp_map->Reload();
 	shp_gameObjectManager->SerchGameObject(ObjectTag::camera)->GetThis<Cameraman_Chase>()->SetTarget(
 		shp_gameObjectManager->SerchGameObject(ObjectTag::player)->transform
-	);
+	); shp_gameObjectManager->SerchGameObject(ObjectTag::camera)->transform->localPosition =Vector3( shp_map->GetCenterPosition());
 	//shp_gameObjectManager->SerchGameObject(ObjectTag::camera)->transform->localPosition = shp_gameObjectManager->SerchGameObject(ObjectTag::player)->transform->GetPosition();
 
 }

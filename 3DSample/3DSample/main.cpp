@@ -13,8 +13,8 @@ int WINAPI WinMain(
 	_In_ int nCmdShow
 )
 {
-	int win_width = 952,
-		win_height = 720;
+	int win_width = 960,
+		win_height = 640;
 	SetGraphMode(win_width, win_height, 32);
 
 	//initMethod

@@ -35,8 +35,14 @@ namespace Framework {
 		int height = 0;
 	protected:
 
-		Resource_Texture( std::shared_ptr<Transform> arg_transform);
-	}; 
+		Resource_Texture(std::shared_ptr<Transform> arg_transform);
+	};
+	struct Resource_UI :Resource_Texture {
+		Resource_UI(int arg_handle, std::shared_ptr<Transform> arg_transform, bool isXFlip, bool isYFlip);
+		Resource_UI(std::string key, std::shared_ptr<Transform> arg_transform, bool isXFlip, bool isYFlip);
+		~Resource_UI();
+		virtual bool Draw();
+	};
 	struct Resource_Text_String :Resource_Texture {
 		Resource_Text_String(std::string source, std::shared_ptr<Transform> arg_transform, int color, bool isCenter, std::string fontName);
 		~Resource_Text_String();

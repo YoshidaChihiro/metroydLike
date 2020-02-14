@@ -2,6 +2,7 @@
 
 Framework::SceneManager::SceneManager():sceneChangeTimer(Timer(0))
 {
+	unq_gameMaster = std::make_unique<GameMaster>();
 }
 
 Framework::SceneManager::~SceneManager()

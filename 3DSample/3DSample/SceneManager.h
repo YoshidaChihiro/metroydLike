@@ -1,7 +1,9 @@
 #pragma once
 #include "IScene.h"
 #include "TestScene.h"
+#include"RelativeTimer.h"
 #include<map>
+#include"GameMaster.h"
 namespace Framework {
 	class SceneManager
 	{
@@ -17,11 +19,15 @@ namespace Framework {
 		std::shared_ptr<IScene> GetCurrentScene() {
 			return shp_currentScene->GetThis<IScene>();
 		};
+		std::unique_ptr<GameMaster>& GetGameMaster() {
+			return unq_gameMaster;
+		}
 	private:
 		std::shared_ptr<IScene> shp_currentScene;
 		std::shared_ptr<IScene> shp_nextScene=nullptr;
 		std::shared_ptr<SceneOverObjects> shp_sceneOverObjects = nullptr;
 		std::map<std::string, std::shared_ptr<IScene>> map_scenes;
+		std::unique_ptr<GameMaster> unq_gameMaster;
 		Timer sceneChangeTimer;
 	};
 

@@ -82,6 +82,32 @@
     <ClCompile Include="Sencer.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="Cursol.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Explosion.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="AbsTimer.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMaster.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="StopWatch.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Medal.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="GameTime.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="RelativeTimer.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectDelayCreater.cpp" />
+    <ClCompile Include="ChildSeed.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ButiMath.h">
@@ -171,6 +197,32 @@
     <ClInclude Include="Sencer.h">
       <Filter>header</Filter>
     </ClInclude>
+    <ClInclude Include="Cursol.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="Explosion.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="AbsTimer.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMaster.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="GameTime.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="Medal.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="StopWatch.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="RelativeTimer.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectDelayCreater.h" />
+    <ClInclude Include="ChildSeed.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="header">

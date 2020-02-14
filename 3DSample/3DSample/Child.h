@@ -11,19 +11,21 @@ namespace Framework {
 		Child( int delay,int waitDistance,std::shared_ptr<Transform> shp_arg_player_transform, std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager);
 		~Child();
 		void Hit(std::shared_ptr<GameObject> other)override;
+		bool Release()override;
 		void PreInitialize()override;
 		void Initialize()override;
 		bool Update()override;
 		std::shared_ptr<Resource_Texture> shp_texture;
 		std::shared_ptr<Collision2D_Rectangle>shp_collisionRect;
-
+		void SetDelay(int arg_delay);
 		virtual bool Throw(std::shared_ptr<Transform> arg_target);
 	private:
 
 		std::vector< std::shared_ptr<GameObject>> sencerInputs;//0 top, 1 bottom,2 left.3 right
 		bool Move();
 		void Shoot();
-		Vector3 velocity;
+		void CheckGoal();
+		Vector3 velocity,targetPosition;
 
 		std::shared_ptr<Transform> shp_player_transform;
 
