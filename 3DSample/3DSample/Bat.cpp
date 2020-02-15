@@ -66,16 +66,17 @@ void Framework::Bat::Hit(std::shared_ptr<GameObject> other)
 			if (delta.x > 0) {
 				overlap = shp_collisionRect->rect->GetRight() - otherRect->GetLeft();
 				overlap = abs(overlap);
-				transform->localPosition.x -= overlap;
-				velocity.x = 0;
-				phisicsForce.x = 0;
+				transform->localPosition.x -= overlap;		
+				velocity.x *= -1;
+
 			}
 			else
 				if (delta.x < 0) {
 					overlap = otherRect->GetRight() - shp_collisionRect->rect->GetLeft();
 					overlap = abs(overlap);
-					transform->localPosition.x += overlap;
-					velocity.x = 0;
+					transform->localPosition.x += overlap;				
+					velocity.x *= -1;
+
 					phisicsForce.x = 0;
 				}
 		}

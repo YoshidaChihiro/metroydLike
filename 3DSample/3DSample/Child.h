@@ -38,7 +38,8 @@ namespace Framework {
 			maxFallSpeed,
 			groundHeight;
 		bool
-			isChase, isThrown;
+			isChase, isThrown,isShoot;
 		int lastSide;
+		Timer changeTimer=Timer(0);
 	};
 }

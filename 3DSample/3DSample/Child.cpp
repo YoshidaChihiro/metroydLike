@@ -15,7 +15,9 @@ Framework::Child::~Child() {}
 
 void Framework::Child::Hit(std::shared_ptr<GameObject> other)
 {
-	
+	if (GetIsDead()) {
+		return;
+	}
 	if (isThrown&&other->GetObjectTag() == ObjectTag::obstacle) {
 
 		if (other->IsThis<MapChip_ChildBlock>()) {
@@ -36,7 +38,6 @@ void Framework::Child::Hit(std::shared_ptr<GameObject> other)
 				overlap = abs(overlap);
 				transform->localPosition.y -= overlap;
 
-				//���n
 
 			}
 			else
@@ -47,18 +48,18 @@ void Framework::Child::Hit(std::shared_ptr<GameObject> other)
 					transform->localPosition.y += overlap;
 				}
 		}
-		else if (abs(delta.x) > abs(delta.y)) {
+		 if (abs(delta.x) > abs(delta.y)) {
 			if (delta.x > 0) {
 				overlap = shp_collisionRect->rect->GetRight() - otherRect->GetLeft();
 				overlap = abs(overlap);
-				transform->localPosition.x -= overlap;
+				transform->localPosition.x += overlap;
 				velocity.x = 0;
 			}
 			else
 				if (delta.x < 0) {
 					overlap = otherRect->GetRight() - shp_collisionRect->rect->GetLeft();
 					overlap = abs(overlap);
-					transform->localPosition.x += overlap;
+					transform->localPosition.x -= overlap;
 					velocity.x = 0;
 				}
 		}
@@ -80,7 +81,7 @@ void Framework::Child::PreInitialize()
 {
 	auto handle = Game::GetInstance()->GetResourceController()->GetTexture("orange.png");
 	shp_texture = ObjectFactory::Create<Resource_Texture>(handle, transform, false, false);
-	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
+	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(25, 25, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
 
 	std::vector<ObjectTag> tags;
 	tags.push_back(ObjectTag::obstacle);
@@ -106,7 +107,7 @@ bool Framework::Child::Update() {
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
 	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
 	
-	if(!isThrown)
+	if(!isShoot)
 	Move();
 	else
 	{
@@ -123,13 +124,11 @@ void Framework::Child::SetDelay(int arg_delay)
 
 bool Framework::Child::Throw(std::shared_ptr<Transform> arg_target)
 {
-	std::vector<ObjectTag> tags;
-	tags.push_back(ObjectTag::obstacle);
-
-	isThrown = true;
+	changeTimer = Timer(3);
+	changeTimer.Start();
+	isShoot = true;
 	velocity = arg_target->GetPosition().GetVector2()- transform->GetPosition().GetVector2();
 	targetPosition = arg_target->GetPosition();
-	tag = ObjectTag::playerBullet;
 	velocity.Normalize();
 	return true;
 }
@@ -157,7 +156,11 @@ bool Framework::Child::Move() {
 
 void Framework::Child::Shoot()
 {
+	if (!isThrown&& changeTimer.Update()) {
 
+		isThrown = true;
+		tag = ObjectTag::playerBullet;
+	}
 	transform->localPosition +=velocity*speed;
 }
 
@@ -176,8 +179,8 @@ void Framework::Child::CreateBlock()
 		return;
 	}
 	int glidSize = Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetGlidSize();
-	int x = transform->GetPosition().x / (float)glidSize;
-	int y = transform->GetPosition().y /(float) glidSize;
+	int x = ((transform->GetPosition().x)+glidSize/2) / (float)glidSize;
+	int y = (transform->GetPosition().y+glidSize/2 )/(float) glidSize;
 	manager->SerchGameObject(ObjectTag::map)->GetThis<Map>()->ChangeGlid(x, y, 5);
 	SetIsDead(true);
 }

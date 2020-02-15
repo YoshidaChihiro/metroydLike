@@ -49,7 +49,6 @@ void Framework::Kuribo::Hit(std::shared_ptr<GameObject> other)
 				isGround = true;
 				//���n
 				phisicsForce.y = 0.0f;
-
 			}
 			else
 				if (delta.y < 0) {
@@ -64,7 +63,7 @@ void Framework::Kuribo::Hit(std::shared_ptr<GameObject> other)
 				overlap = shp_collisionRect->rect->GetRight() - otherRect->GetLeft();
 				overlap = abs(overlap);
 				transform->localPosition.x -= overlap;
-				velocity.x = 0;
+				velocity.x *= -1;
 				phisicsForce.x = 0;
 			}
 			else
@@ -72,7 +71,7 @@ void Framework::Kuribo::Hit(std::shared_ptr<GameObject> other)
 					overlap = otherRect->GetRight() - shp_collisionRect->rect->GetLeft();
 					overlap = abs(overlap);
 					transform->localPosition.x += overlap;
-					velocity.x = 0;
+					velocity.x *= -1;
 					phisicsForce.x = 0;
 				}
 		}

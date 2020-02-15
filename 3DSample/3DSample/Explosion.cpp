@@ -3,7 +3,7 @@
 #include"RelativeTimer.h"
 Framework::Explosion::Explosion(std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager)
 	:GameObject(shp_arg_transform, shp_arg_gameObjectManager),
-	sucide(Timer(300)) {
+	sucide(Timer(60)) {
 	tag =ObjectTag::playerBullet;
 	sucide.Start();
 }
