@@ -199,7 +199,7 @@ void Framework::Child::CreateBlock()
 	int glidSize = Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetGlidSize();
 	int x = transform->GetPosition().x / (float)glidSize;
 	int y = transform->GetPosition().y /(float) glidSize;
-	manager->SerchGameObject(ObjectTag::map)->GetThis<Map>()->ChangeGlid(x, y, 26);
+	manager->SerchGameObject(ObjectTag::map)->GetThis<Map>()->ChangeGlid(x, y, 5);
 	SetIsDead(true);
 }
 
