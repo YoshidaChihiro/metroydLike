@@ -35,39 +35,6 @@ void Framework::Teresa::PreInitialize()
 	std::vector<ObjectTag> tags;
 	tags.push_back(ObjectTag::obstacle);
 
-	sencerInputs.push_back(nullptr);
-	sencerInputs.push_back(nullptr);
-	sencerInputs.push_back(nullptr);
-	sencerInputs.push_back(nullptr);
-
-
-	auto sencerTransform_top = ObjectFactory::Create<Transform>(Vector3(0, -16, 0));
-	sencerTransform_top->baseTransform = (transform);
-	auto sencer_top = ObjectFactory::Create<Sencer>(sencerTransform_top, manager, tags, &sencerInputs.at(0), 1, 8);
-
-	auto sencerTransform_bottom = ObjectFactory::Create<Transform>(Vector3(0, 16, 0));
-	sencerTransform_bottom->baseTransform = (transform);
-	auto sencer_bottom = ObjectFactory::Create<Sencer>(sencerTransform_bottom, manager, tags, &sencerInputs.at(1), 1, 8);
-
-	auto sencerTransform_left = ObjectFactory::Create<Transform>(Vector3(-16, 0, 0));
-	sencerTransform_left->baseTransform = (transform);
-	auto sencer_left = ObjectFactory::Create<Sencer>(sencerTransform_left, manager, tags, &sencerInputs.at(2), 8, 1);
-
-	auto sencerTransform_right = ObjectFactory::Create<Transform>(Vector3(16, 0, 0));
-	sencerTransform_right->baseTransform = (transform);
-	auto sencer_right = ObjectFactory::Create<Sencer>(sencerTransform_right, manager, tags, &sencerInputs.at(3), 8, 1);
-
-
-	manager->AddObject_Init(sencer_top);
-	manager->AddObject_Init(sencer_bottom);
-	manager->AddObject_Init(sencer_left);
-	manager->AddObject_Init(sencer_right);
-
-	AddChildObject(sencer_top);
-	AddChildObject(sencer_bottom);
-	AddChildObject(sencer_left);
-	AddChildObject(sencer_right);
-
 	shp_texture = ObjectFactory::Create<Resource_Texture>(handle, transform, false, false);
 	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(32, 32)), GetThis<GameObject>());
 }
@@ -78,16 +45,12 @@ bool Framework::Teresa::Update() {
 	shp_collisionRect->Update();
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture, 1);
 	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
-	for (int i = 0; i < 4; i++) {
-		sencerInputs[i] = nullptr;
-	}
 	return true;
 }
 
 bool Framework::Teresa::Release()
 {
 	shp_collisionRect->Releace();
-	sencerInputs.clear();
 	shp_collisionRect = nullptr;
 	shp_texture = nullptr;
 	return true;

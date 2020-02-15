@@ -32,80 +32,53 @@ void Framework::Bat::Hit(std::shared_ptr<GameObject> other)
 	if (other->GetObjectTag() == ObjectTag::enemy) {
 		//敵同士の当たり判定、いる？
 		return;
-		auto otherRect = other->GetThis<Kuribo>()->GetRectangle();
-		overlap = 0.0f;
 
-		if (sencerInputs[3] == other) {
-			overlap = shp_collisionRect->rect->GetRight() - otherRect->GetLeft();
-			overlap = abs(overlap);
-			transform->localPosition.x -= overlap;
-			if (prevVelocity.x > 0) {
-				velocity.x = -1;
-			}
-			if (prevVelocity.x < 0) {
-				velocity.x = 1;
-			}
-		}
-
-		if (sencerInputs[2] == other) {
-			overlap = otherRect->GetRight() - shp_collisionRect->rect->GetLeft();
-			overlap = abs(overlap);
-			transform->localPosition.x += overlap;
-			if (prevVelocity.x > 0) {
-				velocity.x = -1;
-			}
-			if (prevVelocity.x < 0) {
-				velocity.x = 1;
-			}
-		}
-		shp_collisionRect->Update();
-		return;
 	}
 	
 	if (other->GetObjectTag() == ObjectTag::obstacle) {
 		auto otherRect = other->GetThis<MapChipObject>()->GetRectangle();
-		overlap = 0.0f;
+		float overlap = 0.0f;
 
-		if (sencerInputs[1] == other) {
-			overlap = shp_collisionRect->rect->GetBottom() - otherRect->GetTop();
-			overlap = abs(overlap);
-			transform->localPosition.y -= overlap;
-			isGround = true;
-			phisicsForce.y = 0.0f;
+		Vector3 delta = (Vector3)(other->transform->GetPosition() - transform->GetPosition());
 
-		}
-		if (sencerInputs[0] == other) {
-			overlap = otherRect->GetBottom() - shp_collisionRect->rect->GetTop();
 
-			overlap = abs(overlap);
-			transform->localPosition.y += overlap;
-		}
+		if (abs(delta.x) < abs(delta.y))
+		{
+			if (delta.y > 0) {
+				overlap = shp_collisionRect->rect->GetBottom() - otherRect->GetTop();
+				overlap = abs(overlap);
+				transform->localPosition.y -= overlap;
 
-		shp_collisionRect->Update();
-		if (sencerInputs[3] == other) {
-			overlap = shp_collisionRect->rect->GetRight() - otherRect->GetLeft();
-			overlap = abs(overlap);
-			transform->localPosition.x -= overlap;
-			if (prevVelocity.x > 0) {
-				velocity.x = -1;
+				isGround = true;
+				//���n
+				phisicsForce.y = 0.0f;
+
 			}
-			if (prevVelocity.x < 0) {
-				velocity.x = 1;
-			}
-		}
+			else
+				if (delta.y < 0) {
+					overlap = otherRect->GetBottom() - shp_collisionRect->rect->GetTop();
 
-		if (sencerInputs[2] == other) {
-			overlap = otherRect->GetRight() - shp_collisionRect->rect->GetLeft();
-			overlap = abs(overlap);
-			transform->localPosition.x += overlap;
-			if (prevVelocity.x > 0) {
-				velocity.x = -1;
-			}
-			if (prevVelocity.x < 0) {
-				velocity.x = 1;
-			}
+					overlap = abs(overlap);
+					transform->localPosition.y += overlap;
+				}
 		}
-
+		else if (abs(delta.x) > abs(delta.y)) {
+			if (delta.x > 0) {
+				overlap = shp_collisionRect->rect->GetRight() - otherRect->GetLeft();
+				overlap = abs(overlap);
+				transform->localPosition.x -= overlap;
+				velocity.x = 0;
+				phisicsForce.x = 0;
+			}
+			else
+				if (delta.x < 0) {
+					overlap = otherRect->GetRight() - shp_collisionRect->rect->GetLeft();
+					overlap = abs(overlap);
+					transform->localPosition.x += overlap;
+					velocity.x = 0;
+					phisicsForce.x = 0;
+				}
+		}
 		shp_collisionRect->Update();
 	}
 }
@@ -117,38 +90,7 @@ void Framework::Bat::PreInitialize()
 	std::vector<ObjectTag> tags;
 	tags.push_back(ObjectTag::obstacle);
 
-	sencerInputs.push_back(nullptr);
-	sencerInputs.push_back(nullptr);
-	sencerInputs.push_back(nullptr);
-	sencerInputs.push_back(nullptr);
 
-
-	auto sencerTransform_top = ObjectFactory::Create<Transform>(Vector3(0, -16, 0));
-	sencerTransform_top->baseTransform = (transform);
-	auto sencer_top = ObjectFactory::Create<Sencer>(sencerTransform_top, manager, tags, &sencerInputs.at(0), 1, 8);
-
-	auto sencerTransform_bottom = ObjectFactory::Create<Transform>(Vector3(0, 16, 0));
-	sencerTransform_bottom->baseTransform = (transform);
-	auto sencer_bottom = ObjectFactory::Create<Sencer>(sencerTransform_bottom, manager, tags, &sencerInputs.at(1), 1, 8);
-
-	auto sencerTransform_left = ObjectFactory::Create<Transform>(Vector3(-16, 0, 0));
-	sencerTransform_left->baseTransform = (transform);
-	auto sencer_left = ObjectFactory::Create<Sencer>(sencerTransform_left, manager, tags, &sencerInputs.at(2), 8, 1);
-
-	auto sencerTransform_right = ObjectFactory::Create<Transform>(Vector3(16, 0, 0));
-	sencerTransform_right->baseTransform = (transform);
-	auto sencer_right = ObjectFactory::Create<Sencer>(sencerTransform_right, manager, tags, &sencerInputs.at(3), 8, 1);
-
-
-	manager->AddObject_Init(sencer_top);
-	manager->AddObject_Init(sencer_bottom);
-	manager->AddObject_Init(sencer_left);
-	manager->AddObject_Init(sencer_right);
-
-	AddChildObject(sencer_top);
-	AddChildObject(sencer_bottom);
-	AddChildObject(sencer_left);
-	AddChildObject(sencer_right);
 
 
 	shp_texture = ObjectFactory::Create<Resource_Texture>(handle, transform, false, false);
@@ -160,9 +102,6 @@ bool Framework::Bat::Update() {
 	shp_collisionRect->Update();
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture, 1);
 	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
-	for (int i = 0; i < 4; i++) {
-		sencerInputs[i] = nullptr;
-	}
 	isGround = false;
 	return true;
 }
@@ -170,7 +109,6 @@ bool Framework::Bat::Update() {
 bool Framework::Bat::Release()
 {
 	shp_collisionRect->Releace();
-	sencerInputs.clear();
 	shp_collisionRect = nullptr;
 	shp_texture = nullptr;
 	return true;

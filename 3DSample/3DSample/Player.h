@@ -28,7 +28,7 @@ namespace Framework {
 		bool Jump();
 		bool Throw();
 
-		std::vector< std::shared_ptr<GameObject>> sencerInputs;//0 top, 1 bottom,2 left.3 right
+		//std::vector< std::shared_ptr<GameObject>> sencerInputs;//0 top, 1 bottom,2 left.3 right
 
 		std::vector< std::shared_ptr<Child>> vec_childs;
 

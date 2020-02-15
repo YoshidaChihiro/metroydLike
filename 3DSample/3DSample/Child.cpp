@@ -1,4 +1,4 @@
-#include "Child.h"
+﻿#include "Child.h"
 #include "Game.h"
 #include"GameObjectManager.h"
 #include"Sencer.h"
@@ -26,32 +26,41 @@ void Framework::Child::Hit(std::shared_ptr<GameObject> other)
 		auto otherRect = other->GetThis<MapChipObject>()->GetRectangle();
 		float overlap = 0.0f;
 
-		if (sencerInputs[1] == other) {
-			overlap = shp_collisionRect->rect->GetBottom() - otherRect->GetTop();
-			overlap = abs(overlap);
-			transform->localPosition.y -= overlap;
+		Vector3 delta = (Vector3)(other->transform->GetPosition() - transform->GetPosition());
 
+
+		if (abs(delta.x) < abs(delta.y))
+		{
+			if (delta.y > 0) {
+				overlap = shp_collisionRect->rect->GetBottom() - otherRect->GetTop();
+				overlap = abs(overlap);
+				transform->localPosition.y -= overlap;
+
+				//���n
+
+			}
+			else
+				if (delta.y < 0) {
+					overlap = otherRect->GetBottom() - shp_collisionRect->rect->GetTop();
+
+					overlap = abs(overlap);
+					transform->localPosition.y += overlap;
+				}
 		}
-		if (sencerInputs[0] == other) {
-			overlap = otherRect->GetBottom() - shp_collisionRect->rect->GetTop();
-
-			overlap = abs(overlap);
-			transform->localPosition.y += overlap;
-		}
-
-		shp_collisionRect->Update();
-		if (sencerInputs[3] == other) {
-			overlap = shp_collisionRect->rect->GetRight() - otherRect->GetLeft();
-			overlap = abs(overlap);
-			transform->localPosition.x -= overlap;
-			velocity.x = 0;
-		}
-
-		if (sencerInputs[2] == other) {
-			overlap = otherRect->GetRight() - shp_collisionRect->rect->GetLeft();
-			overlap = abs(overlap);
-			transform->localPosition.x += overlap;
-			velocity.x = 0;
+		else if (abs(delta.x) > abs(delta.y)) {
+			if (delta.x > 0) {
+				overlap = shp_collisionRect->rect->GetRight() - otherRect->GetLeft();
+				overlap = abs(overlap);
+				transform->localPosition.x -= overlap;
+				velocity.x = 0;
+			}
+			else
+				if (delta.x < 0) {
+					overlap = otherRect->GetRight() - shp_collisionRect->rect->GetLeft();
+					overlap = abs(overlap);
+					transform->localPosition.x += overlap;
+					velocity.x = 0;
+				}
 		}
 
 		shp_collisionRect->Update();
@@ -76,10 +85,6 @@ void Framework::Child::PreInitialize()
 	std::vector<ObjectTag> tags;
 	tags.push_back(ObjectTag::obstacle);
 
-	sencerInputs.push_back(nullptr);
-	sencerInputs.push_back(nullptr);
-	sencerInputs.push_back(nullptr);
-	sencerInputs.push_back(nullptr);
 
 
 	
@@ -120,32 +125,6 @@ bool Framework::Child::Throw(std::shared_ptr<Transform> arg_target)
 {
 	std::vector<ObjectTag> tags;
 	tags.push_back(ObjectTag::obstacle);
-	auto sencerTransform_top = ObjectFactory::Create<Transform>(Vector3(0, -16, 0));
-	sencerTransform_top->baseTransform = (transform);
-	auto sencer_top = ObjectFactory::Create<Sencer>(sencerTransform_top, manager, tags, &sencerInputs.at(0), 1, 8);
-
-	auto sencerTransform_bottom = ObjectFactory::Create<Transform>(Vector3(0, 16, 0));
-	sencerTransform_bottom->baseTransform = (transform);
-	auto sencer_bottom = ObjectFactory::Create<Sencer>(sencerTransform_bottom, manager, tags, &sencerInputs.at(1), 1, 8);
-
-	auto sencerTransform_left = ObjectFactory::Create<Transform>(Vector3(-16, 0, 0));
-	sencerTransform_left->baseTransform = (transform);
-	auto sencer_left = ObjectFactory::Create<Sencer>(sencerTransform_left, manager, tags, &sencerInputs.at(2), 8, 1);
-
-	auto sencerTransform_right = ObjectFactory::Create<Transform>(Vector3(16, 0, 0));
-	sencerTransform_right->baseTransform = (transform);
-	auto sencer_right = ObjectFactory::Create<Sencer>(sencerTransform_right, manager, tags, &sencerInputs.at(3), 8, 1);
-
-
-	manager->AddObject_Init(sencer_top);
-	manager->AddObject_Init(sencer_bottom);
-	manager->AddObject_Init(sencer_left);
-	manager->AddObject_Init(sencer_right);
-
-	AddChildObject(sencer_top);
-	AddChildObject(sencer_bottom);
-	AddChildObject(sencer_left);
-	AddChildObject(sencer_right);
 
 	isThrown = true;
 	velocity = arg_target->GetPosition().GetVector2()- transform->GetPosition().GetVector2();

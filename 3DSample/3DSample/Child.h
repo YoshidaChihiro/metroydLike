@@ -21,7 +21,7 @@ namespace Framework {
 		virtual bool Throw(std::shared_ptr<Transform> arg_target);
 	private:
 
-		std::vector< std::shared_ptr<GameObject>> sencerInputs;//0 top, 1 bottom,2 left.3 right
+		//std::vector< std::shared_ptr<GameObject>> sencerInputs;//0 top, 1 bottom,2 left.3 right
 		bool Move();
 		void Shoot();
 		void CheckGoal();
