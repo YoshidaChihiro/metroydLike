@@ -14,6 +14,8 @@ Framework::TestScene::~TestScene()
 
 void Framework::TestScene::Initialize()
 {
+	shp_map = ObjectFactory::Create<Map>("Map1.csv", 32, shp_gameObjectManager);
+	shp_gameObjectManager->AddObject_Init(shp_map);
 	auto shp_transform = ObjectFactory::Create<Transform>(Vector3(300, 0, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
 
 	//shp_gameObjectManager->AddObject_Init(ObjectFactory::Create<TestObject>(shp_transform, shp_gameObjectManager));
@@ -40,9 +42,7 @@ void Framework::TestScene::Initialize()
 	
 	auto shp_objectTransform = ObjectFactory::Create<Transform>(Vector3(64, 32, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
 
-	shp_map = ObjectFactory::Create<Map>("Map1.csv",32,shp_gameObjectManager);
 	//shp_gameObjectManager->AddObject(obj);
-	shp_gameObjectManager->AddObject_Init(shp_map);
 	
 	//auto param = new ParticleEmitterParameter();
 	//param->graphHandle = Game::GetInstance()->GetResourceController()->GetTexture("sample.png");

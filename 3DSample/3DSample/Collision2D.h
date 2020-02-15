@@ -34,10 +34,6 @@ namespace Framework {
 			if (other->IsThis<Collision2D_Rectangle>()) {
 				auto otherRect = other->GetThis<Collision2D_Rectangle>()->rect;
 				auto result= rect->IsIntersects(otherRect)||otherRect->IsIntersects(rect);
-				if (result) { 
-					OnHit(other);
-					other->OnHit(GetThis<Collision2D_Rectangle>());
-				}
 				return result;
 			}
 

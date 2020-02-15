@@ -61,10 +61,13 @@ bool Framework::Collision2D_Terrain::IsHit(std::shared_ptr<Collision2D_Base> oth
 	if (other->IsThis<Collision2D_Rectangle>()) {
 		auto objects= gameObj->GetThis<Map>()->GetAroundObjects(other->gameObj->transform->GetPosition().GetVector2());
 		for (auto itr = objects.begin(); itr != objects.end(); itr++) {
-			(*itr)->GetShpCollision()->IsHit(other);
+			if ((*itr)->GetShpCollision()->IsHit(other)) {
+				(*itr)->GetShpCollision()->OnHit(other);
+				other->OnHit((*itr)->GetShpCollision());
+			}
 		}
-			return true;
+			return false;
 	}
 
-	return true;
+	return false;
 }

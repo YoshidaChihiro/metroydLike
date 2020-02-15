@@ -13,26 +13,19 @@ Framework::Collision2DManager::~Collision2DManager()
 bool Framework::Collision2DManager::Update()
 {
 	auto vec_objectsCollision = vec_collision2Ds.at(0);
-	auto vec_sencersCollision = vec_collision2Ds.at(1);
 	int collisionCount = 0;
-	for (auto itr = vec_objectsCollision.begin(); itr != vec_objectsCollision.end(); itr++) {
-		for (auto otherItr = vec_sencersCollision.begin(); otherItr != vec_sencersCollision.end(); otherItr++) {
-
-			(*itr)->IsHit((*otherItr)); 
-			(*otherItr)->IsHit((*itr));
-			collisionCount++;
-		}
-	}
 	for (auto itr = vec_objectsCollision.begin(); itr != vec_objectsCollision.end(); itr++) {
 		for (auto otherItr = itr+1; otherItr != vec_objectsCollision.end(); otherItr++) {
 			if (itr == otherItr)continue;
 
-			(*itr)->IsHit((*otherItr)); (*otherItr)->IsHit((*itr));
-			//collisionCount++;
+			if ((*itr)->IsHit((*otherItr))) {
+				(*itr)->OnHit(*otherItr);
+				(*otherItr)->OnHit(*itr);
+			}
+			collisionCount++;
 		}
 	}
 	if (Input::GetKeyDown(KEY_INPUT_C)) {
-		collisionCount *= 2;
 		int i = 0;
 	}
 	vec_collision2Ds.at(0).clear();
