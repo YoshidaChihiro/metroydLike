@@ -118,22 +118,52 @@ void Framework::Map::GenerateMap(std::shared_ptr< CSVData> csvData, int arg_glid
 		ObjectFactory::Create<MapChip_Space>(manager),//0
 		ObjectFactory::Create<MapChip_Test>(manager),//1
 
-		ObjectFactory::Create<Medal>(manager),//2
+		ObjectFactory::Create<MapChip_Gate>("Map2Scene",Vector2(32 * 3,32 * 20),manager),//2
+		ObjectFactory::Create<MapChip_Gate>("Map1Scene",Vector2(32 * 28,32 * 21),manager),//3
 
-		ObjectFactory::Create<ChildSeedSpawner>(manager),//3
+		ObjectFactory::Create<MapChip_Gate>("Map3Scene",Vector2(32 * 3,32 * 3),manager),//4
+		ObjectFactory::Create<MapChip_Gate>("Map2Scene",Vector2(32 * 27,32 * 3),manager),//5
 
+		ObjectFactory::Create<MapChip_Gate>("Map4Scene",Vector2(32 * 3,32 * 3),manager),//6
+		ObjectFactory::Create<MapChip_Gate>("Map2Scene",Vector2(32 * 27,32 * 36),manager),//7
 
-		ObjectFactory::Create<MapChip_CrushBlock>(manager),//4
-		ObjectFactory::Create<MapChip_ChildBlock>(manager),//5
+		ObjectFactory::Create<MapChip_Gate>("Map5Scene",Vector2(32 * 3,32 * 10),manager),//8
+		ObjectFactory::Create<MapChip_Gate>("Map3Scene",Vector2(32 * 27,32 * 2),manager),//9
 
-		ObjectFactory::Create<MapChip_Space>(manager),//6
+		ObjectFactory::Create<MapChip_Gate>("Map5Scene",Vector2(32 * 3,32 * 30),manager),//10
+		ObjectFactory::Create<MapChip_Gate>("Map4Scene",Vector2(32 * 28,32 * 4),manager),//11
 
-		ObjectFactory::Create<MapChip_Kuribo>(manager),//7
-		ObjectFactory::Create<MapChip_Kuribo>(manager),//8
-		ObjectFactory::Create<MapChip_Bat>(manager),//9
-		ObjectFactory::Create<MapChip_Bat>(manager),//10
-		ObjectFactory::Create<MapChip_Teresa>(manager),//11
-		ObjectFactory::Create<MapChip_Teresa>(manager),//12
+		ObjectFactory::Create<MapChip_Gate>("Map6Scene",Vector2(32 * 39,32 * 18),manager),//12
+		ObjectFactory::Create<MapChip_Gate>("Map5Scene",Vector2(32 * 27,32 * 3),manager),//13
+
+		ObjectFactory::Create<MapChip_Gate>("Map7Scene",Vector2(32 * 27,32 * 3),manager),//14
+		ObjectFactory::Create<MapChip_Gate>("Map6Scene",Vector2(32 * 3,32 * 3),manager),//15
+
+		ObjectFactory::Create<MapChip_Gate>("Map9Scene",Vector2(32 * 27,32 * 3),manager),//16
+		ObjectFactory::Create<MapChip_Gate>("Map7Scene",Vector2(32 * 3,32 * 3),manager),//17
+
+		ObjectFactory::Create<MapChip_Gate>("Map8Scene",Vector2(32 * 71,32 * 19),manager),//18
+		ObjectFactory::Create<MapChip_Gate>("Map6Scene",Vector2(32 * 22,32 * 3),manager),//19
+
+		ObjectFactory::Create<MapChip_Gate>("Map8Scene",Vector2(32 * 17,32 * 18),manager),//20
+		ObjectFactory::Create<MapChip_Gate>("Map9Scene",Vector2(32 * 25,32 * 2),manager),//21
+
+		ObjectFactory::Create<MapChip_Gate>("Map7Scene",Vector2(32 * 15,32 * 3),manager),//22
+
+		ObjectFactory::Create<MapChip_Gate>("Map2Scene",Vector2(32 * 15,32 * 3),manager),//23
+
+		ObjectFactory::Create<MapChip_Gate>("Map9Scene",Vector2(32 * 5,32 * 18),manager),//24
+		ObjectFactory::Create<MapChip_Gate>("Map1Scene",Vector2(32 * 2,32 * 2),manager),//25
+
+		ObjectFactory::Create<MapChip_ChildBlock>(manager),//26
+		ObjectFactory::Create<MapChip_CrushBlock>(manager),//27
+
+		ObjectFactory::Create<Medal>(manager),//28
+		ObjectFactory::Create<ChildSeedSpawner>(manager),//29
+
+		ObjectFactory::Create<MapChip_Kuribo>(manager),//30
+		ObjectFactory::Create<MapChip_Bat>(manager),//31
+		ObjectFactory::Create<MapChip_Teresa>(manager),//31
 			   
 	};
 
