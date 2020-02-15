@@ -17,8 +17,10 @@ bool Framework::Collision2DManager::Update()
 	for (auto itr = vec_objectsCollision.begin(); itr != vec_objectsCollision.end(); itr++) {
 		for (auto otherItr = vec_sencersCollision.begin(); otherItr != vec_sencersCollision.end(); otherItr++) {
 
-			(*itr)->IsHit((*otherItr)); 
-			(*otherItr)->IsHit((*itr));
+
+			//(*itr)->IsHit((*otherItr)); 
+			//(*otherItr)->IsHit((*itr));
+			//collisionCount++;
 		}
 	}
 	for (auto itr = vec_objectsCollision.begin(); itr != vec_objectsCollision.end(); itr++) {

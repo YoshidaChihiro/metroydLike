@@ -35,7 +35,7 @@ void Framework::Player::Hit(std::shared_ptr<GameObject> other)
 		auto otherRect = other->GetThis<MapChipObject>()->GetRectangle();
 		float overlap = 0.0f;
 
-		if (sencerInputs[1] == other) {
+		if (shp_collisionRect->rect->GetBottom()>=otherRect->GetTop()&&shp_collisionRect->rect->GetBottom()<=other->transform->GetPosition().y) {
 			overlap = shp_collisionRect->rect->GetBottom() - otherRect->GetTop();
 			overlap = abs(overlap);
 			transform->localPosition.y -= overlap;
@@ -44,7 +44,7 @@ void Framework::Player::Hit(std::shared_ptr<GameObject> other)
 			phisicsForce.y = 0.0f;
 
 		}
-		if (sencerInputs[0] == other) {
+		if (shp_collisionRect->rect->GetTop() <= otherRect->GetBottom() && shp_collisionRect->rect->GetTop() >= other->transform->GetPosition().y) {
 			overlap = otherRect->GetBottom() - shp_collisionRect->rect->GetTop();
 
 			overlap = abs(overlap);
@@ -52,7 +52,7 @@ void Framework::Player::Hit(std::shared_ptr<GameObject> other)
 		}
 
 		shp_collisionRect->Update();
-		if (sencerInputs[3] == other) {
+		if (shp_collisionRect->rect->GetRight() >=otherRect->GetLeft() && shp_collisionRect->rect->GetRight() <= other->transform->GetPosition().x) {
 			overlap = shp_collisionRect->rect->GetRight() - otherRect->GetLeft();
 			overlap = abs(overlap);
 			transform->localPosition.x -= overlap;
@@ -60,7 +60,8 @@ void Framework::Player::Hit(std::shared_ptr<GameObject> other)
 			phisicsForce.x = 0;
 		}
 
-		if (sencerInputs[2] == other) {
+		shp_collisionRect->Update();
+		if (shp_collisionRect->rect->GetLeft() <= otherRect->GetRight() && shp_collisionRect->rect->GetLeft() >= other->transform->GetPosition().x) {
 			overlap = otherRect->GetRight() - shp_collisionRect->rect->GetLeft();
 			overlap = abs(overlap);
 			transform->localPosition.x += overlap;
