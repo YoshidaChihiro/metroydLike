@@ -5,15 +5,22 @@ Framework::ParticleEmitter::ParticleEmitter(std::shared_ptr<Transform> arg_trans
 {
 	p_particleEmitterParameter = arg_p_particleEmitetrParameter;
 	timer = p_particleEmitterParameter->emitSpan;
+	sucide = new Timer(p_particleEmitterParameter->emitterLifeSpan);
+	sucide->Start();
 }
 
 Framework::ParticleEmitter::~ParticleEmitter()
 {
 	delete p_particleEmitterParameter;
+	delete sucide;
 }
 
 bool Framework::ParticleEmitter::Update()
 {
+	if (sucide->Update()) {
+		SetIsDead(true);
+		return true;
+	}
 	if (timer < 0) {
 		timer = p_particleEmitterParameter->emitSpan;
 		Emit();

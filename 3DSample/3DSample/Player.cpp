@@ -92,7 +92,7 @@ void Framework::Player::PreInitialize()
 
 
 
-	shp_texture = ObjectFactory::Create<Resource_Texture>("apple.png", transform, false, false);
+	shp_texture = ObjectFactory::Create<Resource_Texture>("robo.png", transform, false, false);
 	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(32, 32)), GetThis<GameObject>());
 	
 	shp_cursol = ObjectFactory::Create<Cursol>(ObjectFactory::Create<Transform>(transform->GetPosition()),transform,manager);
@@ -132,6 +132,23 @@ bool Framework::Player::Update() {
 
 bool Framework::Player::Release()
 {
+	int handle = Game::GetInstance()->GetResourceController()->GetTexture("orangeParticle.png");
+
+	auto p_param = new ParticleEmitterParameter();
+	p_param->graphHandle = handle;
+	p_param->layer = 2;
+	p_param->range_maxSpeed = 10;
+	p_param->range_minSpeed = 5;
+	p_param->range_maxLifeSpan = 30;
+	p_param->range_minLifeSpan = 10;
+	p_param->range_maxRotation.z = 360;
+	p_param->range_minRotation.z = 0;
+	p_param->range_maxEmitCount = 20;
+	p_param->range_minEmitCount = 10;
+	p_param->emitSpan = 2;
+	p_param->emitterLifeSpan=10;
+	manager->AddObject(ObjectFactory::Create<ParticleEmitter>( transform->GetThis<Transform>(),p_param, manager
+		));
 
 	shp_collisionRect->Releace();
 	shp_collisionRect = nullptr;

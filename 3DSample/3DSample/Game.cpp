@@ -72,10 +72,24 @@ bool Framework::Game::ResourceLoad()
 	unq_resourceController->LoadTexture("sample5.png");
 
 	unq_resourceController->LoadTexture("orange.png");
+	unq_resourceController->LoadTexture("cursol.png");
+	unq_resourceController->LoadTexture("kirari.png");
+
+
+	unq_resourceController->LoadTexture("child.png");
+	unq_resourceController->LoadTexture("block.png");
+	unq_resourceController->LoadTexture("robo.png");
 
 	unq_resourceController->LoadTexture("apple.png");
 
-	unq_resourceController->LoadTexture("cursol.png");
+
+	unq_resourceController->LoadTexture("blackParticle.png");
+
+	unq_resourceController->LoadTexture("orangeParticle.png");
+
+	unq_resourceController->LoadTexture("yellowParticle.png");
+
+	unq_resourceController->LoadTexture("whiteParticle.png");
 
 	unq_resourceController->LoadCreateFont("testFont", "MS　明朝", 32, -1, DX_FONTTYPE_NORMAL);
 	unq_resourceController->LoadTexture("pumpkin.png");

@@ -7,17 +7,29 @@ namespace Framework {
 
 	public:
 		Particle(
-			int graphHandle, 
+			int graphHandle,
 			float layer,
 			std::shared_ptr<Transform> arg_shp_transform,
-			Vector3 arg_moveVelocity, 
+			Vector3 arg_moveVelocity,
 			float arg_speed,
 			Vector3 arg_rotatePase,
-			Vector3 arg_extentionPase, 
-			float arg_accelation, 
+			Vector3 arg_extentionPase,
+			float arg_accelation,
 			Vector3  arg_phisicsForce,
 			size_t lifeSpan,
-			std::shared_ptr<GameObjectManager> arg_manager);
+			std::shared_ptr<GameObjectManager> arg_manager); 
+		Particle(
+			Vector4 color,
+				float layer,
+				std::shared_ptr<Transform> arg_shp_transform,
+				Vector3 arg_moveVelocity,
+				float arg_speed,
+				Vector3 arg_rotatePase,
+				Vector3 arg_extentionPase,
+				float arg_accelation,
+				Vector3  arg_phisicsForce,
+				size_t lifeSpan,
+				std::shared_ptr<GameObjectManager> arg_manager);
 		bool Update()override;
 		~Particle()override;
 	private:

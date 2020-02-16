@@ -2,7 +2,7 @@
 #include "Game.h"
 #include"GameObjectManager.h"
 #include"Sencer.h"
-
+#include"ParticleEmitter.h"
 Framework::Child::Child(int delay,int waitPointDis, std::shared_ptr<Transform> shp_arg_player_transform, std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager)
 	:GameObject(shp_arg_transform, shp_arg_gameObjectManager->GetThis<GameObjectManager>()), delay(delay),waitPointDistance(waitPointDis)
 {
@@ -79,7 +79,7 @@ bool Framework::Child::Release()
 
 void Framework::Child::PreInitialize()
 {
-	auto handle = Game::GetInstance()->GetResourceController()->GetTexture("orange.png");
+	auto handle = Game::GetInstance()->GetResourceController()->GetTexture("child.png");
 	shp_texture = ObjectFactory::Create<Resource_Texture>(handle, transform, false, false);
 	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(25, 25, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
 
@@ -182,6 +182,8 @@ void Framework::Child::CreateBlock()
 	int x = ((transform->GetPosition().x)+glidSize/2) / (float)glidSize;
 	int y = (transform->GetPosition().y+glidSize/2 )/(float) glidSize;
 	manager->SerchGameObject(ObjectTag::map)->GetThis<Map>()->ChangeGlid(x, y, 5);
+
+	
 	SetIsDead(true);
 }
 

@@ -1,5 +1,6 @@
 #pragma once
 #include"Particle.h"
+#include"RelativeTimer.h"
 namespace Framework {
 	struct ParticleEmitterParameter {
 
@@ -31,6 +32,10 @@ namespace Framework {
 		int layer = 0.2f;//レイヤ-の指定
 		int emitSpan = 10;//何フレームに一回生成を行うか
 		int graphHandle = 0;//使う画像のハンドル
+
+		int emitterLifeSpan = 3;
+
+		Vector4 color;
 	};
 	class ParticleEmitter :public GameObject {
 	public:
@@ -41,6 +46,7 @@ namespace Framework {
 	private:
 		ParticleEmitterParameter* p_particleEmitterParameter;
 		int timer = 0;
+		Timer * sucide;
 	};
 
 }

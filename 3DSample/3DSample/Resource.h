@@ -41,7 +41,13 @@ namespace Framework {
 		Resource_UI(int arg_handle, std::shared_ptr<Transform> arg_transform, bool isXFlip, bool isYFlip);
 		Resource_UI(std::string key, std::shared_ptr<Transform> arg_transform, bool isXFlip, bool isYFlip);
 		~Resource_UI();
-		virtual bool Draw();
+		bool Draw()override;
+	};
+	struct Resource_Pixel :Resource_Texture {
+		Resource_Pixel( Vector4& arg_color, std::shared_ptr<Transform> arg_transform);
+		~Resource_Pixel();
+		bool Draw()override;
+		int color;
 	};
 	struct Resource_Text_String :Resource_Texture {
 		Resource_Text_String(std::string source, std::shared_ptr<Transform> arg_transform, int color, bool isCenter, std::string fontName);

@@ -33,7 +33,15 @@ Framework::Resource_Texture::~Resource_Texture()
 bool Framework::Resource_Texture::Draw()
 {
 	auto modify = Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetScrollModify();
-	if(DrawRotaGraph3(transform->GetPosition().x-width/2-modify.x,transform->GetPosition().y-height/2-modify.y,0,0,transform->GetScale().x,transform->GetScale().y,transform->GetRotation().z,handle,true,xFlip,yFlip)==0)
+
+	if (abs(transform->GetRotation().z) == 0) {
+		if(!xFlip)
+		DrawGraph(transform->GetPosition().x - width / 2 - modify.x, transform->GetPosition().y - height / 2 - modify.y, handle, true);
+		else
+		DrawTurnGraph(transform->GetPosition().x - width / 2 - modify.x, transform->GetPosition().y - height / 2 - modify.y, handle, true);
+		return true;
+	}
+	if(DrawRotaGraph(transform->GetPosition().x-width/2-modify.x,transform->GetPosition().y-height/2-modify.y,transform->GetScale().x,transform->GetRotation().z,handle,true,xFlip)==0)
 	return true;
 	else {
 		return false;
@@ -101,4 +109,20 @@ bool Framework::Resource_UI::Draw()
 	else {
 		return false;
 	}
+}
+
+Framework::Resource_Pixel::Resource_Pixel(Vector4 & arg_color, std::shared_ptr<Transform> arg_transform)
+	:Resource_Texture(arg_transform)
+{
+	color = GetColor(arg_color.x, arg_color.y, arg_color.z);
+}
+
+Framework::Resource_Pixel::~Resource_Pixel()
+{
+}
+
+bool Framework::Resource_Pixel::Draw()
+{
+	DrawPixel(transform->GetPosition().x, transform->GetPosition().y, color);
+	return true;
 }

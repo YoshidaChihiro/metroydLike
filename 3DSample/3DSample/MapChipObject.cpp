@@ -2,6 +2,7 @@
 #include"GameObjectManager.h"
 #include "Game.h"
 #include"Explosion.h"
+#include"ParticleEmitter.h"
 Framework::MapChip_Space::MapChip_Space(std::shared_ptr<GameObjectManager> arg_manager):MapChipObject(arg_manager->GetThis<GameObjectManager>())
 {
 }
@@ -30,7 +31,7 @@ bool Framework::MapChip_Test::Update()
 
 void Framework::MapChip_Test::Initialize()
 {
-	shp_texture = ObjectFactory::Create<Resource_Texture>("sample2.png", transform, false, false);
+	shp_texture = ObjectFactory::Create<Resource_Texture>("block.png", transform, false, false);
 	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(
 		Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetGlidSize(),
 		Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetGlidSize(), 
@@ -139,7 +140,7 @@ bool Framework::MapChip_ChildBlock::Update()
 
 void Framework::MapChip_ChildBlock::Initialize()
 {
-	shp_texture = ObjectFactory::Create<Resource_Texture>("orange.png", transform, false, false);
+	shp_texture = ObjectFactory::Create<Resource_Texture>("child.png", transform, false, false);
 	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(
 		Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetGlidSize(),
 		Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetGlidSize(),
@@ -254,7 +255,22 @@ void Framework::Medal::Hit(std::shared_ptr<GameObject> other)
 {
 	if (other->GetObjectTag() == ObjectTag::player) {
 		SetIsDead(true);
-		Game::GetInstance()->GetSceneManager()->GetGameMaster()->GetMedal();
+		Game::GetInstance()->GetSceneManager()->GetGameMaster()->GetMedal(); 
+		int handle = Game::GetInstance()->GetResourceController()->GetTexture("kirari.png");
+
+		auto p_param = new ParticleEmitterParameter();
+		p_param->graphHandle = handle;
+		p_param->layer = 2;
+		p_param->range_maxSpeed = 10;
+		p_param->range_minSpeed = 5;
+		p_param->range_maxLifeSpan = 30;
+		p_param->range_minLifeSpan = 10;
+		p_param->range_maxEmitCount = 20;
+		p_param->range_minEmitCount = 10;
+		p_param->emitSpan = 2;
+		p_param->emitterLifeSpan = 10;
+		manager->AddObject(ObjectFactory::Create<ParticleEmitter>(transform->GetThis<Transform>(), p_param, manager
+			));
 	}
 }
 
