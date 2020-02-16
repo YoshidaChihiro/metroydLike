@@ -13,7 +13,7 @@ namespace Framework {
 
 			static void Initialize();
 
-			static void Update();
+			static void OnUpdate();
 
 			static bool GetKeyDown(int keyCode);
 

@@ -14,7 +14,7 @@ void Framework::Input::Initialize()
 	GetJoypadXInputState(DX_INPUT_PAD1, &buttonState);
 }
 
-void Framework::Input::Update()
+void Framework::Input::OnUpdate()
 {
 	memcpy(prevKeyState, keyState, sizeof(keyState));
 	GetHitKeyStateAll(keyState);

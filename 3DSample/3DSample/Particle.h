@@ -30,16 +30,15 @@ namespace Framework {
 				Vector3  arg_phisicsForce,
 				size_t lifeSpan,
 				std::shared_ptr<GameObjectManager> arg_manager);
-		bool Update()override;
+		bool OnUpdate()override;
 		~Particle()override;
 	private:
 		Vector3 moveVelocity;
-		Vector3 phisicsForce;
 		Vector3 extentionPase;
 		float speed;
 		float accelation;
 		Vector3 rotatePase;
-		size_t lifeSpan;
+		float lifeSpan;
 		std::shared_ptr<Resource_Texture>shp_resource_texture;
 	};
 

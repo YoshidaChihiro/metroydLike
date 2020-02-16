@@ -20,7 +20,7 @@ void Framework::Collision2D_Rectangle::PreInitialize()
 {
 }
 
-bool Framework::Collision2D_Rectangle::Update()
+bool Framework::Collision2D_Rectangle::OnUpdate()
 {
 	rect->position= gameObj->transform->GetPosition().GetVector2();
 	return true;
@@ -49,7 +49,7 @@ void Framework::Collision2D_Terrain::PreInitialize()
 {
 }
 
-bool Framework::Collision2D_Terrain::Update()
+bool Framework::Collision2D_Terrain::OnUpdate()
 {
 	return true;
 }

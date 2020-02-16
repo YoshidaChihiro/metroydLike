@@ -5,7 +5,7 @@ namespace Framework {
 	{
 	public:
 		Cameraman(std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_manager);
-		bool Update()override;
+		bool OnUpdate()override;
 	protected:
 		void SetScrollFocus();
 	}; 
@@ -16,7 +16,7 @@ namespace Framework {
 
 		Cameraman_Chase( std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_manager);
 		
-		bool Update()override;
+		bool OnUpdate()override;
 
 		void SetTarget(std::shared_ptr<Transform> arg_target) {
 			target=arg_target->GetThis<Transform>();

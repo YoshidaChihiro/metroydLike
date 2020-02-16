@@ -7,7 +7,7 @@ namespace Framework {
 	public:
 
 		Cursol(std::shared_ptr<Transform> shp_arg_player_transform, std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager);
-		bool Update()override;
+		bool OnUpdate()override;
 		void Initialize()override;
 		void PreInitialize()override {};
 		std::shared_ptr<Transform> GetWorldTransform();

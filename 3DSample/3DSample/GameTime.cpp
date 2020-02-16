@@ -11,7 +11,7 @@ void Framework::GameTime::ChangeSpeed(float arg_speed)
 	gameSpeed = arg_speed;
 }
 
-void Framework::GameTime::Update()
+void Framework::GameTime::OnUpdate()
 {
 	if (timer.Update()) {
 		gameSpeed = rightSpeed;

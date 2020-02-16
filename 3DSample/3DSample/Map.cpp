@@ -30,9 +30,9 @@ void Framework::Map::Initialize()
 	shp_collision = ObjectFactory::Create<Collision2D_Terrain>(GetThis<Map>());
 }
 
-bool Framework::Map::Update()
+bool Framework::Map::OnUpdate()
 {
-	shp_collision->Update();
+	shp_collision->OnUpdate();
 
 	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collision);
 

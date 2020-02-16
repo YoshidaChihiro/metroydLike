@@ -1,5 +1,7 @@
+#pragma once
 #include "GameObject.h"
 #include "GameObjectManager.h"
+#include"Game.h"
 
 bool Framework::GameObject::Release()
 {
@@ -31,6 +33,16 @@ void Framework::GameObject::SetGameObjectManager(std::shared_ptr<GameObjectManag
 
 void Framework::GameObject::Initialize()
 {
+}
+
+void Framework::GameObject::AbsMove()
+{
+	transform->localPosition +=( velocity+phisicsForce);
+}
+
+void Framework::GameObject::RelativeMove()
+{
+	transform->localPosition +=((Vector3) (velocity + phisicsForce))*Game::GetInstance()-> GetGameTime()->GetSpeed();
 }
 
 void Framework::GameObject::SetIsDead(bool arg_isDead)

@@ -41,12 +41,12 @@ namespace Framework {
 	public:
 		ParticleEmitter(std::shared_ptr<Transform> arg_transform, ParticleEmitterParameter* arg_p_particleEmitetrParameter, std::shared_ptr<GameObjectManager> arg_manager);
 		~ParticleEmitter();
-		bool Update()override;
+		bool OnUpdate()override;
 		void Emit();
 	private:
 		ParticleEmitterParameter* p_particleEmitterParameter;
 		int timer = 0;
-		Timer * sucide;
+		RelativeTimer * sucide;
 	};
 
 }

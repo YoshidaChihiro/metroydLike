@@ -1,18 +1,16 @@
 #pragma once
 #include"Util.h"
 #include "ButiMath.h"
+#include"GameComponent.h"
 namespace Framework {
 	class GameObject;
-	class Collision2D_Base :public IObject
+	class Collision2D_Base :public GameComponent
 	{
 	public:
 		virtual bool IsHit(std::shared_ptr< Collision2D_Base> other) = 0;
 
 		virtual bool OnHit(std::shared_ptr<Collision2D_Base> other);
 
-		virtual bool Update()=0;
-
-		std::shared_ptr<GameObject> gameObj;
 	};
 	class Collision2D_Rectangle :public Collision2D_Base {
 	public:
@@ -28,7 +26,7 @@ namespace Framework {
 			gameObj = nullptr;
 		}
 
-		bool Update()override;
+		bool OnUpdate()override;
 
 		inline bool IsHit(std::shared_ptr<Collision2D_Base> other) {
 			if (other->IsThis<Collision2D_Rectangle>()) {
@@ -48,7 +46,7 @@ namespace Framework {
 		void Initialize()override;
 		void PreInitialize()override;
 
-		bool Update()override;
+		bool OnUpdate()override;
 
 		bool IsHit(std::shared_ptr<Collision2D_Base> other);
 	};

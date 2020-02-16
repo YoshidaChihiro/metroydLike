@@ -10,9 +10,9 @@ namespace Framework {
 		void Hit(std::shared_ptr<GameObject> other)override;
 		void PreInitialize()override;
 		void Initialize()override;
-		bool Update()override;
+		bool OnUpdate()override;
 	private:
-		Timer sucide;
+		RelativeTimer sucide;
 		std::shared_ptr<Resource_Texture> shp_texture;
 		std::shared_ptr<Collision2D_Rectangle>shp_collisionRect;
 	};

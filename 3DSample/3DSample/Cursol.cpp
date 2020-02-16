@@ -7,7 +7,7 @@ Framework::Cursol::Cursol(std::shared_ptr<Transform> shp_arg_player_transform, s
 	transform->SetBaseTransform(shp_arg_transform->GetThis<Transform>() );
 }
 
-bool Framework::Cursol::Update()
+bool Framework::Cursol::OnUpdate()
 {
 	Vector3 move=
 		Vector3(

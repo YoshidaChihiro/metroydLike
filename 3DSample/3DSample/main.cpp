@@ -47,12 +47,12 @@ int WINAPI WinMain(
 
 
 
-		Framework::Input::Update();
+		Framework::Input::OnUpdate();
 
 		//XV‹——£
 
 		timespec_get(&befTime, TIME_UTC);
-		Framework::Game::GetInstance()->Update();
+		Framework::Game::GetInstance()->OnUpdate();
 
 		//•`‰æˆ—
 

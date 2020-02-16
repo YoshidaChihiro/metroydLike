@@ -9,7 +9,7 @@ namespace Framework {
 		Sencer(std::shared_ptr<Transform> arg_transform, std::shared_ptr< GameObjectManager> arg_manager, std::vector< ObjectTag> arg_vec_checkTags, std::shared_ptr<GameObject>* arg_output, int arg_width = 16,int arg_height=16);
 		~Sencer();
 		void Initialize()override;
-		bool Update()override;
+		bool OnUpdate()override;
 		bool Release()override;
 		void Hit(std::shared_ptr<GameObject> other)override;
 	private:

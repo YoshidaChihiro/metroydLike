@@ -26,9 +26,9 @@ void Framework::TestObject::PreInitialize()
 	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(16,16,transform->GetPosition().GetVector2(),Rectangle::GetRectangleOuterCircleRadius(16,16)),GetThis<GameObject>());
 }
 
-bool Framework::TestObject::Update()
+bool Framework::TestObject::OnUpdate()
 {
-	shp_collisionRect->Update();
+	shp_collisionRect->OnUpdate();
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
 	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
 

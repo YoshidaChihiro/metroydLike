@@ -49,11 +49,11 @@ bool Framework::Game::Draw()
 	return true;
 }
 
-bool Framework::Game::Update()
+bool Framework::Game::OnUpdate()
 {
-	auto result= unq_sceneManager->Update();
+	auto result= unq_sceneManager->OnUpdate();
 
-	unq_collision2DManager->Update();
+	unq_collision2DManager->OnUpdate();
 	return result;
 }
 

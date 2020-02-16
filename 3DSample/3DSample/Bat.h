@@ -12,7 +12,7 @@ namespace Framework {
 		~Bat();
 		void Hit(std::shared_ptr<GameObject> other)override;
 		void PreInitialize()override;
-		bool Update()override;
+		bool OnUpdate()override;
 
 		bool Release()override;
 		std::shared_ptr<Resource_Texture> shp_texture;
@@ -22,11 +22,10 @@ namespace Framework {
 	private:
 		bool Move();
 
+		std::shared_ptr<GameObject> player = nullptr;
 		//std::vector< std::shared_ptr<GameObject>> sencerInputs;//0 top, 1 bottom,2 left.3 right
+		Vector3 floatVec;
 
-		Vector2  velocity,
-			phisicsForce,
-			prevVelocity;
 		float speed,
 			gravity,
 			maxFallSpeed,

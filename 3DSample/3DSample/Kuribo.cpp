@@ -4,14 +4,13 @@
 #include"Sencer.h"
 Framework::Kuribo::Kuribo(std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager) :GameObject(shp_arg_transform, shp_arg_gameObjectManager)
 {
-	velocity = Vector2(-1.0f, 0.0f);
-	prevVelocity = Vector2(0.0f, 0.0f);
+	velocity = Vector3(0.0f, 0.0f,0.0f);
 	speed = 1.0f;
 	gravity = 0.6f;
 	maxFallSpeed = 6.0f;
 	overlap = 0.0f;
 
-	phisicsForce = Vector2(0, 0);
+	phisicsForce = Vector3(0,0, 0);
 
 	tag = ObjectTag::enemy;
 }
@@ -39,7 +38,7 @@ void Framework::Kuribo::Hit(std::shared_ptr<GameObject> other)
 		Vector3 delta = (Vector3)(other->transform->GetPosition() - transform->GetPosition());
 
 
-		if (abs(delta.x) < abs(delta.y))
+		if (abs(delta.x) - abs(delta.y)<=-1)
 		{
 			if (delta.y > 0) {
 				overlap = shp_collisionRect->rect->GetBottom() - otherRect->GetTop();
@@ -58,24 +57,20 @@ void Framework::Kuribo::Hit(std::shared_ptr<GameObject> other)
 					transform->localPosition.y += overlap;
 				}
 		}
-		else if (abs(delta.x) > abs(delta.y)) {
+		else if (abs(delta.x) - abs(delta.y)>=1) {
 			if (delta.x > 0) {
 				overlap = shp_collisionRect->rect->GetRight() - otherRect->GetLeft();
 				overlap = abs(overlap);
 				transform->localPosition.x -= overlap;
-				velocity.x *= -1;
-				phisicsForce.x = 0;
 			}
 			else
 				if (delta.x < 0) {
 					overlap = otherRect->GetRight() - shp_collisionRect->rect->GetLeft();
 					overlap = abs(overlap);
 					transform->localPosition.x += overlap;
-					velocity.x *= -1;
-					phisicsForce.x = 0;
 				}
 		}
-		shp_collisionRect->Update();
+		shp_collisionRect->OnUpdate();
 	}
 }
 
@@ -90,14 +85,16 @@ void Framework::Kuribo::PreInitialize()
 
 	shp_texture = ObjectFactory::Create<Resource_Texture>(handle, transform, false, false);
 	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(32, 32)), GetThis<GameObject>());
+	vec_gameComponents.push_back(shp_collisionRect->GetThis<GameComponent>());
 }
 
-bool Framework::Kuribo::Update() {
+bool Framework::Kuribo::OnUpdate() {
 	Move();
-	shp_collisionRect->Update();
+	shp_collisionRect->OnUpdate();
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture, 1);
 	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
 
+	transform->localPosition += ((Vector2)(velocity * speed)) + ((Vector2)(phisicsForce));
 	isGround = false;
 	return true;
 }
@@ -112,14 +109,25 @@ bool Framework::Kuribo::Release()
 
 bool Framework::Kuribo::Move() {
 
-	velocity.Normalize();
-	transform->localPosition += ((Vector2)(velocity * speed)) + ((Vector2)(phisicsForce));
+	if (!player || player->GetIsDead())
+	player = manager->SerchGameObject(ObjectTag::player);
+	if (player) {
+		auto vec = transform->GetPosition().GetVector2();
+		auto dis = (player->transform->GetPosition().GetVector2().GetDistance(vec));
 
+		if (dis < 160) {
+			velocity.x = player->transform->GetPosition().GetVector2().x - vec.x;
+		}
+		else {
+			velocity.x = 0;
+		}
+	}
+	velocity.Normalize();
+	velocity *= speed;
 	phisicsForce.y += gravity;
 	if (phisicsForce.y > maxFallSpeed) {
 		phisicsForce.y = maxFallSpeed;
 	}
-	prevVelocity = velocity;
 
 	return true;
 }

@@ -6,16 +6,16 @@ namespace Framework {
 	public:
 		GameTime();
 		void ChangeSpeed(float arg_speed);
-		void Update();
+		void OnUpdate();
 		float GetSpeed()const {
 			return gameSpeed;
 		}
 		void Stop(int stopFrame);
 		void SlowMotion(float arg_speed,int stopFrame);
+	private:
 		float gameSpeed;
 		float rightSpeed;
 		AbsTimer timer;
-	private:
 	};
 
 }

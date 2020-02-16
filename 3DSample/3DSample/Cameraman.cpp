@@ -7,7 +7,7 @@ Framework::Cameraman::Cameraman(std::shared_ptr<Transform> shp_arg_transform, st
 	tag = ObjectTag::camera;
 }
 
-bool Framework::Cameraman::Update()
+bool Framework::Cameraman::OnUpdate()
 {
 	SetScrollFocus();
 	return true;
@@ -28,15 +28,18 @@ Framework::Cameraman_Chase::Cameraman_Chase(std::shared_ptr<Transform> shp_arg_t
 {
 }
 
-bool Framework::Cameraman_Chase::Update()
+bool Framework::Cameraman_Chase::OnUpdate()
 {
 	auto v = (target->GetPosition().GetVector2());
 	auto distance = transform->GetPosition().GetVector2().GetDistance(v	);
 	if (distance > 64)
 	{
-		auto cameraVeloc = ((Vector3)(target->GetPosition() - transform->GetPosition()));
-		cameraVeloc.Normalize();
-		transform->localPosition +=cameraVeloc*(distance/24);
+		velocity= ((Vector3)(target->GetPosition() - transform->GetPosition()));
+		velocity.Normalize();
+		velocity*=(distance/24);
+	}
+	else {
+		velocity = Vector3();
 	}
 
 	SetScrollFocus();

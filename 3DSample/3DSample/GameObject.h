@@ -1,9 +1,12 @@
 #pragma once
 #include"Transform.h"
 #include"RelativeTimer.h"
+#include"GameComponent.h"
 namespace Framework {
 	class GameObjectManager;
-
+	enum class MovePattern {
+		abs,relative,fleeze
+	};
 	enum class ObjectTag {
 		player,enemy,obstacle,none,camera,supporter,sencer,map,playerBullet,item
 	};
@@ -12,7 +15,7 @@ namespace Framework {
 	public:
 		inline
 			GameObject(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager) :transform(arg_transform),manager(arg_manager) {
-			sucideTimer = new Timer(0);
+			sucideTimer = new RelativeTimer(0);
 		}
 
 		virtual ~GameObject() {
@@ -21,10 +24,41 @@ namespace Framework {
 
 		virtual bool Release();
 
-		virtual bool Update() = 0;
+		inline bool Update() {
+			
+			if (!isDead) {
+
+				OnUpdate();
+				ComponentUpdate();
+			}
+			else {
+				DeadUpdate();
+			}
+
+			switch (movePattern)
+			{
+			case MovePattern::relative:
+				RelativeMove();
+				break;
+			case MovePattern::abs:
+				AbsMove();
+				break;
+			default:
+				break;
+			}
+			return true;
+		}
+
+		virtual bool OnUpdate() = 0;
 		virtual bool DeadUpdate() { return true; }
 
 		void DeadCheck();
+
+		inline void ComponentUpdate() {
+			for (auto itr = vec_gameComponents.begin(); itr != vec_gameComponents.end(); itr++) {
+				(*itr)->OnUpdate();
+			}
+		}
 
 		virtual void Hit(std::shared_ptr<GameObject> other) {}
 
@@ -33,6 +67,10 @@ namespace Framework {
 		void SetGameObjectManager(std::shared_ptr<GameObjectManager> arg_manager);
 
 		void Initialize()override;
+
+		void AbsMove();
+
+		void RelativeMove();
 
 		bool GetIsDead() { return isDead; };
 
@@ -58,10 +96,14 @@ namespace Framework {
 	protected:
 		void ChangeTimer(int arg_maxFrame);
 		ObjectTag tag = ObjectTag::none;
+		Vector3 velocity;
+		Vector3 phisicsForce;
+		MovePattern movePattern = MovePattern::relative;
+		std::vector<std::shared_ptr<GameComponent>> vec_gameComponents;
 	private:
 		bool isDead;
 		bool isRemove;
-		Timer* sucideTimer;
+		RelativeTimer* sucideTimer;
 		std::vector<std::shared_ptr<GameObject>> childs;
 	};
 }

@@ -7,7 +7,7 @@ namespace Framework {
 	public:
 		Collision2DManager();
 		~Collision2DManager();
-		bool Update();
+		bool OnUpdate();
 		void AddCollision(std::shared_ptr<Collision2D_Base> add,int layer=0);
 		void Release();
 	private:

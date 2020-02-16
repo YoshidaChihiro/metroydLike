@@ -100,12 +100,8 @@ bool Framework::GameObjectManager::Update()
 	auto itr = vec_shp_gameObjects.begin();
 	while (itr != vec_shp_gameObjects.end())
 	{
-		if (!(*itr)->GetIsDead()) {
 			(*itr)->Update();
-		}
-		else {
-			(*itr)->DeadUpdate();
-		}
+		
 		itr++;
 	}
 

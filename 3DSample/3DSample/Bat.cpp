@@ -6,15 +6,14 @@
 
 Framework::Bat::Bat(std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager) :GameObject(shp_arg_transform, shp_arg_gameObjectManager)
 {
-	velocity = Vector2(1.0f, 0.0f);
-	prevVelocity = Vector2(0.0f, 0.0f);
+	velocity = Vector3(1.0f, 0.0f,0.0f);
 	speed = 1.0f;
 	gravity = 0.6f;
 	maxFallSpeed = 6.0f;
 	huwaCounter = 0.0f;
 	overlap = 0.0f;
 
-	phisicsForce = Vector2(0, 0);
+	phisicsForce = Vector3(0, 0,0);
 
 	tag = ObjectTag::enemy;
 }
@@ -67,20 +66,17 @@ void Framework::Bat::Hit(std::shared_ptr<GameObject> other)
 				overlap = shp_collisionRect->rect->GetRight() - otherRect->GetLeft();
 				overlap = abs(overlap);
 				transform->localPosition.x -= overlap;		
-				velocity.x *= -1;
 
 			}
 			else
 				if (delta.x < 0) {
 					overlap = otherRect->GetRight() - shp_collisionRect->rect->GetLeft();
 					overlap = abs(overlap);
-					transform->localPosition.x += overlap;				
-					velocity.x *= -1;
+					transform->localPosition.x += overlap;			
 
-					phisicsForce.x = 0;
 				}
 		}
-		shp_collisionRect->Update();
+		shp_collisionRect->OnUpdate();
 	}
 }
 
@@ -98,9 +94,9 @@ void Framework::Bat::PreInitialize()
 	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(32, 32)), GetThis<GameObject>());
 }
 
-bool Framework::Bat::Update() {
+bool Framework::Bat::OnUpdate() {
 	Move();
-	shp_collisionRect->Update();
+	shp_collisionRect->OnUpdate();
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture, 1);
 	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
 	isGround = false;
@@ -116,16 +112,30 @@ bool Framework::Bat::Release()
 }
 
 bool Framework::Bat::Move() {
+	velocity = Vector2(0, 0);
+	if (!player||player->GetIsDead())
+		player = manager->SerchGameObject(ObjectTag::player);
+	if (player) {
+		auto vec = transform->GetPosition().GetVector2();
+		auto dis = (player->transform->GetPosition().GetVector2().GetDistance(vec));
+
+		if (dis < 320) {
+			velocity = player->transform->GetPosition() - vec;
+		}
+		else {
+		}
+	}
 	//ふわふわ
 	huwaCounter++;
 	if (huwaCounter >= 360.0f) {
 		huwaCounter = 0.0f;
 	}
-	velocity.y = sin(PI * 2 / 60 * huwaCounter);
+	floatVec.y = sin(PI * 2 / 60 * huwaCounter);
+
+	velocity + floatVec;
 
 	velocity.Normalize();
-	prevVelocity = velocity;
-	transform->localPosition += ((Vector2)(velocity * speed)) + ((Vector2)(phisicsForce));
+	velocity *= speed;
 
 	return true;
 }

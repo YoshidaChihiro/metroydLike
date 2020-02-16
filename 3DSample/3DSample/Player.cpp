@@ -79,7 +79,7 @@ void Framework::Player::Hit(std::shared_ptr<GameObject> other)
 				phisicsForce.x = 0;
 			}
 		}
-		shp_collisionRect->Update();
+		shp_collisionRect->OnUpdate();
 	}
 }
 
@@ -112,7 +112,7 @@ void Framework::Player::Initialize()
 	}
 }
 
-bool Framework::Player::Update() {
+bool Framework::Player::OnUpdate() {
 	
 	Jump();
 	Move();
@@ -123,7 +123,7 @@ bool Framework::Player::Update() {
 	if (Input::GetKeyDown(KEY_INPUT_D)) {
 		SetIsDead(true);
 	}
-	shp_collisionRect->Update();
+	shp_collisionRect->OnUpdate();
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture, 1);
 	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
 	isGround = false;
@@ -136,15 +136,19 @@ bool Framework::Player::Release()
 
 	auto p_param = new ParticleEmitterParameter();
 	p_param->graphHandle = handle;
+	p_param->range_maxVelocity = Vector3(0.5f, 0, 0);
+	p_param->range_minVelocity = Vector3(-0.5f, -1, 0);
 	p_param->layer = 2;
 	p_param->range_maxSpeed = 10;
 	p_param->range_minSpeed = 5;
-	p_param->range_maxLifeSpan = 30;
-	p_param->range_minLifeSpan = 10;
+	p_param->range_maxLifeSpan = 100;
+	p_param->range_minLifeSpan = 50;
 	p_param->range_maxRotation.z = 360;
 	p_param->range_minRotation.z = 0;
 	p_param->range_maxEmitCount = 20;
 	p_param->range_minEmitCount = 10;
+	p_param->range_maxPhisicsForce = Vector3(0, 3.0f, 0);
+	p_param->range_minPhisicsForce = Vector3(0, 3.0f, 0);
 	p_param->emitSpan = 2;
 	p_param->emitterLifeSpan=10;
 	manager->AddObject(ObjectFactory::Create<ParticleEmitter>( transform->GetThis<Transform>(),p_param, manager
@@ -187,7 +191,7 @@ bool Framework::Player::Move() {
 	
 	//velocity.y =-1* Input::GetLettStickVertical();
 	velocity.Normalize();
-	transform->localPosition +=((Vector2) (velocity * speed)) + ((Vector2)(phisicsForce));
+	velocity *= speed;
 	
 		phisicsForce.y += gravity;
 	if (phisicsForce.y > maxFallSpeed) {

@@ -14,7 +14,7 @@ namespace Framework {
 		bool Release()override;
 		void PreInitialize()override;
 		void Initialize()override;
-		bool Update()override;
+		bool OnUpdate()override;
 		std::shared_ptr<Resource_Texture> shp_texture;
 		std::shared_ptr<Collision2D_Rectangle>shp_collisionRect;
 		void SetDelay(int arg_delay);
@@ -25,7 +25,7 @@ namespace Framework {
 		bool Move();
 		void Shoot();
 		void CheckGoal();
-		Vector3 velocity,targetPosition;
+		Vector3 targetPosition;
 
 		std::shared_ptr<Transform> shp_player_transform;
 
@@ -40,6 +40,6 @@ namespace Framework {
 		bool
 			isChase, isThrown,isShoot;
 		int lastSide;
-		Timer changeTimer=Timer(0);
+		RelativeTimer changeTimer=RelativeTimer(0);
 	};
 }

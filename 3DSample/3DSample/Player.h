@@ -15,7 +15,7 @@ namespace Framework {
 		void Hit(std::shared_ptr<GameObject> other)override;
 		void PreInitialize()override;
 		void Initialize()override;
-		bool Update()override;
+		bool OnUpdate()override;
 		bool Release()override;
 		void AddPlayerChild();
 		std::shared_ptr<Resource_Texture> shp_texture;
@@ -34,8 +34,6 @@ namespace Framework {
 
 		std::shared_ptr<Cursol> shp_cursol;
 
-		Vector2  velocity,
-			phisicsForce;
 		float speed,
 			gravity,
 			maxFallSpeed;

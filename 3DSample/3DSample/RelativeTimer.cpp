@@ -1,23 +1,37 @@
+#pragma
 #include "RelativeTimer.h"
+#include"Game.h"
 
-Framework::Timer::Timer(int max)
+Framework::RelativeTimer::RelativeTimer(int max)
 {
 	maxCountFrame = max;
 	nowCountFrame = 0;
 }
 
-void Framework::Timer::SetCount(int arg_nowCount)
+void Framework::RelativeTimer::SetCount(int arg_nowCount)
 {
 	nowCountFrame = arg_nowCount;
 }
 
-void Framework::Timer::ChangeCountFrame(int arg_maxCount)
+void Framework::RelativeTimer::ChangeCountFrame(int arg_maxCount)
 {
 	maxCountFrame = arg_maxCount;
 }
 
-void Framework::Timer::Reset()
+void Framework::RelativeTimer::Reset()
 {
-	nowCountFrame;
+	nowCountFrame=0;
+}
+
+bool Framework::RelativeTimer::Update() {
+	if (!isActive) {
+		return false;
+	}
+	nowCountFrame+=Game::GetInstance()->GetGameTime()->GetSpeed();
+	if (nowCountFrame >= maxCountFrame) {
+		nowCountFrame = 0;
+		return true;
+	}
+	return false;
 }
 

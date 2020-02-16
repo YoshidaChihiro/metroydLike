@@ -22,9 +22,9 @@ void Framework::Sencer::Initialize()
 
 }
 
-bool Framework::Sencer::Update()
+bool Framework::Sencer::OnUpdate()
 {
-	shp_collisionRect->Update();
+	shp_collisionRect->OnUpdate();
 	//Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
 	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect,1);
 

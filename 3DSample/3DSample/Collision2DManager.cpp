@@ -10,7 +10,7 @@ Framework::Collision2DManager::~Collision2DManager()
 {
 }
 
-bool Framework::Collision2DManager::Update()
+bool Framework::Collision2DManager::OnUpdate()
 {
 	auto vec_objectsCollision = vec_collision2Ds.at(0);
 	int collisionCount = 0;

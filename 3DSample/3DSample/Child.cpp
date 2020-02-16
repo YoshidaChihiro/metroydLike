@@ -64,7 +64,7 @@ void Framework::Child::Hit(std::shared_ptr<GameObject> other)
 				}
 		}
 
-		shp_collisionRect->Update();
+		shp_collisionRect->OnUpdate();
 		CreateBlock();
 	}
 }
@@ -102,13 +102,16 @@ void Framework::Child::Initialize()
 	lastSide = 0;
 }
 
-bool Framework::Child::Update() {
-	shp_collisionRect->Update();
+bool Framework::Child::OnUpdate() {
+	shp_collisionRect->OnUpdate();
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
 	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
 	
-	if(!isShoot)
-	Move();
+	if (!isShoot) {
+		Move();
+		return true;
+	}
+
 	else
 	{
 		Shoot();
@@ -124,7 +127,7 @@ void Framework::Child::SetDelay(int arg_delay)
 
 bool Framework::Child::Throw(std::shared_ptr<Transform> arg_target)
 {
-	changeTimer = Timer(3);
+	changeTimer = RelativeTimer(3);
 	changeTimer.Start();
 	isShoot = true;
 	velocity = arg_target->GetPosition().GetVector2()- transform->GetPosition().GetVector2();
@@ -142,6 +145,7 @@ bool Framework::Child::Move() {
 	}
 	if (direction <= waitPointDistance) {
 		isChase = false;
+		velocity = Vector3();
 	}
 
 	if (!isChase) {
@@ -149,7 +153,7 @@ bool Framework::Child::Move() {
 	}
 	velocity = (Vector3)(shp_player_transform->GetPosition() - transform->GetPosition());
 	velocity.Normalize();
-	transform->localPosition += velocity* speed;
+	velocity*= speed;
 
 	return true;
 }
@@ -161,7 +165,8 @@ void Framework::Child::Shoot()
 		isThrown = true;
 		tag = ObjectTag::playerBullet;
 	}
-	transform->localPosition +=velocity*speed;
+	velocity.Normalize();
+	velocity *= speed;
 }
 
 void Framework::Child::CheckGoal()

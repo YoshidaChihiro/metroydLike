@@ -13,7 +13,7 @@ namespace Framework {
 		//Map(const MapData& mapData, int glidSize);
 		void Reload();
 		void Initialize()override;
-		bool Update()override;
+		bool OnUpdate()override;
 		void ChangeGlid(int x, int y, std::shared_ptr<MapChipObject> arg_mapChipObj);
 		void AddMapChip(int x, int y, std::shared_ptr<MapChipObject> arg_mapChipObj);
 		void ChangeGlid(int x, int y, int mapChipNum);

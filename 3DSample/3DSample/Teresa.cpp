@@ -5,10 +5,10 @@
 
 Framework::Teresa::Teresa(std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager) :GameObject(shp_arg_transform, shp_arg_gameObjectManager)
 {
-	velocity = Vector2(0.0f, 0.0f);
+	velocity = Vector3(0.0f, 0.0f,0.0f);
 	speed = 1.0f;
 	spaceDistance = 400.0f;
-	phisicsForce = Vector2(0, 0);
+	phisicsForce = Vector3(0,0, 0);
 	
 	tag = ObjectTag::enemy;
 }
@@ -39,10 +39,10 @@ void Framework::Teresa::PreInitialize()
 	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(32, 32)), GetThis<GameObject>());
 }
 
-bool Framework::Teresa::Update() {
+bool Framework::Teresa::OnUpdate() {
 	//AI‰ü‘P‚Ì‚½‚ß’âŽ~
 	//Move();
-	shp_collisionRect->Update();
+	shp_collisionRect->OnUpdate();
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture, 1);
 	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
 	return true;
@@ -75,7 +75,7 @@ bool Framework::Teresa::Move() {
 	}
 	
 	velocity.Normalize();
-	transform->localPosition += ((Vector2)(velocity * speed)) + ((Vector2)(phisicsForce));
+	velocity *= speed;
 
 	return true;
 }

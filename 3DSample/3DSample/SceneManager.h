@@ -11,7 +11,7 @@ namespace Framework {
 		SceneManager();
 		~SceneManager();
 		void Initialize();
-		bool Update();
+		bool OnUpdate();
 		void Release();
 		void ChangeScene(std::shared_ptr<IScene> shp_arg_changeScene,int sceneChangeDelay=0, std::shared_ptr<SceneOverObjects> shp_sceneOverObjects = nullptr);
 		void ChangeScene(std::string changeSceneName, int sceneChangeDelay=0, std::shared_ptr<SceneOverObjects> shp_sceneOverObjects=nullptr);
@@ -28,7 +28,7 @@ namespace Framework {
 		std::shared_ptr<SceneOverObjects> shp_sceneOverObjects = nullptr;
 		std::map<std::string, std::shared_ptr<IScene>> map_scenes;
 		std::unique_ptr<GameMaster> unq_gameMaster;
-		Timer sceneChangeTimer;
+		RelativeTimer sceneChangeTimer;
 	};
 
 }

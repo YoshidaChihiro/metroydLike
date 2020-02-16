@@ -31,7 +31,7 @@ namespace Framework {
 		std::shared_ptr<MapChipObject> Clone(Vector3 position) override{ return nullptr; }
 		void Initialize()override {};
 		void PreInitialize()override {};
-		bool Update()override { return false; }
+		bool OnUpdate()override { return false; }
 	private:
 		MapChip_Space(std::shared_ptr<Transform> arg_transform,std::shared_ptr<GameObjectManager> arg_manager);
 		
@@ -41,7 +41,7 @@ namespace Framework {
 		friend class ObjectFactory;
 		MapChip_Test(std::shared_ptr<GameObjectManager> arg_manager);
 		std::shared_ptr<MapChipObject> Clone(Vector3 position)override;
-		bool Update()override;
+		bool OnUpdate()override;
 		void Initialize()override;
 		void PreInitialize()override {};
 	private:
@@ -55,7 +55,7 @@ namespace Framework {
 		MapChip_ChildBlock(std::shared_ptr<GameObjectManager> arg_manager);
 		std::shared_ptr<MapChipObject> Clone(Vector3 position)override;
 		void Hit(std::shared_ptr<GameObject> other)override;
-		bool Update()override;
+		bool OnUpdate()override;
 		void Initialize()override;
 		void PreInitialize()override {};
 	private:
@@ -69,7 +69,7 @@ namespace Framework {
 		MapChip_CrushBlock(std::shared_ptr<GameObjectManager> arg_manager);
 		std::shared_ptr<MapChipObject> Clone(Vector3 position)override;
 		void Hit(std::shared_ptr<GameObject> other)override;
-		bool Update()override;
+		bool OnUpdate()override;
 		void Initialize()override;
 		void PreInitialize()override {};
 	private:
@@ -83,7 +83,7 @@ namespace Framework {
 
 		MapChip_Gate(std::string arg_changeScenesName,Vector2 arg_exitPosition,std::shared_ptr<GameObjectManager> arg_manager);
 		std::shared_ptr<MapChipObject> Clone(Vector3 position)override;
-		bool Update()override;
+		bool OnUpdate()override;
 		void Hit(std::shared_ptr<GameObject> other)override;
 		void Initialize()override;
 		void PreInitialize()override {};
@@ -105,7 +105,7 @@ namespace Framework {
 		void PreInitialize()override;
 		std::shared_ptr<MapChipObject> Clone(Vector3 position)override;
 		void Initialize()override;
-		bool Update()override;
+		bool OnUpdate()override;
 	private:
 		Medal(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager);
 		std::shared_ptr<Resource_Texture> texture;
@@ -121,7 +121,7 @@ namespace Framework {
 		void PreInitialize()override;
 		std::shared_ptr<MapChipObject> Clone(Vector3 position)override;
 		void Initialize()override;
-		bool Update()override;
+		bool OnUpdate()override;
 	private:
 		ChildSeedSpawner(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager);
 		std::shared_ptr<Resource_Texture> texture;
@@ -131,7 +131,7 @@ namespace Framework {
 		friend class ObjectFactory;
 		MapChip_Kuribo(std::shared_ptr<GameObjectManager> arg_manager);
 		std::shared_ptr<MapChipObject> Clone(Vector3 position)override;
-		bool Update()override;
+		bool OnUpdate()override;
 		void Initialize()override;
 		void PreInitialize()override {};
 		void Replace()override;
@@ -146,7 +146,7 @@ namespace Framework {
 		friend class ObjectFactory;
 		MapChip_Bat(std::shared_ptr<GameObjectManager> arg_manager);
 		std::shared_ptr<MapChipObject> Clone(Vector3 position)override;
-		bool Update()override;
+		bool OnUpdate()override;
 		void Initialize()override;
 		void PreInitialize()override {};
 		bool isClone = false;
@@ -161,7 +161,7 @@ namespace Framework {
 		friend class ObjectFactory;
 		MapChip_Teresa(std::shared_ptr<GameObjectManager> arg_manager);
 		std::shared_ptr<MapChipObject> Clone(Vector3 position)override;
-		bool Update()override;
+		bool OnUpdate()override;
 		void Initialize()override;
 		void PreInitialize()override {};
 		bool isClone = false;

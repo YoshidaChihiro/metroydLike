@@ -1,6 +1,6 @@
 #include "SceneManager.h"
 
-Framework::SceneManager::SceneManager():sceneChangeTimer(Timer(0))
+Framework::SceneManager::SceneManager():sceneChangeTimer(RelativeTimer(0))
 {
 	unq_gameMaster = std::make_unique<GameMaster>();
 }
@@ -14,7 +14,7 @@ void Framework::SceneManager::Initialize()
 	shp_currentScene = ObjectFactory::Create<TestScene>();
 }
 
-bool Framework::SceneManager::Update()
+bool Framework::SceneManager::OnUpdate()
 {
 	if (sceneChangeTimer.Update())
 	{
@@ -42,7 +42,7 @@ void Framework::SceneManager::Release()
 
 void Framework::SceneManager::ChangeScene(std::shared_ptr<IScene> shp_arg_changeScene, int sceneChangeDelay, std::shared_ptr<SceneOverObjects> shp_arg_sceneOverObjects )
 {
-	sceneChangeTimer = Timer(sceneChangeDelay);
+	sceneChangeTimer = RelativeTimer(sceneChangeDelay);
 	sceneChangeTimer.Start();
 	shp_nextScene = shp_arg_changeScene;
 	shp_sceneOverObjects = shp_arg_sceneOverObjects;
@@ -50,7 +50,7 @@ void Framework::SceneManager::ChangeScene(std::shared_ptr<IScene> shp_arg_change
 
 void Framework::SceneManager::ChangeScene(std::string changeSceneName, int sceneChangeDelay, std::shared_ptr<SceneOverObjects> shp_arg_sceneOverObjects)
 {
-	sceneChangeTimer = Timer(sceneChangeDelay);
+	sceneChangeTimer = RelativeTimer(sceneChangeDelay);
 	sceneChangeTimer.Start();
 	shp_sceneOverObjects = shp_arg_sceneOverObjects;
 	shp_nextScene = map_scenes.at(changeSceneName);

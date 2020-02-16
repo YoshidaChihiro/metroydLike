@@ -22,7 +22,7 @@ std::shared_ptr<Framework::MapChipObject> Framework::MapChip_Test::Clone(Vector3
 	return ObjectFactory::Create<MapChip_Test>(transform,manager->GetThis<GameObjectManager>());
 }
 
-bool Framework::MapChip_Test::Update()
+bool Framework::MapChip_Test::OnUpdate()
 {
 
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
@@ -40,7 +40,7 @@ void Framework::MapChip_Test::Initialize()
 			Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetGlidSize()/2,
 			Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetGlidSize()/2)), GetThis<GameObject>());
 
-	shp_collisionRect->Update();
+	shp_collisionRect->OnUpdate();
 }
 
 Framework::MapChip_Test::MapChip_Test(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager)
@@ -62,7 +62,7 @@ std::shared_ptr<Framework::MapChipObject> Framework::MapChip_Gate::Clone(Vector3
 		transform,manager->GetThis<GameObjectManager>())->GetThis<MapChipObject>();
 }
 
-bool Framework::MapChip_Gate::Update()
+bool Framework::MapChip_Gate::OnUpdate()
 {
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
 	return true;
@@ -103,7 +103,7 @@ void Framework::MapChip_Gate::Initialize()
 			Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetGlidSize() / 2,
 			Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetGlidSize() / 2)), GetThis<GameObject>());
 
-	shp_collisionRect->Update();
+	shp_collisionRect->OnUpdate();
 }
 
 Framework::MapChip_Gate::MapChip_Gate(std::string arg_changeScenesName, Vector2 arg_exitPosition, std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager)
@@ -132,7 +132,7 @@ void Framework::MapChip_ChildBlock::Hit(std::shared_ptr<GameObject> other)
 	}
 }
 
-bool Framework::MapChip_ChildBlock::Update()
+bool Framework::MapChip_ChildBlock::OnUpdate()
 {
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
 	return true;
@@ -149,7 +149,7 @@ void Framework::MapChip_ChildBlock::Initialize()
 			Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetGlidSize() / 2,
 			Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetGlidSize() / 2)), GetThis<GameObject>());
 
-	shp_collisionRect->Update();
+	shp_collisionRect->OnUpdate();
 }
 
 Framework::MapChip_ChildBlock::MapChip_ChildBlock(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager)
@@ -166,7 +166,7 @@ std::shared_ptr<Framework::MapChipObject> Framework::MapChip_Kuribo::Clone(Vecto
 	auto transform = ObjectFactory::Create<Transform>(position);
 	return ObjectFactory::Create<MapChip_Kuribo>(transform, manager->GetThis<GameObjectManager>());
 }
-bool Framework::MapChip_Kuribo::Update()
+bool Framework::MapChip_Kuribo::OnUpdate()
 {
 	return true;
 }
@@ -205,12 +205,33 @@ void Framework::MapChip_CrushBlock::Hit(std::shared_ptr<GameObject> other)
 {
 	if (other->GetObjectTag() == ObjectTag::playerBullet) {
 		if (other->IsThis<Explosion>()) {
-			SetIsDead(true);
+			SetIsDead(true); {
+
+				int handle = Game::GetInstance()->GetResourceController()->GetTexture("yellowParticle.png");
+
+				auto p_param = new ParticleEmitterParameter();
+				p_param->graphHandle = handle;
+				p_param->layer = 2;
+				p_param->range_maxSpeed = 10;
+				p_param->range_minSpeed = 5;
+				p_param->range_maxScale = 1.5f;
+				p_param->range_minSpeed = 0.1f;
+				p_param->range_maxLifeSpan = 30;
+				p_param->range_minLifeSpan = 10;
+				p_param->range_maxRotation.z = 360;
+				p_param->range_minRotation.z = 0;
+				p_param->range_maxEmitCount = 10;
+				p_param->range_minEmitCount = 5;
+				p_param->emitSpan = 2;
+				p_param->emitterLifeSpan = 10;
+				manager->AddObject(ObjectFactory::Create<ParticleEmitter>(transform->GetThis<Transform>(), p_param, manager
+					));
+			}
 		}
 	}
 }
 
-bool Framework::MapChip_CrushBlock::Update()
+bool Framework::MapChip_CrushBlock::OnUpdate()
 {
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
 	return true;
@@ -227,7 +248,7 @@ void Framework::MapChip_CrushBlock::Initialize()
 			Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetGlidSize() / 2,
 			Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetGlidSize() / 2)), GetThis<GameObject>());
 
-	shp_collisionRect->Update();
+	shp_collisionRect->OnUpdate();
 }
 
 Framework::MapChip_CrushBlock::MapChip_CrushBlock(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager)
@@ -294,7 +315,7 @@ void Framework::Medal::Initialize()
 
 }
 
-bool Framework::Medal::Update()
+bool Framework::Medal::OnUpdate()
 {
 	Game::GetInstance()->GetResourceController()->AddGraph(texture);
 	return true;
@@ -343,7 +364,7 @@ void Framework::ChildSeedSpawner::Initialize()
 
 }
 
-bool Framework::ChildSeedSpawner::Update()
+bool Framework::ChildSeedSpawner::OnUpdate()
 {
 	Game::GetInstance()->GetResourceController()->AddGraph(texture);
 	return true;
@@ -364,7 +385,7 @@ std::shared_ptr<Framework::MapChipObject> Framework::MapChip_Bat::Clone(Vector3 
 	auto transform = ObjectFactory::Create<Transform>(position);
 	return ObjectFactory::Create<MapChip_Bat>(transform, manager->GetThis<GameObjectManager>());
 }
-bool Framework::MapChip_Bat::Update()
+bool Framework::MapChip_Bat::OnUpdate()
 {
 	return true;
 }
@@ -398,7 +419,7 @@ std::shared_ptr<Framework::MapChipObject> Framework::MapChip_Teresa::Clone(Vecto
 	auto transform = ObjectFactory::Create<Transform>(position);
 	return ObjectFactory::Create<MapChip_Teresa>(transform, manager->GetThis<GameObjectManager>());
 }
-bool Framework::MapChip_Teresa::Update()
+bool Framework::MapChip_Teresa::OnUpdate()
 {
 	return true;
 }
