@@ -10,6 +10,7 @@ namespace Framework {
 		void PreInitialize()override{}
 		std::vector<std::shared_ptr< GameObject>> GetSceneOverGameObjects();
 		void AddSceneOverGameObject(std::shared_ptr< GameObject> arg_gameObject);
+		Vector3 playerPos = Vector3();
 	private:
 		std::vector<std::shared_ptr< GameObject>> vec_shp_gameObjects;
 	};

@@ -23,10 +23,13 @@ void Framework::GameTime::Stop(int stopFrame)
 {
 	gameSpeed = 0;
 	timer = AbsTimer(stopFrame);
+	timer.Start();
 }
 
 void Framework::GameTime::SlowMotion(float arg_speed, int stopFrame)
 {
 	gameSpeed = arg_speed;
 	timer = AbsTimer(stopFrame);
+	timer.Start();
+
 }

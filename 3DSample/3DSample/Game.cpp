@@ -49,10 +49,10 @@ bool Framework::Game::Draw()
 	return true;
 }
 
-bool Framework::Game::OnUpdate()
+bool Framework::Game::Update()
 {
 	auto result= unq_sceneManager->OnUpdate();
-
+	unq_gameTime->OnUpdate();
 	unq_collision2DManager->OnUpdate();
 	return result;
 }
@@ -79,6 +79,9 @@ bool Framework::Game::ResourceLoad()
 	unq_resourceController->LoadTexture("child.png");
 	unq_resourceController->LoadTexture("block.png");
 	unq_resourceController->LoadTexture("robo.png");
+	unq_resourceController->LoadTexture("Kuribo_1.png");
+	unq_resourceController->LoadTexture("Bat_1.png");
+	unq_resourceController->LoadTexture("Medal_1.png");
 
 	unq_resourceController->LoadTexture("apple.png");
 
@@ -106,7 +109,7 @@ void Framework::Game::SceneInitialize()
 {
 	unq_sceneManager->Initialize();
 	unq_sceneManager->LoadScene(ObjectFactory::Create<TestScene>());
-	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map1.csv"));
+	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("beta.csv"));
 	/*unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map2.csv"));
 	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map3.csv"));
 	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map4.csv"));

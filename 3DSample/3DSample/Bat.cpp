@@ -82,7 +82,7 @@ void Framework::Bat::Hit(std::shared_ptr<GameObject> other)
 
 void Framework::Bat::PreInitialize()
 {
-	auto handle = Game::GetInstance()->GetResourceController()->GetTexture("potato.png");
+	auto handle = Game::GetInstance()->GetResourceController()->GetTexture("Bat_1.png");
 
 	std::vector<ObjectTag> tags;
 	tags.push_back(ObjectTag::obstacle);
@@ -97,6 +97,13 @@ void Framework::Bat::PreInitialize()
 bool Framework::Bat::OnUpdate() {
 	Move();
 	shp_collisionRect->OnUpdate();
+	if (velocity.x > 0) {
+		shp_texture->xFlip = false;
+	}
+	else if (velocity.x < 0) {
+		shp_texture->xFlip = true;
+
+	}
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture, 1);
 	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
 	isGround = false;

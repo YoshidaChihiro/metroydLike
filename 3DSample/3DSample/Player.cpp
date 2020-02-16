@@ -117,6 +117,13 @@ bool Framework::Player::OnUpdate() {
 	Jump();
 	Move();
 	Throw();
+	if (velocity.x > 0) {
+		shp_texture->xFlip = false;
+	}
+	else if (velocity.x < 0) {
+		shp_texture->xFlip = true;
+
+	}
 	if (Input::GetKeyDown(KEY_INPUT_A)) {
 		AddPlayerChild();
 	}
@@ -159,6 +166,8 @@ bool Framework::Player::Release()
 	shp_cursol =   nullptr;
 	shp_texture = nullptr;
 	
+	Game::GetInstance()->GetGameTime()->SlowMotion(0.5f,30);
+
 	manager->AddObject(ObjectFactory::Create<ObjectDelayCreater<Player>>(60,ObjectFactory::Create<Transform>(
 		Game::GetInstance()->GetSceneManager()->GetGameMaster()->GetRespawnPoint()
 		), manager

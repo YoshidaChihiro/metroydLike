@@ -87,9 +87,11 @@ namespace Framework {
 		void Hit(std::shared_ptr<GameObject> other)override;
 		void Initialize()override;
 		void PreInitialize()override {};
+		void Replace()override;
 		void SetExitPosition(Vector2 arg_exitPosition) { exitPosition = arg_exitPosition; }
 	private:
 		std::string changeScenesName;
+		bool isGone = false;
 		Vector2 exitPosition=Vector2();
 		MapChip_Gate(std::string arg_changeScenesName, Vector2 arg_exitPosition, std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager);
 		std::shared_ptr< Resource_Texture> shp_texture;

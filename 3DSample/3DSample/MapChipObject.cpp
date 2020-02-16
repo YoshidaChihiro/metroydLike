@@ -52,7 +52,7 @@ Framework::MapChip_Gate::MapChip_Gate(std::string arg_changeSceneName,Vector2 ar
 	: MapChipObject( arg_manager->GetThis<GameObjectManager>())
 {
 	changeScenesName = arg_changeSceneName;
-	exitPosition = arg_exitPosition;
+	exitPosition = arg_exitPosition+Vector2(16,16);
 }
 
 std::shared_ptr<Framework::MapChipObject> Framework::MapChip_Gate::Clone(Vector3 position)
@@ -70,30 +70,30 @@ bool Framework::MapChip_Gate::OnUpdate()
 
 void Framework::MapChip_Gate::Hit(std::shared_ptr<GameObject> other)
 {
-	if (other->GetObjectTag() != ObjectTag::player) {
+	if (other->GetObjectTag() != ObjectTag::player||isGone) {
 		return;
 	}
-
-	other->transform->localPosition = exitPosition;
+	isGone = true;
+	//other->transform->localPosition = exitPosition;
 	Game::GetInstance()->GetSceneManager()->GetGameMaster()->SetRespawnPosition(Vector3( exitPosition));
 	auto sceneOverOgjs = ObjectFactory::Create<SceneOverObjects>();
+	sceneOverOgjs->playerPos = exitPosition;
 	auto player = manager->SerchGameObject(ObjectTag::player);
 	sceneOverOgjs->AddSceneOverGameObject(player);
 	auto vec_playersChilds = player->GetChildAndGrandChildObjects();
 
 	for (auto itr = vec_playersChilds.begin(); itr != vec_playersChilds.end(); itr++) {
-		manager->RemoveObject(*itr);
+		//manager->RemoveObject(*itr);
 		sceneOverOgjs->AddSceneOverGameObject(*itr);
 	}
 
-	manager->RemoveObject(player);
-	manager->DeathRemoveGameObjects(ObjectTag::enemy);
-	Game::GetInstance()->GetSceneManager()->ChangeScene(changeScenesName, 0, sceneOverOgjs);
+	//manager->RemoveObject(player);
+	//manager->DeathRemoveGameObjects(ObjectTag::enemy);
+	Game::GetInstance()->GetSceneManager()->ChangeScene(changeScenesName, 30, sceneOverOgjs);
 }
 
 void Framework::MapChip_Gate::Initialize()
 {
-
 	shp_texture = ObjectFactory::Create<Resource_Texture>("sample.png", transform, false, false);
 	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(
 		Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetGlidSize(),
@@ -104,6 +104,11 @@ void Framework::MapChip_Gate::Initialize()
 			Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetGlidSize() / 2)), GetThis<GameObject>());
 
 	shp_collisionRect->OnUpdate();
+}
+
+void Framework::MapChip_Gate::Replace()
+{
+	isGone = false;
 }
 
 Framework::MapChip_Gate::MapChip_Gate(std::string arg_changeScenesName, Vector2 arg_exitPosition, std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager)
@@ -310,7 +315,7 @@ std::shared_ptr<Framework::MapChipObject> Framework::Medal::Clone(Vector3 positi
 
 void Framework::Medal::Initialize()
 {
-	texture = ObjectFactory::Create<Resource_Texture>("sample4.png", transform, false, false);
+	texture = ObjectFactory::Create<Resource_Texture>("Medal_1.png", transform, false, false);
 	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
 
 }

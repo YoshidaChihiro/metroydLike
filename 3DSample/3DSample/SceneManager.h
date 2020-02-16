@@ -1,7 +1,7 @@
 #pragma once
 #include "IScene.h"
 #include "TestScene.h"
-#include"RelativeTimer.h"
+#include"AbsTimer.h"
 #include<map>
 #include"GameMaster.h"
 namespace Framework {
@@ -28,7 +28,7 @@ namespace Framework {
 		std::shared_ptr<SceneOverObjects> shp_sceneOverObjects = nullptr;
 		std::map<std::string, std::shared_ptr<IScene>> map_scenes;
 		std::unique_ptr<GameMaster> unq_gameMaster;
-		RelativeTimer sceneChangeTimer;
+		AbsTimer sceneChangeTimer;
 	};
 
 }

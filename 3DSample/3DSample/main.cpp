@@ -52,7 +52,7 @@ int WINAPI WinMain(
 		//XV‹——£
 
 		timespec_get(&befTime, TIME_UTC);
-		Framework::Game::GetInstance()->OnUpdate();
+		Framework::Game::GetInstance()->Update();
 
 		//•`‰æˆ—
 

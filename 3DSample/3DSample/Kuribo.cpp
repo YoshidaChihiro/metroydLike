@@ -76,7 +76,7 @@ void Framework::Kuribo::Hit(std::shared_ptr<GameObject> other)
 
 void Framework::Kuribo::PreInitialize()
 {
-	auto handle = Game::GetInstance()->GetResourceController()->GetTexture("pumpkin.png");
+	auto handle = Game::GetInstance()->GetResourceController()->GetTexture("Kuribo_1.png");
 
 	std::vector<ObjectTag> tags;
 	tags.push_back(ObjectTag::obstacle);
@@ -94,7 +94,13 @@ bool Framework::Kuribo::OnUpdate() {
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture, 1);
 	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
 
-	transform->localPosition += ((Vector2)(velocity * speed)) + ((Vector2)(phisicsForce));
+	if (velocity.x > 0) {
+		shp_texture->xFlip = true;
+	}
+	else if (velocity.x < 0) {
+		shp_texture->xFlip = false;
+
+	}
 	isGround = false;
 	return true;
 }
