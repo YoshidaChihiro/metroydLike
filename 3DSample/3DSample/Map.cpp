@@ -178,6 +178,34 @@ std::vector<std::shared_ptr<Framework:: MapChipObject>> Framework::Map::GetAroun
 	return output;
 }
 
+std::vector<std::shared_ptr<Framework:: MapChipObject>> Framework::Map::GetAroundObjects_containNullptr(Vector2 point)
+{
+	int x = point.x / glidSize;
+	int y = point.y / glidSize;
+	std::vector<std::shared_ptr<MapChipObject>> output;
+	for (int i = -1; i < 2; i++) {
+		if (i + y < 0 || i + y >= mapHeight) {
+			output.push_back(nullptr);
+			output.push_back(nullptr);
+			output.push_back(nullptr);
+			continue;
+		}
+		for (int j = -1; j < 2; j++) {
+			if (j + x < 0 || j + x >= mapWidth) {
+				output.push_back(nullptr);
+				continue;
+			}
+			if (mapObjects[i + x][j + y]) {
+				output.push_back(mapObjects[j + x][i + y]->GetThis<MapChipObject>());
+			}
+			else {
+				output.push_back(nullptr);
+			}
+		}
+	}
+	return output;
+}
+
 
 Framework::Map::~Map()
 {

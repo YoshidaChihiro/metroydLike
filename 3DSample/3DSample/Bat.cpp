@@ -3,15 +3,18 @@
 #include"MapChipObject.h"
 #include"Sencer.h"
 #define PI 3.141592654f
+#include <cstdlib>
+#include <ctime>
 
 Framework::Bat::Bat(std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager) :GameObject(shp_arg_transform, shp_arg_gameObjectManager)
 {
-	velocity = Vector3(1.0f, 0.0f,0.0f);
+	targetPosition = Vector3(1.0f, 0.0f,0.0f);
 	speed = 1.0f;
 	gravity = 0.6f;
 	maxFallSpeed = 6.0f;
 	huwaCounter = 0.0f;
 	overlap = 0.0f;
+	targetRange = 64;
 
 	phisicsForce = Vector3(0, 0,0);
 
@@ -40,6 +43,7 @@ void Framework::Bat::Hit(std::shared_ptr<GameObject> other)
 
 		Vector3 delta = (Vector3)(other->transform->GetPosition() - transform->GetPosition());
 
+		isGoalTargetPosition = true;
 
 		if (abs(delta.x) < abs(delta.y))
 		{
@@ -87,7 +91,7 @@ void Framework::Bat::PreInitialize()
 	std::vector<ObjectTag> tags;
 	tags.push_back(ObjectTag::obstacle);
 
-
+	isGoalTargetPosition = true;
 
 
 	shp_texture = ObjectFactory::Create<Resource_Texture>(handle, transform, false, false);
@@ -126,10 +130,20 @@ bool Framework::Bat::Move() {
 		auto vec = transform->GetPosition().GetVector2();
 		auto dis = (player->transform->GetPosition().GetVector2().GetDistance(vec));
 
+		float range = targetPosition.GetVector2().GetDistance(vec);
+
 		if (dis < 320) {
 			velocity = player->transform->GetPosition() - vec;
 		}
 		else {
+			//徘徊モード
+			DecideTargetPotision();
+			
+			velocity = targetPosition - transform->GetPosition();
+			if (range <= 32) {
+				isGoalTargetPosition = true;
+			}
+
 		}
 	}
 	//ふわふわ
@@ -143,6 +157,21 @@ bool Framework::Bat::Move() {
 
 	velocity.Normalize();
 	velocity *= speed;
-
 	return true;
+}
+
+void Framework::Bat::DecideTargetPotision() {
+	//目的地を設定
+	if (!isGoalTargetPosition) {
+		return;
+	}
+	
+	srand((unsigned int)time(0));
+	float posx = rand() % (targetRange * 2);
+	posx -= targetRange;
+	float posy = rand() % (targetRange * 2);
+	posy -= targetRange;
+
+	targetPosition = Vector3(posx, posy, 0) + transform->GetPosition();
+	isGoalTargetPosition = false;
 }
