@@ -195,7 +195,7 @@ std::vector<std::shared_ptr<Framework:: MapChipObject>> Framework::Map::GetAroun
 				output.push_back(nullptr);
 				continue;
 			}
-			if (mapObjects[i + x][j + y]) {
+			if (mapObjects[j + x][i + y]) {
 				output.push_back(mapObjects[j + x][i + y]->GetThis<MapChipObject>());
 			}
 			else {

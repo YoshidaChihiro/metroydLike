@@ -2,9 +2,11 @@
 #include "Game.h"
 #include"MapChipObject.h"
 #include"Sencer.h"
-Framework::Kuribo::Kuribo(std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager) :GameObject(shp_arg_transform, shp_arg_gameObjectManager)
+
+Framework::Kuribo::Kuribo(std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager, std::shared_ptr<Map> shp_arg_map) :GameObject(shp_arg_transform, shp_arg_gameObjectManager)
 {
-	velocity = Vector3(0.0f, 0.0f,0.0f);
+	velocity = Vector3(-1.0f, 0.0f, 0.0f);
+	prevVelocity = Vector3(0.0f, 0.0f, 0.0f);
 	speed = 1.0f;
 	gravity = 0.6f;
 	maxFallSpeed = 6.0f;
@@ -13,6 +15,7 @@ Framework::Kuribo::Kuribo(std::shared_ptr<Transform> shp_arg_transform, std::sha
 	phisicsForce = Vector3(0,0, 0);
 
 	tag = ObjectTag::enemy;
+	shp_map = shp_arg_map;
 }
 
 
@@ -48,6 +51,7 @@ void Framework::Kuribo::Hit(std::shared_ptr<GameObject> other)
 				isGround = true;
 				//���n
 				phisicsForce.y = 0.0f;
+
 			}
 			else
 				if (delta.y < 0) {
@@ -62,12 +66,18 @@ void Framework::Kuribo::Hit(std::shared_ptr<GameObject> other)
 				overlap = shp_collisionRect->rect->GetRight() - otherRect->GetLeft();
 				overlap = abs(overlap);
 				transform->localPosition.x -= overlap;
+				if (prevVelocity.x > 0) {
+					velocity.x = -1;
+				}
 			}
 			else
 				if (delta.x < 0) {
 					overlap = otherRect->GetRight() - shp_collisionRect->rect->GetLeft();
 					overlap = abs(overlap);
 					transform->localPosition.x += overlap;
+					if (prevVelocity.x < 0) {
+						velocity.x = 1;
+					}
 				}
 		}
 		shp_collisionRect->OnUpdate();
@@ -117,6 +127,7 @@ bool Framework::Kuribo::Move() {
 
 	if (!player || player->GetIsDead())
 	player = manager->SerchGameObject(ObjectTag::player);
+
 	if (player) {
 		auto vec = transform->GetPosition().GetVector2();
 		auto dis = (player->transform->GetPosition().GetVector2().GetDistance(vec));
@@ -125,7 +136,16 @@ bool Framework::Kuribo::Move() {
 			velocity.x = player->transform->GetPosition().GetVector2().x - vec.x;
 		}
 		else {
-			velocity.x = 0;
+			//徘徊モード
+			auto aroundMap = shp_map->GetAroundObjects_containNullptr(vec);
+			if (aroundMap.at(6) == nullptr || aroundMap.at(8) == nullptr) {
+				if (prevVelocity.x < 0) {
+					velocity.x = 1;
+				}
+				if (prevVelocity.x > 0) {
+					velocity.x = -1;
+				}
+			}
 		}
 	}
 	velocity.Normalize();
@@ -134,6 +154,7 @@ bool Framework::Kuribo::Move() {
 	if (phisicsForce.y > maxFallSpeed) {
 		phisicsForce.y = maxFallSpeed;
 	}
+	prevVelocity = velocity;
 
 	return true;
 }

@@ -185,7 +185,7 @@ void Framework::MapChip_Kuribo::Replace()
 {
 	if (isClone) {
 		auto enemyTransform = ObjectFactory::Create<Transform>(transform->GetPosition());
-		manager->AddObject_Init(ObjectFactory::Create<Kuribo>(enemyTransform, manager));
+		manager->AddObject_Init(ObjectFactory::Create<Kuribo>(enemyTransform, manager, manager->SerchGameObject(ObjectTag::map)->GetThis<Map>()));
 	}
 }
 Framework::MapChip_Kuribo::MapChip_Kuribo(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager)
