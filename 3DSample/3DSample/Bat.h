@@ -22,16 +22,21 @@ namespace Framework {
 	private:
 		bool Move();
 		void Dead();
+		void DecideTargetPotision();
+
 		std::shared_ptr<GameObject> player = nullptr;
 		//std::vector< std::shared_ptr<GameObject>> sencerInputs;//0 top, 1 bottom,2 left.3 right
-		Vector3 floatVec;
+		Vector3 floatVec,
+			targetPosition;
 
 		float speed,hp,
 			gravity,
 			maxFallSpeed,
 			huwaCounter,
 			overlap;
-		bool isGround;
+		int targetRange;
+		bool isGround,
+			isGoalTargetPosition;
 
 	};
 }
