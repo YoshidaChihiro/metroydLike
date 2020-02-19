@@ -110,8 +110,6 @@ bool Framework::Game::ResourceLoad()
 
 	unq_resourceController->LoadSound("Damage.wav");
 	unq_resourceController->LoadSound("Explosion.wav");
-	unq_resourceController->LoadSound("Game.mp3");
-	unq_resourceController->LoadSound("Game.wav");
 	unq_resourceController->LoadSound("Jump.wav");
 	unq_resourceController->LoadSound("Shoot.wav");
 	unq_resourceController->LoadSound("Throw.wav");
@@ -119,7 +117,7 @@ bool Framework::Game::ResourceLoad()
 	unq_resourceController->LoadSound("Found.wav");
 	unq_resourceController->LoadSound("Landing.wav");
 	unq_resourceController->LoadSound("Mapmove.wav");
-	unq_resourceController->LoadSound("Game_play.wav");
+	unq_resourceController->LoadSound("Game_play2.wav");
 
 
 	return true;
