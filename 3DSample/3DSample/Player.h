@@ -40,7 +40,7 @@ namespace Framework {
 		std::deque<MoveHistory>deq_moveHistory;
 		std::deque<bool>deq_shotHistory;
 
-		const int HISTORY_COUNT = 300, MAX_PLAYER_COUNT = 10;
+		const int HISTORY_COUNT = 200, MAX_PLAYER_COUNT = 10;
 
 	};
 }

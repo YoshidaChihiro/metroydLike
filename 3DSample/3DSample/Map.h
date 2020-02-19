@@ -22,7 +22,6 @@ namespace Framework {
 		Vector2 GetCenterPosition();
 		void GenerateMap(std::shared_ptr< CSVData> csvData,int glidSize);
 		std::vector< std::shared_ptr< MapChipObject>> GetAroundObjects(Vector2 point);
-		std::vector< std::shared_ptr< MapChipObject>> GetAroundObjects_containNullptr(Vector2 point);
 		~Map();
 		std::shared_ptr<GameObject>** mapObjects;
 		void InitializeArray();

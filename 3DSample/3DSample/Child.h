@@ -44,7 +44,7 @@ namespace Framework {
 		Vector3 targetPosition;
 		MoveHistory history;
 
-		const int HISTORY_DELAY = 18;
+		const int HISTORY_DELAY = 6;
 		std::shared_ptr<Player> shp_player;
 
 		void CreateBlock();

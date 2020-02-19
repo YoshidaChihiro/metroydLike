@@ -36,7 +36,7 @@ void Framework::Teresa::PreInitialize()
 	tags.push_back(ObjectTag::obstacle);
 
 	shp_texture = ObjectFactory::Create<Resource_Texture>(handle, transform, false, false);
-	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(64,64, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(64, 64)), GetThis<GameObject>());
+	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(32, 32)), GetThis<GameObject>());
 }
 
 bool Framework::Teresa::OnUpdate() {

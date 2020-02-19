@@ -177,7 +177,7 @@ bool Framework::MapChip_Kuribo::OnUpdate()
 }
 void Framework::MapChip_Kuribo::Initialize()
 {
-	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(64, 64, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
+	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
 	
 	
 }
@@ -185,7 +185,7 @@ void Framework::MapChip_Kuribo::Replace()
 {
 	if (isClone) {
 		auto enemyTransform = ObjectFactory::Create<Transform>(transform->GetPosition());
-		manager->AddObject_Init(ObjectFactory::Create<Kuribo>(enemyTransform, manager, manager->SerchGameObject(ObjectTag::map)->GetThis<Map>()));
+		manager->AddObject_Init(ObjectFactory::Create<Kuribo>(enemyTransform, manager));
 	}
 }
 Framework::MapChip_Kuribo::MapChip_Kuribo(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager)
@@ -317,7 +317,7 @@ std::shared_ptr<Framework::MapChipObject> Framework::Medal::Clone(Vector3 positi
 void Framework::Medal::Initialize()
 {
 	texture = ObjectFactory::Create<Resource_Texture>("Medal_1.png", transform, false, false);
-	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(64, 64, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
+	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
 
 }
 
@@ -366,7 +366,7 @@ std::shared_ptr<Framework::MapChipObject> Framework::ChildSeedSpawner::Clone(Vec
 void Framework::ChildSeedSpawner::Initialize()
 {
 	texture = ObjectFactory::Create<Resource_Texture>("sample5.png", transform, false, false);
-	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(64, 64, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
+	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
 
 }
 
@@ -397,7 +397,7 @@ bool Framework::MapChip_Bat::OnUpdate()
 }
 void Framework::MapChip_Bat::Initialize()
 {
-	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(64, 64, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
+	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
 
 	
 }
@@ -431,7 +431,7 @@ bool Framework::MapChip_Teresa::OnUpdate()
 }
 void Framework::MapChip_Teresa::Initialize()
 {
-	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(64, 64, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
+	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
 
 	
 }
@@ -497,7 +497,7 @@ std::shared_ptr<Framework::MapChipObject> Framework::MapChip_reset::Clone(Vector
 void Framework::MapChip_reset::Initialize()
 {
 	texture = ObjectFactory::Create<Resource_Texture>("Medal_1.png", transform, false, false);
-	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(64, 64, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
+	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
 
 }
 

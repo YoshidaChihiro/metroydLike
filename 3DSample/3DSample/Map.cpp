@@ -135,9 +135,9 @@ void Framework::Map::GenerateMap(std::shared_ptr< CSVData> csvData, int arg_glid
 		ObjectFactory::Create<MapChip_Teresa>(manager),//11
 		ObjectFactory::Create<MapChip_Teresa>(manager),//12
 
-		ObjectFactory::Create<MapChip_Gate>("betaScene",Vector2(2 * 64,38 * 64),manager),//13
-		ObjectFactory::Create<MapChip_Gate>("TestScene",Vector2(26 * 64,16 * 64),manager),//14
-		ObjectFactory::Create<MapChip_Gate>("ClearScene",Vector2(2 * 64,16 * 64),manager),//15
+		ObjectFactory::Create<MapChip_Gate>("betaScene",Vector2(2 * 32,38 * 32),manager),//13
+		ObjectFactory::Create<MapChip_Gate>("TestScene",Vector2(26 * 32,16 * 32),manager),//14
+		ObjectFactory::Create<MapChip_Gate>("ClearScene",Vector2(2 * 32,16 * 32),manager),//15
 		ObjectFactory::Create<MapChip_reset>(manager),//16
 
 	};
@@ -174,34 +174,6 @@ std::vector<std::shared_ptr<Framework:: MapChipObject>> Framework::Map::GetAroun
 			}
 			if (mapObjects[i+x][j+y]) {
 				output.push_back(mapObjects[i + x][j + y]->GetThis<MapChipObject>());
-			}
-		}
-	}
-	return output;
-}
-
-std::vector<std::shared_ptr<Framework:: MapChipObject>> Framework::Map::GetAroundObjects_containNullptr(Vector2 point)
-{
-	int x = point.x / glidSize;
-	int y = point.y / glidSize;
-	std::vector<std::shared_ptr<MapChipObject>> output;
-	for (int i = -1; i < 2; i++) {
-		if (i + y < 0 || i + y >= mapHeight) {
-			output.push_back(nullptr);
-			output.push_back(nullptr);
-			output.push_back(nullptr);
-			continue;
-		}
-		for (int j = -1; j < 2; j++) {
-			if (j + x < 0 || j + x >= mapWidth) {
-				output.push_back(nullptr);
-				continue;
-			}
-			if (mapObjects[j + x][i + y]) {
-				output.push_back(mapObjects[j + x][i + y]->GetThis<MapChipObject>());
-			}
-			else {
-				output.push_back(nullptr);
 			}
 		}
 	}
