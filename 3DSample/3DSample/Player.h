@@ -19,7 +19,10 @@ namespace Framework {
 		bool Release()override;
 		void AddPlayerChild();
 		std::shared_ptr<Resource_Texture> shp_texture;
+		std::shared_ptr<Resource_Sound> shp_sound_damage;
 		std::shared_ptr<Resource_Sound> shp_sound_jump;
+		std::shared_ptr<Resource_Sound> shp_sound_shoot;
+		std::shared_ptr<Resource_Sound> shp_sound_throw;
 		std::shared_ptr<Collision2D_Rectangle>shp_collisionRect;
 
 	private:

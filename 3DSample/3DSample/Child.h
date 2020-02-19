@@ -16,6 +16,7 @@ namespace Framework {
 		void Initialize()override;
 		bool OnUpdate()override;
 		std::shared_ptr<Resource_Texture> shp_texture;
+		std::shared_ptr<Resource_Sound> shp_sound_explosion;
 		std::shared_ptr<Collision2D_Rectangle>shp_collisionRect;
 		void SetDelay(int arg_delay);
 		virtual bool Throw(std::shared_ptr<Transform> arg_target);

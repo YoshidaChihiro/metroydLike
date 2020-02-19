@@ -93,7 +93,10 @@ void Framework::Player::PreInitialize()
 
 
 	shp_texture = ObjectFactory::Create<Resource_Texture>("robo.png", transform, false, false);
+	shp_sound_damage = ObjectFactory::Create<Resource_Sound>("Damage.wav", DX_PLAYTYPE_BACK, true);
 	shp_sound_jump = ObjectFactory::Create<Resource_Sound>("Jump.wav", DX_PLAYTYPE_BACK, true);
+	shp_sound_shoot = ObjectFactory::Create<Resource_Sound>("Shoot.wav", DX_PLAYTYPE_BACK, true);
+	shp_sound_throw = ObjectFactory::Create<Resource_Sound>("Throw.wav", DX_PLAYTYPE_BACK, true);
 	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(32, 32)), GetThis<GameObject>());
 	
 	shp_cursol = ObjectFactory::Create<Cursol>(ObjectFactory::Create<Transform>(transform->GetPosition()),transform,manager);
@@ -131,6 +134,9 @@ bool Framework::Player::OnUpdate() {
 	if (Input::GetKeyDown(KEY_INPUT_D)) {
 		SetIsDead(true);
 	}
+	if (GetIsDead() == true) {
+		Game::GetInstance()->GetResourceController()->AddSound(shp_sound_damage);
+	}
 	shp_collisionRect->OnUpdate();
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture, 1);
 	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
@@ -166,7 +172,10 @@ bool Framework::Player::Release()
 	shp_collisionRect = nullptr;
 	shp_cursol =   nullptr;
 	shp_texture = nullptr;
+	shp_sound_damage = nullptr;
 	shp_sound_jump = nullptr;
+	shp_sound_shoot = nullptr;
+	shp_sound_throw = nullptr;
 	
 	Game::GetInstance()->GetGameTime()->SlowMotion(0.5f,30);
 
@@ -216,8 +225,8 @@ bool Framework::Player::Jump() {
 	if (
 		(isGround) &&
 		Input::GetButtonDown(XINPUT_BUTTON_LEFT_SHOULDER)) {
-		phisicsForce.y = -15.0f;
 		Game::GetInstance()->GetResourceController()->AddSound(shp_sound_jump);
+		phisicsForce.y = -15.0f;
 	}
 	return true;
 }
@@ -227,6 +236,7 @@ bool Framework::Player::Throw() {
 		return true;
 	}
 	if (Input::GetButtonDown(XINPUT_BUTTON_RIGHT_SHOULDER)) {
+		Game::GetInstance()->GetResourceController()->AddSound(shp_sound_throw);
 		auto throwChild = vec_childs.begin();
 		RemoveChildObject(vec_childs.at(0));
 		(*throwChild)->Throw(shp_cursol->GetWorldTransform());
