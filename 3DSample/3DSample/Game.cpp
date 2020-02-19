@@ -2,12 +2,13 @@
 #include"MapScene.h"
 #include <chrono>
 #include"ClearScene.h"
+#include"TestScene.h"
 std::unique_ptr<Framework::Game> Framework::Game::instance=nullptr;
 
 Framework::Game::Game(int windowWidth, int windowHeight, std::string windowText, Framework::Vector4 color):width(windowWidth),height(windowHeight)
 {
 
-	ChangeWindowMode(FALSE);
+	ChangeWindowMode(TRUE);
 	SetWindowSizeChangeEnableFlag(FALSE, FALSE);
 	SetGraphMode(windowWidth, windowHeight,60);
 	SetWindowSizeExtendRate(1.0);
@@ -59,12 +60,15 @@ bool Framework::Game::Update()
 	if (isReset) {
 		Reset();
 		isReset = false;
-	SoundPlay();
-	auto result= unq_sceneManager->OnUpdate();
-	unq_gameTime->OnUpdate();
-	unq_collision2DManager->OnUpdate();
-	return result;
+	}
+		SoundPlay();
+		auto result = unq_sceneManager->OnUpdate();
+		unq_gameTime->OnUpdate();
+		unq_collision2DManager->OnUpdate();
+		return result;
+	
 }
+
 
 bool Framework::Game::ResourceLoad()
 {
@@ -146,7 +150,7 @@ void Framework::Game::SceneInitialize()
 	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map8.csv"));
 	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map9.csv"));*/
 
-	unq_sceneManager->ChangeScene("TitleScene");
+	unq_sceneManager->ChangeScene("TestScene");
 }
 
 void Framework::Game::GameReset()

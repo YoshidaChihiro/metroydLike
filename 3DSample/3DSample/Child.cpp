@@ -18,20 +18,13 @@ Framework::Child::~Child() {}
 
 void Framework::Child::Hit(std::shared_ptr<GameObject> other)
 {
-	if (other->GetObjectTag() == ObjectTag::playerBullet) {
-		return;
-	}
-	if (other->GetObjectTag() == ObjectTag::enemy) {
+	if (!isThrown&&other->GetObjectTag() == ObjectTag::enemy) {
 		damage += 0.02f;
 		return;
 	}
-	if (isThrown&&other->GetObjectTag() == ObjectTag::obstacle) {
+	if ((isTop || isThrown) &&other->GetObjectTag() == ObjectTag::obstacle) {
 
-		if (other->IsThis<MapChip_ChildBlock>()) {
-			SetIsDead(true);
-			Game::GetInstance()->GetResourceController()->AddSound(shp_sound_explosion);
-			return;
-		}
+		
 
 		auto otherRect = other->GetThis<MapChipObject>()->GetRectangle();
 		float overlap = 0.0f;
@@ -58,6 +51,7 @@ void Framework::Child::Hit(std::shared_ptr<GameObject> other)
 				overlap = abs(overlap);
 				transform->localPosition.y += overlap;
 			}
+			//shp_collisionRect->OnUpdate();
 		}
 		else if (abs( delta.x) >abs(delta.y)) {
 			if (delta.x>0) {
@@ -140,10 +134,6 @@ void Framework::Child::PreInitialize()
 	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
 
 	shp_sound_explosion = ObjectFactory::Create<Resource_Sound>("Explosion.wav", DX_PLAYTYPE_BACK, true);
-	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(25, 25, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
-
-	std::vector<ObjectTag> tags;
-	tags.push_back(ObjectTag::obstacle);
 
 
 
@@ -155,8 +145,9 @@ void Framework::Child::Initialize()
 {
 	velocity = Vector3(0.0f, 0.0f,0.0f);
 	speed = 4.0f;
-	gravity = 0.2f;
-	maxFallSpeed = 3.0f;
+	gravity = 0.3f;
+	maxFallSpeed = 5.0f;
+	collisionLayer = 1;
 	//groundHeight = 672.0f;
 }
 
@@ -234,17 +225,23 @@ bool Framework::Child::OnUpdate() {
 	}
 	shp_collisionRect->OnUpdate();
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
-	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect,1);
-
+	if (changeTimer.Update()) {
+		collisionLayer = 5;
+		shp_collisionRect->SetRect(20, 20);
+	}
+	if(isThrown||isTop)
+	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect,collisionLayer);
+	isGround = false;
 	return true;
 }
 
 
 bool Framework::Child::Throw(std::shared_ptr<Transform> arg_target)
 {
-	changeTimer = RelativeTimer(3);
+	changeTimer = RelativeTimer(5);
 	changeTimer.Start();
 	isThrown = true;
+	collisionLayer = 3;
 	velocity = arg_target->GetPosition().GetVector2()- transform->GetPosition().GetVector2();
 	targetPosition = arg_target->GetPosition();
 	velocity.Normalize();
@@ -264,7 +261,7 @@ void Framework::Child::SetNum(int arg_num) {
 
 void Framework::Child::SetStandby() {
 	isStandby = true;
-	transform->localPosition = Vector3(0, -32, 0);
+	transform->localPosition = Vector3(0, -40, 0);
 	transform->baseTransform = shp_player->transform;
 }
 
@@ -290,7 +287,8 @@ bool Framework::Child::Jump()
 	if (
 		(isGround) &&
 		Input::GetButtonDown(XINPUT_BUTTON_LEFT_SHOULDER)) {
-		phisicsForce.y = -5.0f;
+		phisicsForce.y = -7.0f;
+		
 	}
 	return true;
 }
@@ -334,6 +332,14 @@ void Framework::Child::CreateBlock()
 	int glidSize = Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetGlidSize();
 	int x = ((transform->GetPosition().x)+glidSize/2) / (float)glidSize;
 	int y = (transform->GetPosition().y+glidSize/2 )/(float) glidSize;
+
+	int playerX = (shp_player->transform->GetPosition().x / (float)32);
+	int playerY = (shp_player->transform->GetPosition().y / (float)32);
+
+	if (playerX == x && playerY == y) {
+		y -= 1;
+	}
+
 	manager->SerchGameObject(ObjectTag::map)->GetThis<Map>()->ChangeGlid(x, y, 5);
 
 	

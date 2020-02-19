@@ -139,8 +139,10 @@ bool Framework::Bat::Move() {
 		float range = targetPosition.GetVector2().GetDistance(vec);
 
 		if (dis < 320) {
+			if(!isFind)
 			Game::GetInstance()->GetResourceController()->AddSound(shp_sound_found);
 			velocity = player->transform->GetPosition() - vec;
+			isFind = true;
 		}
 		else {
 			//徘徊モード
@@ -150,7 +152,7 @@ bool Framework::Bat::Move() {
 			if (range <= 32) {
 				isGoalTargetPosition = true;
 			}
-
+			isFind = false;
 		}
 	}
 	//ふわふわ

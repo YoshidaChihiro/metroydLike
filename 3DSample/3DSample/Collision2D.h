@@ -21,6 +21,10 @@ namespace Framework {
 		void Initialize()override;
 		void PreInitialize()override;
 		
+		void SetRect(int width, int height) {
+			rect->width = width;
+			rect->height = height;
+		}
 
 		void Releace() {
 			gameObj = nullptr;

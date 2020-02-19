@@ -142,8 +142,10 @@ bool Framework::Kuribo::Move() {
 		auto dis = (player->transform->GetPosition().GetVector2().GetDistance(vec));
 
 		if (dis < 160) {
+			if(!isFind)
 			Game::GetInstance()->GetResourceController()->AddSound(shp_sound_found);
 			velocity.x = player->transform->GetPosition().GetVector2().x - vec.x;
+			isFind = true;
 		}
 		else {
 			//徘徊モード
@@ -156,6 +158,7 @@ bool Framework::Kuribo::Move() {
 					velocity.x = -1;
 				}
 			}
+			isFind = false;
 		}
 	}
 	velocity.Normalize();

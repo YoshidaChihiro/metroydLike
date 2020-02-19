@@ -37,7 +37,7 @@ namespace Framework {
 			gravity,
 			maxFallSpeed,
 			overlap,hp;
-		bool isGround;
+		bool isGround,isFind;
 
 	};
 }

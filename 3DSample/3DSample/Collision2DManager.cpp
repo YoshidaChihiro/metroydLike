@@ -7,6 +7,7 @@ Framework::Collision2DManager::Collision2DManager()
 	vec_collision2Ds.push_back(std::vector < std::shared_ptr<Collision2D_Base>>());
 	vec_collision2Ds.push_back(std::vector < std::shared_ptr<Collision2D_Base>>());
 	vec_collision2Ds.push_back(std::vector < std::shared_ptr<Collision2D_Base>>());
+	vec_collision2Ds.push_back(std::vector < std::shared_ptr<Collision2D_Base>>());
 }
 
 Framework::Collision2DManager::~Collision2DManager()
@@ -20,6 +21,7 @@ bool Framework::Collision2DManager::OnUpdate()
 	auto vec_enemyCollision = vec_collision2Ds.at(2);
 	auto vec_playerBulletCollision = vec_collision2Ds.at(3);
 	auto vec_enemyBulletCollision = vec_collision2Ds.at(4);
+	auto vec_shootingBlockCollision = vec_collision2Ds.at(5);
 	int collisionCount = 0;
 	//map、全てのレイヤーと判定をとる
 	for (auto itr = vec_objectsCollision.begin(); itr != vec_objectsCollision.end(); itr++) {
@@ -50,6 +52,14 @@ bool Framework::Collision2DManager::OnUpdate()
 			collisionCount++;
 		}
 		for (auto otherItr = vec_enemyBulletCollision.begin(); otherItr != vec_enemyBulletCollision.end(); otherItr++) {
+
+			if ((*itr)->IsHit((*otherItr))) {
+				(*itr)->OnHit(*otherItr);
+				(*otherItr)->OnHit(*itr);
+			}
+			collisionCount++;
+		}
+		for (auto otherItr = vec_shootingBlockCollision.begin(); otherItr != vec_shootingBlockCollision.end(); otherItr++) {
 
 			if ((*itr)->IsHit((*otherItr))) {
 				(*itr)->OnHit(*otherItr);
@@ -91,6 +101,14 @@ bool Framework::Collision2DManager::OnUpdate()
 			collisionCount++;
 		}
 
+		for (auto otherItr = vec_shootingBlockCollision.begin(); otherItr != vec_shootingBlockCollision.end(); otherItr++) {
+
+			if ((*itr)->IsHit((*otherItr))) {
+				(*itr)->OnHit(*otherItr);
+				(*otherItr)->OnHit(*itr);
+			}
+			collisionCount++;
+		}
 	}
 
 	for (auto itr = vec_enemyCollision.begin(); itr != vec_enemyCollision.end(); itr++) {
@@ -103,6 +121,14 @@ bool Framework::Collision2DManager::OnUpdate()
 			collisionCount++;
 		}
 
+		for (auto otherItr = vec_shootingBlockCollision.begin(); otherItr != vec_shootingBlockCollision.end(); otherItr++) {
+
+			if ((*itr)->IsHit((*otherItr))) {
+				(*itr)->OnHit(*otherItr);
+				(*otherItr)->OnHit(*itr);
+			}
+			collisionCount++;
+		}
 	}
 
 
@@ -114,6 +140,7 @@ bool Framework::Collision2DManager::OnUpdate()
 	vec_collision2Ds.at(2).clear();
 	vec_collision2Ds.at(3).clear();
 	vec_collision2Ds.at(4).clear();
+	vec_collision2Ds.at(5).clear();
 	return true;
 }
 

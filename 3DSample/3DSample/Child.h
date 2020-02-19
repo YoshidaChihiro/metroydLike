@@ -58,8 +58,8 @@ namespace Framework {
 			groundHeight;
 		bool
 			isTop, isThrown,isStandby,isGround,isShot;
-		int num;
-		RelativeTimer changeTimer=RelativeTimer(0);
+		int num,collisionLayer;
+		RelativeTimer changeTimer=RelativeTimer(3);
 		RelativeTimer coolTimer = RelativeTimer(10);
 	};
 }

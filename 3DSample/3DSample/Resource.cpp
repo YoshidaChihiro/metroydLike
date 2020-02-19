@@ -200,4 +200,4 @@ void Framework::Resource_Text_String_UI::SetText(std::string arg_text)
 		xModify = shp_resource_font-> size*(float)text.size()/2+shp_resource_font->size;
 	}
 }
-}
+

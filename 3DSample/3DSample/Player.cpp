@@ -29,60 +29,6 @@ Framework::Player::~Player() {
 
 void Framework::Player::Hit(std::shared_ptr<GameObject> other)
 {
-//	if (other->GetObjectTag() == ObjectTag::playerBullet) {
-//		return;
-//	}
-//	if (other->GetObjectTag() == ObjectTag::enemy) {
-//		SetIsDead(true);
-//		return;
-//	}
-//	if (other->GetObjectTag() == ObjectTag::obstacle) {
-//		//
-//		auto otherRect = other->GetThis<MapChipObject>()->GetRectangle();
-//		float overlap = 0.0f;
-//
-//		Vector3 delta = (Vector3)(other->transform->GetPosition()-transform->GetPosition());
-//
-//
-//		if (abs( delta.x) <abs( delta.y))
-//		{
-//			if (delta.y>0) {
-//				overlap = shp_collisionRect->rect->GetBottom() - otherRect->GetTop();
-//				overlap = abs(overlap);
-//				transform->localPosition.y -= overlap;
-//
-//				isGround = true;
-//				//���n
-//				phisicsForce.y = 0.0f;
-//
-//			}
-//			else
-//			if (delta.y < 0) {
-//				overlap = otherRect->GetBottom() - shp_collisionRect->rect->GetTop();
-//
-//				overlap = abs(overlap);
-//				transform->localPosition.y += overlap;
-//			}
-//		}
-//		else if (abs( delta.x) >abs(delta.y)) {
-//			if (delta.x>0) {
-//				overlap = shp_collisionRect->rect->GetRight() - otherRect->GetLeft();
-//				overlap = abs(overlap);
-//				transform->localPosition.x -= overlap;
-//				velocity.x = 0;
-//				phisicsForce.x = 0;
-//			}
-//			else
-//			if (delta.x< 0) {
-//				overlap = otherRect->GetRight() - shp_collisionRect->rect->GetLeft();
-//				overlap = abs(overlap);
-//				transform->localPosition.x += overlap;
-//				velocity.x = 0;
-//				phisicsForce.x = 0;
-//			}
-//		}
-//		shp_collisionRect->OnUpdate();
-//	}
 }
 
 void Framework::Player::PreInitialize()
@@ -232,15 +178,6 @@ bool Framework::Player::Move() {
 	return true;
 }
 
-bool Framework::Player::Jump() {
-	if (
-		(isGround) &&
-		Input::GetButtonDown(XINPUT_BUTTON_LEFT_SHOULDER)) {
-		Game::GetInstance()->GetResourceController()->AddSound(shp_sound_jump);
-		phisicsForce.y = -15.0f;
-	}
-	return true;
-}
 
 bool Framework::Player::Throw() {
 	if (vec_childs.size() == 0) {
@@ -250,17 +187,18 @@ bool Framework::Player::Throw() {
 		shp_throwChild = *(vec_childs.begin() + 1);
 
 		shp_throwChild->SetStandby();
-	}else
-	if (Input::GetButtonUp(XINPUT_BUTTON_RIGHT_SHOULDER) && vec_childs.size() >= 2) {
-		
-		RemoveChildObject(shp_throwChild);
-
-		shp_throwChild->Throw(shp_cursol->GetWorldTransform());
-		vec_childs.erase(vec_childs.begin() + 1);
-		for (int i = 0; i < vec_childs.size(); i++) {
-			vec_childs.at(i)->SetNum(i);
-		}
-		shp_throwChild = nullptr;
 	}
+	else
+		if (Input::GetButtonUp(XINPUT_BUTTON_RIGHT_SHOULDER) && vec_childs.size() >= 2) {
+
+			RemoveChildObject(shp_throwChild);
+
+			shp_throwChild->Throw(shp_cursol->GetWorldTransform());
+			vec_childs.erase(vec_childs.begin() + 1);
+			for (int i = 0; i < vec_childs.size(); i++) {
+				vec_childs.at(i)->SetNum(i);
+			}
+			shp_throwChild = nullptr;
+		}
 	return true;
 }

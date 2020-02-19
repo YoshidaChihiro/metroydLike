@@ -36,7 +36,7 @@ namespace Framework {
 			huwaCounter,
 			overlap;
 		int targetRange;
-		bool isGround,
+		bool isGround,isFind,
 			isGoalTargetPosition;
 
 	};

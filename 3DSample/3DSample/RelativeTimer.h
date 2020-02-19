@@ -5,6 +5,7 @@ namespace Framework {
 			RelativeTimer(int max);
 			inline void Start() { isActive = true; }
 			inline void Stop() { isActive = false; }
+			bool GetActive() { return isActive; }
 			void SetCount(int arg_nowCount);
 			void ChangeCountFrame(int arg_maxCount);
 			void Reset();
