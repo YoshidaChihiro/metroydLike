@@ -34,7 +34,7 @@ void Framework::MapScene::Initialize()
 
 void Framework::MapScene::PreInitialize()
 {
-	shp_sound_bgm = ObjectFactory::Create<Resource_Sound>("Game.wav", DX_PLAYTYPE_LOOP, false);
+	shp_sound_bgm = ObjectFactory::Create<Resource_Sound>("Game_play.wav", DX_PLAYTYPE_LOOP, false);
 	shp_sound_mapmove = ObjectFactory::Create<Resource_Sound>("Mapmove.wav", DX_PLAYTYPE_BACK, true);
 
 }
