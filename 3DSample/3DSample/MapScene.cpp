@@ -34,6 +34,8 @@ void Framework::MapScene::Initialize()
 
 void Framework::MapScene::PreInitialize()
 {
+	shp_sound_bgm = ObjectFactory::Create<Resource_Sound>("Game.wav", DX_PLAYTYPE_LOOP, false);
+
 }
 
 bool Framework::MapScene::Update()
@@ -46,6 +48,10 @@ bool Framework::MapScene::Update()
 
 void Framework::MapScene::OnSet()
 {
+	Game::GetInstance()->GetResourceController()->StopSound(shp_sound_bgm);
+
+	Game::GetInstance()->GetResourceController()->AddSound(shp_sound_bgm);
+
 	shp_map->Reload();
 	shp_gameObjectManager->SerchGameObject(ObjectTag::camera)->GetThis<Cameraman_Chase>()->SetTarget(
 		shp_gameObjectManager->SerchGameObject(ObjectTag::player)->transform
@@ -56,5 +62,7 @@ void Framework::MapScene::OnSet()
 
 void Framework::MapScene::Release()
 {
+	shp_sound_bgm = nullptr;
+
 	shp_gameObjectManager->Release();
 }

@@ -1,12 +1,12 @@
 #pragma once
-#include "IScene.h"
+#include"IScene.h"
 #include"Map.h"
 namespace Framework {
-	class MapScene:public IScene
+	class TitleScene :public IScene
 	{
 	public:
-		MapScene(std::string mapFilePath);
-		~MapScene();
+		TitleScene();
+		~TitleScene();
 		void Initialize()override;
 
 		void PreInitialize()override;
@@ -16,10 +16,7 @@ namespace Framework {
 		void OnSet()override;
 
 		void Release()override;
-
-		std::shared_ptr<Resource_Sound> shp_sound_bgm;
 	private:
-		std::string filePath;
 		std::shared_ptr<Map> shp_map;
 	};
 

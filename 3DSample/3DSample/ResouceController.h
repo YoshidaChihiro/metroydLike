@@ -23,6 +23,7 @@ namespace Framework {
 		void AddText(std::shared_ptr< Resource_Text_String> shp_arg_resource_text);
 		void AddMV1(std::shared_ptr< Resource_MV1> shp_arg_resource_MV1);
 		void AddSound(std::shared_ptr< Resource_Sound> shp_arg_resource_sound);
+		void StopSound(std::shared_ptr< Resource_Sound> shp_arg_resource_sound);
 
 		std::unique_ptr<ScreenInformation>& GetScreenInformation() {
 			return unq_screenInformation;

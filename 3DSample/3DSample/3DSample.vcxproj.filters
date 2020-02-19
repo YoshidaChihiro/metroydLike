@@ -118,6 +118,7 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="GameComponent.cpp" />
+    <ClCompile Include="TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ButiMath.h">
@@ -243,6 +244,7 @@
       <Filter>header</Filter>
     </ClInclude>
     <ClInclude Include="GameComponent.h" />
+    <ClInclude Include="TitleScene.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="header">

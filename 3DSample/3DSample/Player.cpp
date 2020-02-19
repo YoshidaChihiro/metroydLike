@@ -31,6 +31,7 @@ void Framework::Player::Hit(std::shared_ptr<GameObject> other)
 		return;
 	}
 	if (other->GetObjectTag() == ObjectTag::enemy) {
+		Game::GetInstance()->GetResourceController()->AddSound(shp_sound_damage);
 		SetIsDead(true);
 		return;
 	}
@@ -133,9 +134,6 @@ bool Framework::Player::OnUpdate() {
 	}
 	if (Input::GetKeyDown(KEY_INPUT_D)) {
 		SetIsDead(true);
-	}
-	if (GetIsDead() == true) {
-		Game::GetInstance()->GetResourceController()->AddSound(shp_sound_damage);
 	}
 	shp_collisionRect->OnUpdate();
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture, 1);

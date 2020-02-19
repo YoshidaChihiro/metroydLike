@@ -123,3 +123,8 @@ void Framework::ResouceController::AddSound(std::shared_ptr<Resource_Sound> shp_
 	vec_sounds.push_back(shp_arg_resource_sound->GetThis<Resource_Sound>());
 }
 
+void Framework::ResouceController::StopSound(std::shared_ptr<Resource_Sound> shp_arg_resource_sound)
+{
+	StopSoundMem(shp_arg_resource_sound->handle);
+}
+
