@@ -18,6 +18,7 @@ namespace Framework {
 		void Release()override;
 
 		std::shared_ptr<Resource_Sound> shp_sound_bgm;
+		std::shared_ptr<Resource_Sound> shp_sound_mapmove;
 	private:
 		std::string filePath;
 		std::shared_ptr<Map> shp_map;

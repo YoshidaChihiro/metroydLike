@@ -81,6 +81,7 @@ void Framework::Kuribo::PreInitialize()
 	std::vector<ObjectTag> tags;
 	tags.push_back(ObjectTag::obstacle);
 
+	shp_sound_found = ObjectFactory::Create<Resource_Sound>("Found.wav", DX_PLAYTYPE_BACK, true);
 
 
 	shp_texture = ObjectFactory::Create<Resource_Texture>(handle, transform, false, false);
@@ -110,6 +111,7 @@ bool Framework::Kuribo::Release()
 	shp_collisionRect->Releace();
 	shp_collisionRect = nullptr;
 	shp_texture = nullptr;
+	shp_sound_found = nullptr;
 	return true;
 }
 
@@ -122,6 +124,7 @@ bool Framework::Kuribo::Move() {
 		auto dis = (player->transform->GetPosition().GetVector2().GetDistance(vec));
 
 		if (dis < 160) {
+			Game::GetInstance()->GetResourceController()->AddSound(shp_sound_found);
 			velocity.x = player->transform->GetPosition().GetVector2().x - vec.x;
 		}
 		else {

@@ -23,6 +23,7 @@ namespace Framework {
 		std::shared_ptr<Resource_Sound> shp_sound_jump;
 		std::shared_ptr<Resource_Sound> shp_sound_shoot;
 		std::shared_ptr<Resource_Sound> shp_sound_throw;
+		std::shared_ptr<Resource_Sound> shp_sound_landing;
 		std::shared_ptr<Collision2D_Rectangle>shp_collisionRect;
 
 	private:
@@ -41,8 +42,7 @@ namespace Framework {
 		float speed,
 			gravity,
 			maxFallSpeed;
-		bool isGround,
-			isSecondJump;
+		bool isGround;
 
 	};
 }

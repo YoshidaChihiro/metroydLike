@@ -87,6 +87,7 @@ void Framework::Bat::PreInitialize()
 	std::vector<ObjectTag> tags;
 	tags.push_back(ObjectTag::obstacle);
 
+	shp_sound_found = ObjectFactory::Create<Resource_Sound>("Found.wav", DX_PLAYTYPE_BACK, true);
 
 
 
@@ -115,6 +116,7 @@ bool Framework::Bat::Release()
 	shp_collisionRect->Releace();
 	shp_collisionRect = nullptr;
 	shp_texture = nullptr;
+	shp_sound_found = nullptr;
 	return true;
 }
 
@@ -127,6 +129,7 @@ bool Framework::Bat::Move() {
 		auto dis = (player->transform->GetPosition().GetVector2().GetDistance(vec));
 
 		if (dis < 320) {
+			Game::GetInstance()->GetResourceController()->AddSound(shp_sound_found);
 			velocity = player->transform->GetPosition() - vec;
 		}
 		else {

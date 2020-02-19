@@ -281,6 +281,7 @@ void Framework::Medal::Hit(std::shared_ptr<GameObject> other)
 {
 	if (other->GetObjectTag() == ObjectTag::player) {
 		SetIsDead(true);
+		Game::GetInstance()->GetResourceController()->AddSound(shp_sound_medal);
 		Game::GetInstance()->GetSceneManager()->GetGameMaster()->GetMedal(); 
 		int handle = Game::GetInstance()->GetResourceController()->GetTexture("kirari.png");
 
@@ -304,6 +305,7 @@ void Framework::Medal::Hit(std::shared_ptr<GameObject> other)
 
 void Framework::Medal::PreInitialize()
 {
+	shp_sound_medal = ObjectFactory::Create<Resource_Sound>("Coin.wav", DX_PLAYTYPE_BACK, true);
 }
 
 std::shared_ptr<Framework::MapChipObject> Framework::Medal::Clone(Vector3 position)
@@ -330,6 +332,7 @@ bool Framework::MapChipObject::Release()
 {
 	shp_collisionRect->Releace();
 	shp_collisionRect = nullptr;
+
 	return true;
 }
 

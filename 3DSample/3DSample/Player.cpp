@@ -10,7 +10,6 @@ Framework::Player::Player(std::shared_ptr<Transform> shp_arg_transform, std::sha
 	speed = 5.0f;
 	gravity = 0.6f;
 	maxFallSpeed = 6.0f;
-	isSecondJump = false;
 
 	phisicsForce = Vector2(0,0);
 
@@ -43,25 +42,24 @@ void Framework::Player::Hit(std::shared_ptr<GameObject> other)
 		Vector3 delta = (Vector3)(other->transform->GetPosition()-transform->GetPosition());
 
 
-		if (abs( delta.x) <abs( delta.y))
+		if (abs(delta.x) < abs(delta.y))
 		{
-			if (delta.y>0) {
+			if (delta.y > 0) {
 				overlap = shp_collisionRect->rect->GetBottom() - otherRect->GetTop();
 				overlap = abs(overlap);
 				transform->localPosition.y -= overlap;
-
 				isGround = true;
 				//���n
 				phisicsForce.y = 0.0f;
 
 			}
 			else
-			if (delta.y < 0) {
-				overlap = otherRect->GetBottom() - shp_collisionRect->rect->GetTop();
+				if (delta.y < 0) {
+					overlap = otherRect->GetBottom() - shp_collisionRect->rect->GetTop();
 
-				overlap = abs(overlap);
-				transform->localPosition.y += overlap;
-			}
+					overlap = abs(overlap);
+					transform->localPosition.y += overlap;
+				}
 		}
 		else if (abs( delta.x) >abs(delta.y)) {
 			if (delta.x>0) {
@@ -98,6 +96,7 @@ void Framework::Player::PreInitialize()
 	shp_sound_jump = ObjectFactory::Create<Resource_Sound>("Jump.wav", DX_PLAYTYPE_BACK, true);
 	shp_sound_shoot = ObjectFactory::Create<Resource_Sound>("Shoot.wav", DX_PLAYTYPE_BACK, true);
 	shp_sound_throw = ObjectFactory::Create<Resource_Sound>("Throw.wav", DX_PLAYTYPE_BACK, true);
+	shp_sound_landing = ObjectFactory::Create<Resource_Sound>("Landing.wav", DX_PLAYTYPE_BACK, true);
 	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(32, 32)), GetThis<GameObject>());
 	
 	shp_cursol = ObjectFactory::Create<Cursol>(ObjectFactory::Create<Transform>(transform->GetPosition()),transform,manager);
@@ -138,7 +137,7 @@ bool Framework::Player::OnUpdate() {
 	shp_collisionRect->OnUpdate();
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture, 1);
 	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
-	isGround = false;
+	//isGround = false;
 	return true;
 }
 
@@ -174,6 +173,7 @@ bool Framework::Player::Release()
 	shp_sound_jump = nullptr;
 	shp_sound_shoot = nullptr;
 	shp_sound_throw = nullptr;
+	shp_sound_landing = nullptr;
 	
 	Game::GetInstance()->GetGameTime()->SlowMotion(0.5f,30);
 

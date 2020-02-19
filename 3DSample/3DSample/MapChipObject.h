@@ -108,6 +108,8 @@ namespace Framework {
 		std::shared_ptr<MapChipObject> Clone(Vector3 position)override;
 		void Initialize()override;
 		bool OnUpdate()override;
+
+		std::shared_ptr<Resource_Sound> shp_sound_medal;
 	private:
 		Medal(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager);
 		std::shared_ptr<Resource_Texture> texture;
