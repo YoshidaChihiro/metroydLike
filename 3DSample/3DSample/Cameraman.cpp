@@ -32,7 +32,7 @@ bool Framework::Cameraman_Chase::OnUpdate()
 {
 	auto v = (target->GetPosition().GetVector2());
 	auto distance = transform->GetPosition().GetVector2().GetDistance(v	);
-	if (distance > 64)
+	if (distance > 32)
 	{
 		velocity= ((Vector3)(target->GetPosition() - transform->GetPosition()));
 		velocity.Normalize();

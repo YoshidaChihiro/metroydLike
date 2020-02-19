@@ -135,9 +135,9 @@ void Framework::Map::GenerateMap(std::shared_ptr< CSVData> csvData, int arg_glid
 		ObjectFactory::Create<MapChip_Teresa>(manager),//11
 		ObjectFactory::Create<MapChip_Teresa>(manager),//12
 
-		ObjectFactory::Create<MapChip_Gate>("betaScene",Vector2(2 * 64,38 * 64),manager),//13
-		ObjectFactory::Create<MapChip_Gate>("TestScene",Vector2(26 * 64,16 * 64),manager),//14
-		ObjectFactory::Create<MapChip_Gate>("ClearScene",Vector2(2 * 64,16 * 64),manager),//15
+		ObjectFactory::Create<MapChip_Gate>("betaScene",Vector2(2 * 32,38 * 32),manager),//13
+		ObjectFactory::Create<MapChip_Gate>("TestScene",Vector2(26 * 32,16 * 32),manager),//14
+		ObjectFactory::Create<MapChip_Gate>("ClearScene",Vector2(2 * 32,16 * 32),manager),//15
 		ObjectFactory::Create<MapChip_reset>(manager),//16
 
 	};

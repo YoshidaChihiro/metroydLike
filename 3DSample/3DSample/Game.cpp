@@ -7,7 +7,7 @@ std::unique_ptr<Framework::Game> Framework::Game::instance=nullptr;
 Framework::Game::Game(int windowWidth, int windowHeight, std::string windowText, Framework::Vector4 color):width(windowWidth),height(windowHeight)
 {
 
-	ChangeWindowMode(TRUE);
+	ChangeWindowMode(FALSE);
 	SetWindowSizeChangeEnableFlag(FALSE, FALSE);
 	SetGraphMode(windowWidth, windowHeight,60);
 	SetWindowSizeExtendRate(1.0);

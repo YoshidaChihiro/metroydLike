@@ -17,7 +17,7 @@ Framework::MapScene::~MapScene()
 
 void Framework::MapScene::Initialize()
 {
-	shp_map = ObjectFactory::Create<Map>(filePath, 64, shp_gameObjectManager);
+	shp_map = ObjectFactory::Create<Map>(filePath, 32, shp_gameObjectManager);
 	//shp_gameObjectManager->AddObject(obj);
 	shp_gameObjectManager->AddObject_Init(shp_map);
 	auto shp_transform = ObjectFactory::Create<Transform>(Vector3(400, -100, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
@@ -29,7 +29,7 @@ void Framework::MapScene::Initialize()
 	shp_gameObjectManager->AddObject_Init(ObjectFactory::Create<Cameraman_Chase>( shp_transform, shp_gameObjectManager));
 
 	
-	auto shp_objectTransform = ObjectFactory::Create<Transform>(Vector3(64, 64, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
+	auto shp_objectTransform = ObjectFactory::Create<Transform>(Vector3(32, 32, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
 
 	shp_gameObjectManager->AddObject_Init(ObjectFactory::Create<UI>(shp_gameObjectManager));
 }

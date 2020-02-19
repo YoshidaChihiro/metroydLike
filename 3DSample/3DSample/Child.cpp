@@ -130,7 +130,7 @@ void Framework::Child::PreInitialize()
 {
 	auto handle = Game::GetInstance()->GetResourceController()->GetTexture("child.png");
 	shp_texture = ObjectFactory::Create<Resource_Texture>(handle, transform, false, false);
-	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(64, 64, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
+	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
 
 	std::vector<ObjectTag> tags;
 	tags.push_back(ObjectTag::obstacle);

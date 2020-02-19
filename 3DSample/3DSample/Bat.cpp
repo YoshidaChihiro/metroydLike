@@ -16,7 +16,7 @@ Framework::Bat::Bat(std::shared_ptr<Transform> shp_arg_transform, std::shared_pt
 	huwaCounter = 0.0f;
 	overlap = 0.0f;
 	hp = 5;
-	targetRange = 64;
+	targetRange = 32;
 
 	phisicsForce = Vector3(0, 0,0);
 
