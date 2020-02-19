@@ -52,11 +52,26 @@ Framework::Resource_Texture::Resource_Texture(std::shared_ptr<Transform> arg_tra
 {
 }
 
-bool Framework::Resource_Sound::Play()
-{
-	return false;
+Framework::Resource_Sound::Resource_Sound(int arg_handle, int playType, bool topPositionFlag) : handle(arg_handle) {
+	this->playType = playType;
+	this->topPositionFlag = topPositionFlag;
 }
 
+Framework::Resource_Sound::Resource_Sound(std::string key, int playType, bool topPositionFlag) {
+	handle = (Game::GetInstance()->GetResourceController()->GetSound(key));
+	this->playType = playType;
+	this->topPositionFlag = topPositionFlag;
+}
+
+Framework::Resource_Sound::~Resource_Sound()
+{
+}
+
+bool Framework::Resource_Sound::SoundPlay()
+{
+	PlaySoundMem(handle, playType, topPositionFlag);
+	return true;
+}
 
 
 

@@ -49,8 +49,14 @@ bool Framework::Game::Draw()
 	return true;
 }
 
+bool Framework::Game::SoundPlay() {
+	unq_resourceController->SoundPlay();
+	return true;
+}
+
 bool Framework::Game::Update()
 {
+	SoundPlay();
 	auto result= unq_sceneManager->OnUpdate();
 	unq_gameTime->OnUpdate();
 	unq_collision2DManager->OnUpdate();
@@ -101,6 +107,14 @@ bool Framework::Game::ResourceLoad()
 
 	unq_resourceController->LoadTexture("watermelon.png");
 
+
+	unq_resourceController->LoadSound("Damage.wav");
+	unq_resourceController->LoadSound("Explosion.wav");
+	unq_resourceController->LoadSound("Game.mp3");
+	unq_resourceController->LoadSound("Game.wav");
+	unq_resourceController->LoadSound("Jump.wav");
+	unq_resourceController->LoadSound("Shoot.wav");
+	unq_resourceController->LoadSound("Throw.wav");
 
 	return true;
 }

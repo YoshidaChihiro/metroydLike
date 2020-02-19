@@ -9,6 +9,7 @@ namespace Framework {
 	public:
 		ResouceController(int screenWidth,int screenHeight) ;
 		void Draw();
+		void SoundPlay();
 		void LoadTexture(std::string fileName,std::string filePath="Resource/Texture/");
 		void LoadSound(std::string fileName, std::string filePath="Resource/Sound/");
 		void LoadMV1(std::string fileName, std::string filePath="Resource/MV1/");

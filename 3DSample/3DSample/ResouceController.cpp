@@ -28,6 +28,14 @@ void Framework::ResouceController::LoadTexture(std::string fileName, std::string
 	textureHandleMap.emplace(fileName, LoadGraph((filePath + fileName).c_str()));
 }
 
+void Framework::ResouceController::SoundPlay()
+{
+	for (auto itr = vec_sounds.begin(); itr != vec_sounds.end(); itr++) {
+		(*itr)->SoundPlay();
+	}
+	vec_sounds.clear();
+}
+
 void Framework::ResouceController::LoadSound(std::string fileName, std::string filePath)
 {
 	soundHandleMap.emplace(fileName, LoadSoundMem((filePath + fileName).c_str()));
@@ -112,7 +120,6 @@ void Framework::ResouceController::AddMV1(std::shared_ptr<Resource_MV1> shp_arg_
 
 void Framework::ResouceController::AddSound(std::shared_ptr<Resource_Sound> shp_arg_resource_sound)
 {
-
 	vec_sounds.push_back(shp_arg_resource_sound->GetThis<Resource_Sound>());
 }
 

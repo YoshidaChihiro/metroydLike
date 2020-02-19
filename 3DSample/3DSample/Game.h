@@ -11,6 +11,7 @@ namespace Framework {
 	public:
 		Game(int windowWidth, int windowHeight, std::string windowText, Vector4 color);
 		bool Draw();
+		bool SoundPlay();
 		bool Update();
 		bool ResourceLoad();
 		void SceneInitialize();
