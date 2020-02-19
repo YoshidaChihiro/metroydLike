@@ -13,7 +13,12 @@ Framework::SceneManager::~SceneManager()
 
 void Framework::SceneManager::Initialize()
 {
-	shp_currentScene = ObjectFactory::Create<TestScene>();
+	Release();
+	shp_currentScene = nullptr;
+	shp_nextScene = nullptr;
+	shp_sceneOverObjects = nullptr;
+	map_scenes.clear();
+	unq_gameMaster->Initialize();
 }
 
 bool Framework::SceneManager::OnUpdate()
@@ -36,6 +41,7 @@ bool Framework::SceneManager::OnUpdate()
 
 void Framework::SceneManager::Release()
 {
+	if(shp_currentScene)
 	shp_currentScene->Release();
 	for (auto itr = map_scenes.begin(); itr != map_scenes.end(); itr++) {
 		itr->second->Release();

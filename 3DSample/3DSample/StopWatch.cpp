@@ -15,6 +15,6 @@ std::chrono::milliseconds Framework::StopWatch::GetTime()
 
 	std::chrono::milliseconds deltaMilliSeconds;
 	Framework::ButiTime::timespecSubstruction(&nowTime, &startTime, &deltaTime);
-	deltaMilliSeconds = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::nanoseconds{ deltaTime.tv_nsec });
+	deltaMilliSeconds = std::chrono::seconds{ deltaTime.tv_sec } +std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::nanoseconds{ deltaTime.tv_nsec });
 	return deltaMilliSeconds;
 }

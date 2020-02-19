@@ -44,7 +44,7 @@ bool Framework::Teresa::OnUpdate() {
 	//Move();
 	shp_collisionRect->OnUpdate();
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture, 1);
-	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
+	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect,2);
 	return true;
 }
 

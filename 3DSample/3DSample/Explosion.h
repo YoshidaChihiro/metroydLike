@@ -2,19 +2,17 @@
 #include"GameObject.h"
 #include"Resource.h"
 #include"Collision2D.h"
+#include"Bullet.h"
 namespace Framework {
-	class Explosion:public GameObject
+	class Explosion:public Bullet
 	{
 	public:
 		Explosion(std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager);
 		void Hit(std::shared_ptr<GameObject> other)override;
 		void PreInitialize()override;
 		void Initialize()override;
-		bool OnUpdate()override;
+		//bool OnUpdate()override;
 	private:
-		RelativeTimer sucide;
-		std::shared_ptr<Resource_Texture> shp_texture;
-		std::shared_ptr<Collision2D_Rectangle>shp_collisionRect;
 	};
 
 }

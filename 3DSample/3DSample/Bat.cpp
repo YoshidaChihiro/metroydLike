@@ -2,6 +2,7 @@
 #include "Game.h"
 #include"MapChipObject.h"
 #include"Sencer.h"
+#include"Bullet.h"
 #define PI 3.141592654f
 
 Framework::Bat::Bat(std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager) :GameObject(shp_arg_transform, shp_arg_gameObjectManager)
@@ -12,22 +13,22 @@ Framework::Bat::Bat(std::shared_ptr<Transform> shp_arg_transform, std::shared_pt
 	maxFallSpeed = 6.0f;
 	huwaCounter = 0.0f;
 	overlap = 0.0f;
-
+	hp = 5;
 	phisicsForce = Vector3(0, 0,0);
 
 	tag = ObjectTag::enemy;
 }
 
 
-Framework::Bat::~Bat() {}
+Framework::Bat::~Bat() {
+}
 
 void Framework::Bat::Hit(std::shared_ptr<GameObject> other)
 {
 	if (other->GetObjectTag() == ObjectTag::playerBullet) {
-		SetIsDead(true);
+		hp -= other->GetThis<Bullet>()->damage;
 		return;
 	}
-
 	if (other->GetObjectTag() == ObjectTag::enemy) {
 		//敵同士の当たり判定、いる？
 		return;
@@ -84,11 +85,7 @@ void Framework::Bat::PreInitialize()
 {
 	auto handle = Game::GetInstance()->GetResourceController()->GetTexture("Bat_1.png");
 
-	std::vector<ObjectTag> tags;
-	tags.push_back(ObjectTag::obstacle);
-
-
-
+	
 
 	shp_texture = ObjectFactory::Create<Resource_Texture>(handle, transform, false, false);
 	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(32, 32)), GetThis<GameObject>());
@@ -96,6 +93,9 @@ void Framework::Bat::PreInitialize()
 
 bool Framework::Bat::OnUpdate() {
 	Move();
+	if (hp <= 0) {
+		Dead();
+	}
 	shp_collisionRect->OnUpdate();
 	if (velocity.x > 0) {
 		shp_texture->xFlip = false;
@@ -105,7 +105,7 @@ bool Framework::Bat::OnUpdate() {
 
 	}
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture, 1);
-	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
+	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect,2);
 	isGround = false;
 	return true;
 }
@@ -145,4 +145,10 @@ bool Framework::Bat::Move() {
 	velocity *= speed;
 
 	return true;
+}
+
+void Framework::Bat::Dead()
+{
+	Game::GetInstance()->GetSceneManager()->GetGameMaster()->AddScore(100);
+	SetIsDead(true);
 }

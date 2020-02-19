@@ -106,8 +106,6 @@
     <ClCompile Include="RelativeTimer.cpp">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="ObjectDelayCreater.cpp" />
-    <ClCompile Include="ChildSeed.cpp" />
     <ClCompile Include="Kuribo.cpp">
       <Filter>source</Filter>
     </ClCompile>
@@ -117,7 +115,24 @@
     <ClCompile Include="Teresa.cpp">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="GameComponent.cpp" />
+    <ClCompile Include="Bullet.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="ChildSeed.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="GameComponent.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectDelayCreater.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="SlideFAde.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="ClearScene.cpp" />
+    <ClCompile Include="UI.cpp" />
+    <ClCompile Include="Board.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ButiMath.h">
@@ -231,8 +246,6 @@
     <ClInclude Include="RelativeTimer.h">
       <Filter>header</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectDelayCreater.h" />
-    <ClInclude Include="ChildSeed.h" />
     <ClInclude Include="Kuribo.h">
       <Filter>header</Filter>
     </ClInclude>
@@ -242,7 +255,27 @@
     <ClInclude Include="Teresa.h">
       <Filter>header</Filter>
     </ClInclude>
-    <ClInclude Include="GameComponent.h" />
+    <ClInclude Include="Bullet.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="ChildSeed.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="GameComponent.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveHistory.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectDelayCreater.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="SlideFAde.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="ClearScene.h" />
+    <ClInclude Include="UI.h" />
+    <ClInclude Include="Board.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="header">

@@ -2,6 +2,7 @@
 #include"StringHelper.h"
 #include"Cameraman.h"
 #include"Game.h"
+#include"UI.h"
 Framework::MapScene::MapScene(std::string mapFilePath)
 {
 	shp_gameObjectManager = ObjectFactory::Create<GameObjectManager>();
@@ -30,6 +31,7 @@ void Framework::MapScene::Initialize()
 	
 	auto shp_objectTransform = ObjectFactory::Create<Transform>(Vector3(64, 32, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
 
+	shp_gameObjectManager->AddObject_Init(ObjectFactory::Create<UI>(shp_gameObjectManager));
 }
 
 void Framework::MapScene::PreInitialize()

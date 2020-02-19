@@ -1,6 +1,7 @@
 #include "Game.h"
 #include"MapScene.h"
 #include <chrono>
+#include"ClearScene.h"
 std::unique_ptr<Framework::Game> Framework::Game::instance=nullptr;
 
 Framework::Game::Game(int windowWidth, int windowHeight, std::string windowText, Framework::Vector4 color):width(windowWidth),height(windowHeight)
@@ -22,7 +23,6 @@ Framework::Game::Game(int windowWidth, int windowHeight, std::string windowText,
 	unq_collision2DManager = std::make_unique<Collision2DManager>();
 	targetScreenHundle = MakeScreen(windowWidth, windowHeight, TRUE);
 
-	auto data = CSVReader::GetMatrixByFile("testMap.csv");
 
 
 }
@@ -51,6 +51,10 @@ bool Framework::Game::Draw()
 
 bool Framework::Game::Update()
 {
+	if (isReset) {
+		Reset();
+		isReset = false;
+	}
 	auto result= unq_sceneManager->OnUpdate();
 	unq_gameTime->OnUpdate();
 	unq_collision2DManager->OnUpdate();
@@ -84,9 +88,13 @@ bool Framework::Game::ResourceLoad()
 	unq_resourceController->LoadTexture("Medal_1.png");
 
 	unq_resourceController->LoadTexture("apple.png");
+	unq_resourceController->LoadTexture("bullet.png");
+	unq_resourceController->LoadTexture("enemyBullet.png");
+	unq_resourceController->LoadTexture("enemyBomb.png");
 
 
 	unq_resourceController->LoadTexture("blackParticle.png");
+	unq_resourceController->LoadTexture("cover.png");
 
 	unq_resourceController->LoadTexture("orangeParticle.png");
 
@@ -109,6 +117,7 @@ void Framework::Game::SceneInitialize()
 {
 	unq_sceneManager->Initialize();
 	unq_sceneManager->LoadScene(ObjectFactory::Create<TestScene>());
+	unq_sceneManager->LoadScene(ObjectFactory::Create<ClearScene>());
 	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("beta.csv"));
 	/*unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map2.csv"));
 	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map3.csv"));
@@ -120,6 +129,11 @@ void Framework::Game::SceneInitialize()
 	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map9.csv"));*/
 
 	unq_sceneManager->ChangeScene("TestScene");
+}
+
+void Framework::Game::GameReset()
+{
+	isReset = true;
 }
 
 bool Framework::Game::CreateInstance(int windowWidth, int windowHeight, std::string windowText, Framework::Color color)
@@ -171,4 +185,11 @@ std::unique_ptr<Framework::Collision2DManager>& Framework::Game::GetCollision2DM
 std::unique_ptr<Framework::GameTime>& Framework::Game::GetGameTime()
 {
 	return unq_gameTime;
+}
+
+void Framework::Game::Reset()
+{
+	unq_collision2DManager->Release();
+	unq_gameTime->Initilize();
+	SceneInitialize();
 }

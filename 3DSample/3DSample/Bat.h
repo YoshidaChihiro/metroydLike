@@ -21,12 +21,12 @@ namespace Framework {
 		std::shared_ptr< Rectangle> GetRectangle() { return shp_collisionRect->rect; }
 	private:
 		bool Move();
-
+		void Dead();
 		std::shared_ptr<GameObject> player = nullptr;
 		//std::vector< std::shared_ptr<GameObject>> sencerInputs;//0 top, 1 bottom,2 left.3 right
 		Vector3 floatVec;
 
-		float speed,
+		float speed,hp,
 			gravity,
 			maxFallSpeed,
 			huwaCounter,

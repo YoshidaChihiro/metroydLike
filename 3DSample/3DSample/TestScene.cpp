@@ -3,6 +3,7 @@
 #include"ParticleEmitter.h"
 #include "Game.h"
 #include"Cameraman.h"
+#include"UI.h"
 Framework::TestScene::TestScene() {
 	shp_gameObjectManager = ObjectFactory::Create<GameObjectManager>();
 	sceneName = "TestScene";
@@ -31,12 +32,8 @@ void Framework::TestScene::Initialize()
 	
 	auto shp_objectTransform = ObjectFactory::Create<Transform>(Vector3(64, 32, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
 
-	//shp_gameObjectManager->AddObject(obj);
-	
-	//auto param = new ParticleEmitterParameter();
-	//param->graphHandle = Game::GetInstance()->GetResourceController()->GetTexture("sample.png");
 
-	//auto shp_emitter = ObjectFactory::Create<ParticleEmitter>(shp_transform->GetThis<Transform>(),param, shp_gameObjectManager);
+	shp_gameObjectManager->AddObject_Init(ObjectFactory::Create<UI>(shp_gameObjectManager));
 	//shp_gameObjectManager->AddObject_Init(shp_emitter);
 }
 

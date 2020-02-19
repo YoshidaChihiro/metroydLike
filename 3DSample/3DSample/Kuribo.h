@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include"Resource.h"
 #include"Collision2D.h"
+#include"Bullet.h"
 
 
 namespace Framework {
@@ -19,6 +20,7 @@ namespace Framework {
 
 		//std::shared_ptr< Rectangle> GetRectangle() { return shp_collisionRect->rect; }
 	private:
+		void Dead();
 
 		bool Move();
 		std::shared_ptr<GameObject> player=nullptr;
@@ -29,7 +31,7 @@ namespace Framework {
 		float speed,
 			gravity,
 			maxFallSpeed,
-			overlap;
+			overlap,hp;
 		bool isGround;
 
 	};

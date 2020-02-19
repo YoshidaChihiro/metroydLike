@@ -11,7 +11,7 @@ Framework::Kuribo::Kuribo(std::shared_ptr<Transform> shp_arg_transform, std::sha
 	overlap = 0.0f;
 
 	phisicsForce = Vector3(0,0, 0);
-
+	hp = 5;
 	tag = ObjectTag::enemy;
 }
 
@@ -20,8 +20,8 @@ Framework::Kuribo::~Kuribo() {}
 
 void Framework::Kuribo::Hit(std::shared_ptr<GameObject> other)
 {
-	if (other->GetObjectTag() == ObjectTag::playerBullet ) {
-		SetIsDead(true);
+	if (other->GetObjectTag() == ObjectTag::playerBullet) {
+		hp -= other->GetThis<Bullet>()->damage;
 		return;
 	}
 
@@ -78,8 +78,6 @@ void Framework::Kuribo::PreInitialize()
 {
 	auto handle = Game::GetInstance()->GetResourceController()->GetTexture("Kuribo_1.png");
 
-	std::vector<ObjectTag> tags;
-	tags.push_back(ObjectTag::obstacle);
 
 
 
@@ -90,9 +88,12 @@ void Framework::Kuribo::PreInitialize()
 
 bool Framework::Kuribo::OnUpdate() {
 	Move();
+	if (hp <= 0) {
+		Dead();
+	}
 	shp_collisionRect->OnUpdate();
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture, 1);
-	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
+	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect,2);
 
 	if (velocity.x > 0) {
 		shp_texture->xFlip = true;
@@ -111,6 +112,12 @@ bool Framework::Kuribo::Release()
 	shp_collisionRect = nullptr;
 	shp_texture = nullptr;
 	return true;
+}
+
+void Framework::Kuribo::Dead()
+{
+	Game::GetInstance()->GetSceneManager()->GetGameMaster()->AddScore(100);
+	SetIsDead(true);
 }
 
 bool Framework::Kuribo::Move() {

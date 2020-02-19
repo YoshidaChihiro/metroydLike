@@ -35,6 +35,7 @@ namespace Framework {
 	private:
 		Vector3 moveVelocity;
 		Vector3 extentionPase;
+		Vector3 gravity;
 		float speed;
 		float accelation;
 		Vector3 rotatePase;

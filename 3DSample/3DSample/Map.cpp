@@ -34,7 +34,7 @@ bool Framework::Map::OnUpdate()
 {
 	shp_collision->OnUpdate();
 
-	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collision);
+	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collision,0);
 
 	for (int x = 0; x < mapWidth; x++) {
 		for (int y = 0; y < mapHeight; y++) {
@@ -137,6 +137,8 @@ void Framework::Map::GenerateMap(std::shared_ptr< CSVData> csvData, int arg_glid
 
 		ObjectFactory::Create<MapChip_Gate>("betaScene",Vector2(2 * 32,38 * 32),manager),//13
 		ObjectFactory::Create<MapChip_Gate>("TestScene",Vector2(26 * 32,16 * 32),manager),//14
+		ObjectFactory::Create<MapChip_Gate>("ClearScene",Vector2(2 * 32,16 * 32),manager),//15
+		ObjectFactory::Create<MapChip_reset>(manager),//16
 
 	};
 

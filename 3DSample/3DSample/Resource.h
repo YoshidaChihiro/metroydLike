@@ -58,10 +58,24 @@ namespace Framework {
 		int color;
 		std::shared_ptr<Resource_Font> shp_resource_font;
 	};
+	enum class Justification {
+		center,left,right
+	};
+	struct Resource_Text_String_UI :Resource_Texture {
+		Resource_Text_String_UI(std::string source, std::shared_ptr<Transform> arg_transform, int color,Justification arg_just, std::string fontName);
+		~Resource_Text_String_UI();
+		bool Draw() override;
+		std::string text;
+		Justification just;
+		int color;
+		float xModify;
+		void SetText(std::string arg_text);
+		std::shared_ptr<Resource_Font> shp_resource_font;
+	};
 
 	struct Resource_Sound :Resource_base {
 		Resource_Sound(int arg_handle) :handle(arg_handle) {};
-		
+
 		bool Play() ;
 		int handle;
 	};

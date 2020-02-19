@@ -8,7 +8,8 @@ Framework::GameMaster::GameMaster()
 	medalCountMax=5;
 	stopWatch = StopWatch();
 	stopWatch.Start();
-	playerChildMax = 1;
+	playerChildMax = 2;
+	score = 0;
 }
 
 void Framework::GameMaster::Initialize()
@@ -19,7 +20,8 @@ void Framework::GameMaster::Initialize()
 	medalCountMax = 5;
 	stopWatch = StopWatch();
 	stopWatch.Start();
-	playerChildMax = 1;
+	playerChildMax = 2;
+	score = 0;
 }
 
 void Framework::GameMaster::GetMedal()
@@ -34,6 +36,12 @@ int Framework::GameMaster::GetMedalCount()
 
 void Framework::GameMaster::GameOver()
 {
+}
+
+void Framework::GameMaster::AddScore(int arg_addScore)
+{
+	score += arg_addScore;
+	auto sec = GetNowTime();
 }
 
 std::chrono::milliseconds Framework::GameMaster::GetNowTime()

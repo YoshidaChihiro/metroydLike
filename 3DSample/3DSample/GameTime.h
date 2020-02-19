@@ -5,6 +5,7 @@ namespace Framework {
 	{
 	public:
 		GameTime();
+		void Initilize();
 		void ChangeSpeed(float arg_speed);
 		void OnUpdate();
 		float GetSpeed()const {

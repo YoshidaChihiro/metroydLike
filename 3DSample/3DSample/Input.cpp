@@ -44,6 +44,11 @@ bool Framework::Input::GetButtonDown(int code)
 	return buttonState.Buttons[code] == TRUE && prevButtonState.Buttons[code] == FALSE;
 }
 
+bool Framework::Input::GetButtonUp(int code)
+{
+	return buttonState.Buttons[code] == FALSE && prevButtonState.Buttons[code] == TRUE;
+}
+
 bool Framework::Input::GetButton(int code)
 {
 	return buttonState.Buttons[code] == TRUE;
@@ -67,6 +72,11 @@ float Framework::Input::GetRightStickHolizon()
 float Framework::Input::GetRightStickVertical()
 {
 	return (float)buttonState.ThumbRY / (float)32767;
+}
+
+float Framework::Input::GetRightTrigger()
+{
+	return (float)buttonState.RightTrigger / (float)255;
 }
 
 Framework::Vector2 Framework::Input::GetMousePos()

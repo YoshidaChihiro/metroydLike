@@ -30,7 +30,7 @@ bool Framework::TestObject::OnUpdate()
 {
 	shp_collisionRect->OnUpdate();
 	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
-	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect);
+	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect,1);
 
 	
 	if (Input::GetKey(KEY_INPUT_D)) {

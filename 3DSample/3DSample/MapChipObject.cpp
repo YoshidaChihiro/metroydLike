@@ -3,6 +3,7 @@
 #include "Game.h"
 #include"Explosion.h"
 #include"ParticleEmitter.h"
+#include"SlideFAde.h"
 Framework::MapChip_Space::MapChip_Space(std::shared_ptr<GameObjectManager> arg_manager):MapChipObject(arg_manager->GetThis<GameObjectManager>())
 {
 }
@@ -70,11 +71,10 @@ bool Framework::MapChip_Gate::OnUpdate()
 
 void Framework::MapChip_Gate::Hit(std::shared_ptr<GameObject> other)
 {
-	if (other->GetObjectTag() != ObjectTag::player||isGone) {
+	if (other->GetObjectTag() != ObjectTag::supporter||isGone) {
 		return;
 	}
 	isGone = true;
-	//other->transform->localPosition = exitPosition;
 	Game::GetInstance()->GetSceneManager()->GetGameMaster()->SetRespawnPosition(Vector3( exitPosition));
 	auto sceneOverOgjs = ObjectFactory::Create<SceneOverObjects>();
 	sceneOverOgjs->playerPos = exitPosition;
@@ -86,10 +86,10 @@ void Framework::MapChip_Gate::Hit(std::shared_ptr<GameObject> other)
 		//manager->RemoveObject(*itr);
 		sceneOverOgjs->AddSceneOverGameObject(*itr);
 	}
-
+	//sceneOverOgjs->AddSceneOverGameObject(fade);
 	//manager->RemoveObject(player);
 	//manager->DeathRemoveGameObjects(ObjectTag::enemy);
-	Game::GetInstance()->GetSceneManager()->ChangeScene(changeScenesName, 30, sceneOverOgjs);
+	Game::GetInstance()->GetSceneManager()->ChangeScene(changeScenesName, 0, sceneOverOgjs);
 }
 
 void Framework::MapChip_Gate::Initialize()
@@ -164,7 +164,7 @@ Framework::MapChip_ChildBlock::MapChip_ChildBlock(std::shared_ptr<Transform> arg
 
 Framework::MapChip_Kuribo::MapChip_Kuribo(std::shared_ptr<GameObjectManager> arg_manager) :MapChipObject(arg_manager->GetThis<GameObjectManager>())
 {
-	tag = ObjectTag::none;
+	tag = ObjectTag::spawner;
 }
 std::shared_ptr<Framework::MapChipObject> Framework::MapChip_Kuribo::Clone(Vector3 position)
 {
@@ -191,7 +191,7 @@ void Framework::MapChip_Kuribo::Replace()
 Framework::MapChip_Kuribo::MapChip_Kuribo(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager)
 	:MapChipObject(arg_transform, arg_manager->GetThis<GameObjectManager>())
 {
-	tag = ObjectTag::none;
+	tag = ObjectTag::spawner;
 	isClone = true;
 }
 
@@ -270,7 +270,7 @@ Framework::Medal::Medal(std::shared_ptr<Transform> arg_transform, std::shared_pt
 Framework::Medal::Medal(std::shared_ptr<GameObjectManager> arg_manager)
 	:MapChipObject(arg_manager->GetThis<GameObjectManager>())
 {
-	tag = ObjectTag::none;
+	tag = ObjectTag::spawner;
 }
 
 Framework::Medal::~Medal()
@@ -279,7 +279,7 @@ Framework::Medal::~Medal()
 
 void Framework::Medal::Hit(std::shared_ptr<GameObject> other)
 {
-	if (other->GetObjectTag() == ObjectTag::player) {
+	if (other->GetObjectTag() == ObjectTag::supporter) {
 		SetIsDead(true);
 		Game::GetInstance()->GetSceneManager()->GetGameMaster()->GetMedal(); 
 		int handle = Game::GetInstance()->GetResourceController()->GetTexture("kirari.png");
@@ -297,6 +297,7 @@ void Framework::Medal::Hit(std::shared_ptr<GameObject> other)
 		p_param->emitterLifeSpan = 10;
 		manager->AddObject(ObjectFactory::Create<ParticleEmitter>(transform->GetThis<Transform>(), p_param, manager
 			));
+		Game::GetInstance()->GetSceneManager()->GetGameMaster()->AddScore(1000);
 	}
 }
 
@@ -383,7 +384,7 @@ Framework::ChildSeedSpawner::ChildSeedSpawner(std::shared_ptr<Transform> arg_tra
 
 Framework::MapChip_Bat::MapChip_Bat(std::shared_ptr<GameObjectManager> arg_manager) : MapChipObject(arg_manager->GetThis<GameObjectManager>())
 {
-	tag = ObjectTag::none;
+	tag = ObjectTag::spawner;
 }
 std::shared_ptr<Framework::MapChipObject> Framework::MapChip_Bat::Clone(Vector3 position)
 {
@@ -410,7 +411,7 @@ void Framework::MapChip_Bat::Replace()
 Framework::MapChip_Bat::MapChip_Bat(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager)
 	:MapChipObject(arg_transform, arg_manager->GetThis<GameObjectManager>())
 {
-	tag = ObjectTag::none;
+	tag = ObjectTag::spawner;
 	isClone = true;
 }
 
@@ -446,4 +447,67 @@ Framework::MapChip_Teresa::MapChip_Teresa(std::shared_ptr<Transform> arg_transfo
 {
 	tag = ObjectTag::none;
 	isClone = true;
+}
+
+Framework::MapChip_reset::MapChip_reset(std::shared_ptr<GameObjectManager> arg_manager)
+	:MapChipObject(arg_manager->GetThis<GameObjectManager>())
+{
+	tag = ObjectTag::spawner;
+}
+
+Framework::MapChip_reset::~MapChip_reset()
+{
+}
+
+void Framework::MapChip_reset::Hit(std::shared_ptr<GameObject> other)
+{
+	if (other->GetObjectTag() == ObjectTag::supporter) {
+		SetIsDead(true);
+		Game::GetInstance()->GetSceneManager()->GetGameMaster()->GetMedal();
+		int handle = Game::GetInstance()->GetResourceController()->GetTexture("kirari.png");
+
+		auto p_param = new ParticleEmitterParameter();
+		p_param->graphHandle = handle;
+		p_param->layer = 2;
+		p_param->range_maxSpeed = 10;
+		p_param->range_minSpeed = 5;
+		p_param->range_maxLifeSpan = 30;
+		p_param->range_minLifeSpan = 10;
+		p_param->range_maxEmitCount = 20;
+		p_param->range_minEmitCount = 10;
+		p_param->emitSpan = 2;
+		p_param->emitterLifeSpan = 10;
+		manager->AddObject(ObjectFactory::Create<ParticleEmitter>(transform->GetThis<Transform>(), p_param, manager
+			));
+		Game::GetInstance()->GameReset();
+	}
+}
+
+void Framework::MapChip_reset::PreInitialize()
+{
+}
+
+std::shared_ptr<Framework::MapChipObject> Framework::MapChip_reset::Clone(Vector3 position)
+{
+	auto transform = ObjectFactory::Create<Transform>(position);
+	return ObjectFactory::Create<MapChip_reset>(
+		transform, manager->GetThis<GameObjectManager>())->GetThis<MapChipObject>();
+}
+
+void Framework::MapChip_reset::Initialize()
+{
+	texture = ObjectFactory::Create<Resource_Texture>("Medal_1.png", transform, false, false);
+	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
+
+}
+
+bool Framework::MapChip_reset::OnUpdate()
+{
+	Game::GetInstance()->GetResourceController()->AddGraph(texture);
+	return true;
+}
+
+Framework::MapChip_reset::MapChip_reset(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager) :MapChipObject(arg_transform->GetThis<Transform>(), arg_manager->GetThis<GameObjectManager>())
+{
+	tag = ObjectTag::item;
 }

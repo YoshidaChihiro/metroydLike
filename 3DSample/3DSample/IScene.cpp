@@ -4,18 +4,21 @@ void Framework::IScene::SetSceneOverObjects(std::shared_ptr<SceneOverObjects> sh
 {
 	auto objs = shp_arg_sceneOverObjects->GetSceneOverGameObjects();
 
-	auto manager = (*objs.begin())->manager;
+	auto beforeManager = (*objs.begin())->manager;
 
 
 
 	for (auto itr =objs.begin() ; itr != objs.end(); itr++) {
-		manager->RemoveObject(*itr);
+		beforeManager->RemoveObject(*itr);
 		shp_gameObjectManager->InportObject(*itr);
-		if ((*itr)->GetObjectTag() == ObjectTag::player) {
-			(*itr)->transform->localPosition = shp_arg_sceneOverObjects->playerPos;
-		}
 	}
-	manager->DeathRemoveGameObjects(ObjectTag::enemy);
+	auto player = shp_gameObjectManager->SerchGameObject(ObjectTag::player);
+	if (player) {
+		player->GetThis<Player>()->SetSpawnPoint(shp_arg_sceneOverObjects->playerPos);
+	}
+	beforeManager->DeathRemoveGameObjects(ObjectTag::enemy);
+	beforeManager->DeathRemoveGameObjects(ObjectTag::playerBullet);
+	beforeManager->DeathRemoveGameObjects(ObjectTag::enemyBullet);
 }
 
 std::vector<std::shared_ptr< Framework::GameObject>> Framework::SceneOverObjects::GetSceneOverGameObjects()

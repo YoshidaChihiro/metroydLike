@@ -18,7 +18,7 @@ int WINAPI WinMain(
 	SetGraphMode(win_width, win_height, 32);
 
 	//initMethod
-	Framework::Game::CreateInstance(win_width, win_height,"test",Framework::Color(0x00,0x00,0x00,0));
+	Framework::Game::CreateInstance(win_width, win_height,"beta",Framework::Color(0x00,0x00,0x00,0));
 	int i = 0;
 	Framework::Game::GetInstance()->ResourceLoad();
 	Framework::Game::GetInstance()->SceneInitialize();
@@ -42,7 +42,7 @@ int WINAPI WinMain(
 		
 
 		if (deltaMilliSeconds .count()> 0&&deltaMilliSeconds.count()<16 ) {
-			//WaitTimer(16 - deltaMilliSeconds.count());
+			WaitTimer(16 - deltaMilliSeconds.count());
 		}
 
 

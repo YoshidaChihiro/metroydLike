@@ -111,7 +111,23 @@ namespace Framework {
 	private:
 		Medal(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager);
 		std::shared_ptr<Resource_Texture> texture;
-	}; 
+	};
+	
+	class MapChip_reset :public MapChipObject
+	{
+		friend class ObjectFactory;
+	public:
+		MapChip_reset(std::shared_ptr<GameObjectManager> arg_manager);
+		~MapChip_reset();
+		void Hit(std::shared_ptr<GameObject> other)override;
+		void PreInitialize()override;
+		std::shared_ptr<MapChipObject> Clone(Vector3 position)override;
+		void Initialize()override;
+		bool OnUpdate()override;
+	private:
+		MapChip_reset(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager);
+		std::shared_ptr<Resource_Texture> texture;
+	};
 	
 	class ChildSeedSpawner :public MapChipObject
 	{

@@ -23,6 +23,8 @@ namespace Framework {
 
 			static bool GetButtonDown(int code);
 
+			static bool GetButtonUp(int code);
+
 			static bool GetButton(int code);
 
 			static float GetLettStickHolizon();
@@ -32,6 +34,8 @@ namespace Framework {
 			static float GetRightStickHolizon();
 
 			static float GetRightStickVertical();
+
+			static float GetRightTrigger();
 
 			static Vector2 GetMousePos();
 

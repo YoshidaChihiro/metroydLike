@@ -25,12 +25,17 @@ public:
 	Vector3 GetRespawnPoint() {
 		return playerRespawnPoint;
 	}
+	void AddScore(int arg_addScore);
+	int GetScore() {
+		return score;
+	}
 	std::chrono::milliseconds GetNowTime();
 private:
 	int getedMedalCount;
 	int medalCountMax;
 	int playerChildsCount;
 	int playerChildMax;
+	int score;
 	Vector3 playerRespawnPoint;
 	StopWatch stopWatch;
 };

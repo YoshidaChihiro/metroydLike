@@ -6,6 +6,12 @@ Framework::GameTime::GameTime() :timer(0)
 	rightSpeed = 1.0f;
 }
 
+void Framework::GameTime::Initilize()
+{
+	gameSpeed = 1.0f;
+	rightSpeed = 1.0f;
+}
+
 void Framework::GameTime::ChangeSpeed(float arg_speed)
 {
 	gameSpeed = arg_speed;

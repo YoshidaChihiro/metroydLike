@@ -76,13 +76,14 @@ Framework::Resource_Text_String::~Resource_Text_String()
 
 bool Framework::Resource_Text_String::Draw()
 {
+	auto modify = Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetScrollModify();
 	if (!isCenter) {
-		DrawFormatStringToHandle(transform->GetPosition().GetVector2().x, transform->GetPosition().GetVector2().y, color, shp_resource_font->handle,text.c_str());
+		DrawFormatStringToHandle(transform->GetPosition().GetVector2().x+modify.x, transform->GetPosition().GetVector2().y+modify.y, color, shp_resource_font->handle,text.c_str());
 	}
 	else
 	{
 		float xModify = shp_resource_font->size*(float)text.size() / 4;
-		DrawFormatStringToHandle(transform->GetPosition().GetVector2().x-xModify, transform->GetPosition().GetVector2().y-shp_resource_font->size/2, color, shp_resource_font->handle, text.c_str());
+		DrawFormatStringToHandle(transform->GetPosition().GetVector2().x-xModify+modify.x, transform->GetPosition().GetVector2().y-shp_resource_font->size/2+modify.y, color, shp_resource_font->handle, text.c_str());
 	}
 	return true;
 }
@@ -125,4 +126,59 @@ bool Framework::Resource_Pixel::Draw()
 {
 	DrawPixel(transform->GetPosition().x, transform->GetPosition().y, color);
 	return true;
+}
+
+Framework::Resource_Text_String_UI::Resource_Text_String_UI(std::string source, std::shared_ptr<Transform> arg_transform, int arg_color,Justification arg_just, std::string fontName)
+	:Resource_Texture(arg_transform)
+{
+	text = source;
+	color = arg_color;
+	just = arg_just;
+	shp_resource_font = Game::GetInstance()->GetResourceController()->GetFont(fontName);
+} 
+
+Framework::Resource_Text_String_UI::~Resource_Text_String_UI()
+{
+}
+
+bool Framework::Resource_Text_String_UI::Draw()
+{
+	switch (just)
+	{
+	case Justification::center:
+
+		DrawFormatStringToHandle(transform->GetPosition().GetVector2().x - xModify, transform->GetPosition().GetVector2().y , color, shp_resource_font->handle, text.c_str());
+
+		break;
+	case Justification::left:
+
+		DrawFormatStringToHandle(transform->GetPosition().GetVector2().x, transform->GetPosition().GetVector2().y, color, shp_resource_font->handle, text.c_str());
+
+			break; 
+	case Justification::right:
+		DrawFormatStringToHandle(transform->GetPosition().GetVector2().x - xModify, transform->GetPosition().GetVector2().y , color, shp_resource_font->handle, text.c_str());
+
+				break;
+	default:
+		break;
+	}
+		
+		
+	return true;
+}
+
+void Framework::Resource_Text_String_UI::SetText(std::string arg_text)
+{
+	text = arg_text;
+	if (just == Justification::center) {
+		xModify = shp_resource_font->size*(float)text.size() / 4;
+		return;
+	}
+	else if (just == Justification::left) {
+
+	}
+	else if (just == Justification::right) {
+
+		xModify = shp_resource_font-> size*(float)text.size()/2+shp_resource_font->size;
+	}
 }
