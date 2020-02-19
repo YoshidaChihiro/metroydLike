@@ -122,7 +122,7 @@ bool Framework::Game::ResourceLoad()
 void Framework::Game::SceneInitialize()
 {
 	unq_sceneManager->Initialize();
-	unq_sceneManager->LoadScene(ObjectFactory::Create<TestScene>());
+	unq_sceneManager->LoadScene(ObjectFactory::Create<TitleScene>());
 	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("beta.csv"));
 	/*unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map2.csv"));
 	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map3.csv"));
@@ -133,7 +133,7 @@ void Framework::Game::SceneInitialize()
 	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map8.csv"));
 	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map9.csv"));*/
 
-	unq_sceneManager->ChangeScene("TestScene");
+	unq_sceneManager->ChangeScene("TitleScene");
 }
 
 bool Framework::Game::CreateInstance(int windowWidth, int windowHeight, std::string windowText, Framework::Color color)

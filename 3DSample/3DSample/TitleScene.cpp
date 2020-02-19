@@ -38,6 +38,7 @@ void Framework::TitleScene::PreInitialize()
 
 bool Framework::TitleScene::Update()
 {
+	StopSoundFile();
 	auto r = shp_gameObjectManager->Update();
 	shp_gameObjectManager->RemoveCheck();
 	return r;
@@ -45,8 +46,6 @@ bool Framework::TitleScene::Update()
 
 void Framework::TitleScene::OnSet()
 {
-	StopSoundFile();
-
 	shp_map->Reload();
 	shp_gameObjectManager->SerchGameObject(ObjectTag::camera)->GetThis<Cameraman_Chase>()->SetTarget(
 		shp_gameObjectManager->SerchGameObject(ObjectTag::player)->transform
