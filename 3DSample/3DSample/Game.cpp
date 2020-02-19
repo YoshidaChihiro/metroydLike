@@ -49,12 +49,17 @@ bool Framework::Game::Draw()
 	return true;
 }
 
+bool Framework::Game::SoundPlay() {
+	unq_resourceController->SoundPlay();
+	return true;
+}
+
 bool Framework::Game::Update()
 {
 	if (isReset) {
 		Reset();
 		isReset = false;
-	}
+	SoundPlay();
 	auto result= unq_sceneManager->OnUpdate();
 	unq_gameTime->OnUpdate();
 	unq_collision2DManager->OnUpdate();
@@ -110,6 +115,18 @@ bool Framework::Game::ResourceLoad()
 	unq_resourceController->LoadTexture("watermelon.png");
 
 
+	unq_resourceController->LoadSound("Damage.wav");
+	unq_resourceController->LoadSound("Explosion.wav");
+	unq_resourceController->LoadSound("Jump.wav");
+	unq_resourceController->LoadSound("Shoot.wav");
+	unq_resourceController->LoadSound("Throw.wav");
+	unq_resourceController->LoadSound("Coin.wav");
+	unq_resourceController->LoadSound("Found.wav");
+	unq_resourceController->LoadSound("Landing.wav");
+	unq_resourceController->LoadSound("Mapmove.wav");
+	unq_resourceController->LoadSound("Game_play2.wav");
+
+
 	return true;
 }
 
@@ -118,6 +135,7 @@ void Framework::Game::SceneInitialize()
 	unq_sceneManager->Initialize();
 	unq_sceneManager->LoadScene(ObjectFactory::Create<TestScene>());
 	unq_sceneManager->LoadScene(ObjectFactory::Create<ClearScene>());
+	unq_sceneManager->LoadScene(ObjectFactory::Create<TitleScene>());
 	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("beta.csv"));
 	/*unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map2.csv"));
 	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map3.csv"));
@@ -128,7 +146,7 @@ void Framework::Game::SceneInitialize()
 	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map8.csv"));
 	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map9.csv"));*/
 
-	unq_sceneManager->ChangeScene("TestScene");
+	unq_sceneManager->ChangeScene("TitleScene");
 }
 
 void Framework::Game::GameReset()

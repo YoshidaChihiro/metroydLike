@@ -133,6 +133,8 @@
     <ClCompile Include="ClearScene.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="Board.cpp" />
+    <ClCompile Include="GameComponent.cpp" />
+    <ClCompile Include="TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ButiMath.h">
@@ -276,6 +278,8 @@
     <ClInclude Include="ClearScene.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="Board.h" />
+    <ClInclude Include="GameComponent.h" />
+    <ClInclude Include="TitleScene.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="header">

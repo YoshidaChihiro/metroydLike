@@ -16,6 +16,7 @@ namespace Framework {
 		bool OnUpdate()override;
 		bool Release()override;
 		std::shared_ptr<Resource_Texture> shp_texture;
+		std::shared_ptr<Resource_Sound> shp_sound_found;
 		std::shared_ptr<Collision2D_Rectangle>shp_collisionRect;
 
 		//std::shared_ptr< Rectangle> GetRectangle() { return shp_collisionRect->rect; }

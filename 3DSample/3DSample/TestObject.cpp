@@ -46,7 +46,7 @@ bool Framework::TestObject::OnUpdate()
 		transform->localPosition.y++;
 	}
 	if (Input::GetKeyDown(KEY_INPUT_SPACE)) {
-		auto scene = ObjectFactory::Create<TestScene>();
+		auto scene = ObjectFactory::Create<TitleScene>();
 		Game::GetInstance()->GetSceneManager()->ChangeScene(scene);
 	}
 	return true;

@@ -91,6 +91,9 @@ void Framework::Bat::PreInitialize()
 	auto handle = Game::GetInstance()->GetResourceController()->GetTexture("Bat_1.png");
 
 
+	shp_sound_found = ObjectFactory::Create<Resource_Sound>("Found.wav", DX_PLAYTYPE_BACK, true);
+
+
 	isGoalTargetPosition = true;
 
 	shp_texture = ObjectFactory::Create<Resource_Texture>(handle, transform, false, false);
@@ -121,6 +124,7 @@ bool Framework::Bat::Release()
 	shp_collisionRect->Releace();
 	shp_collisionRect = nullptr;
 	shp_texture = nullptr;
+	shp_sound_found = nullptr;
 	return true;
 }
 
@@ -135,6 +139,7 @@ bool Framework::Bat::Move() {
 		float range = targetPosition.GetVector2().GetDistance(vec);
 
 		if (dis < 320) {
+			Game::GetInstance()->GetResourceController()->AddSound(shp_sound_found);
 			velocity = player->transform->GetPosition() - vec;
 		}
 		else {

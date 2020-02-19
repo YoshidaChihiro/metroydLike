@@ -74,10 +74,13 @@ namespace Framework {
 	};
 
 	struct Resource_Sound :Resource_base {
-		Resource_Sound(int arg_handle) :handle(arg_handle) {};
-
-		bool Play() ;
+		Resource_Sound(int arg_handle, int playType, bool topPositionFlag);
+		Resource_Sound(std::string key, int playType, bool topPositionFlag);
+		~Resource_Sound();
+		bool SoundPlay();
 		int handle;
+		int playType = DX_PLAYTYPE_BACK;
+		bool topPositionFlag = true;
 	};
 }
 

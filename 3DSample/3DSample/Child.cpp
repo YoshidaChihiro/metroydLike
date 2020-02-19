@@ -25,8 +25,14 @@ void Framework::Child::Hit(std::shared_ptr<GameObject> other)
 		damage += 0.02f;
 		return;
 	}
-	if ((isTop||isThrown)&& other->GetObjectTag() == ObjectTag::obstacle) {
-		//
+	if (isThrown&&other->GetObjectTag() == ObjectTag::obstacle) {
+
+		if (other->IsThis<MapChip_ChildBlock>()) {
+			SetIsDead(true);
+			Game::GetInstance()->GetResourceController()->AddSound(shp_sound_explosion);
+			return;
+		}
+
 		auto otherRect = other->GetThis<MapChipObject>()->GetRectangle();
 		float overlap = 0.0f;
 
@@ -112,6 +118,7 @@ bool Framework::Child::Release()
 	shp_collisionRect->Releace();
 	shp_collisionRect = nullptr;
 	shp_texture = nullptr;
+	shp_sound_explosion = nullptr;
 	return true;
 }
 
@@ -131,6 +138,9 @@ void Framework::Child::PreInitialize()
 	auto handle = Game::GetInstance()->GetResourceController()->GetTexture("child.png");
 	shp_texture = ObjectFactory::Create<Resource_Texture>(handle, transform, false, false);
 	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
+
+	shp_sound_explosion = ObjectFactory::Create<Resource_Sound>("Explosion.wav", DX_PLAYTYPE_BACK, true);
+	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(25, 25, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
 
 	std::vector<ObjectTag> tags;
 	tags.push_back(ObjectTag::obstacle);
