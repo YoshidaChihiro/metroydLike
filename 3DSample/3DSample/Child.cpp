@@ -143,7 +143,7 @@ void Framework::Child::Initialize()
 {
 	velocity = Vector3(0.0f, 0.0f,0.0f);
 	speed = 4.0f;
-	gravity = 0.3f;
+	//gravity = 0.3f;
 	maxFallSpeed = 5.0f;
 	collisionLayer = 1;
 	//groundHeight = 672.0f;
@@ -161,14 +161,14 @@ void Framework::Child::Controll()
 		direction = 1;
 	}
 	
-	/*if (velocity.y < 0) {
+	if (velocity.y < 0) {
 		direction = -1;
 	}
 	else if (velocity.y > 0) {
 		direction = 1;
-	}*/
+	}
 
-	//velocity.y =-1* Input::GetLettStickVertical();
+	velocity.y =-1* Input::GetLettStickVertical();
 	velocity.Normalize();
 	velocity *= speed;
 
