@@ -34,5 +34,7 @@ namespace Framework {
 		EnemyBomb(float arg_damage, int arg_direction, int arg_speed, std::shared_ptr<Transform> arg_shp_transform, std::shared_ptr<GameObjectManager> arg_manager);
 		void Initialize()override;
 		void PreInitialize()override;
+		bool OnUpdate()override;
+		float phisicsForce;
 	};
 }
