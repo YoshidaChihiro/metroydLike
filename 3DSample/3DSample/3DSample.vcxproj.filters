@@ -152,6 +152,9 @@
     <ClCompile Include="KuriboBullet.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ButiMath.h">
@@ -313,6 +316,8 @@
     </ClInclude>
     <ClInclude Include="Explosion.h">
       <Filter>header\GameObject</Filter>
+    <ClInclude Include="Boss.h">
+      <Filter>header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

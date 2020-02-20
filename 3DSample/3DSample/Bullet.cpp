@@ -86,16 +86,16 @@ void Framework::EnemyBullet::PreInitialize()
 {
 }
 
-Framework::EnemyBomb::EnemyBomb(float arg_damage, int arg_direction, int arg_speed, std::shared_ptr<Transform> arg_shp_transform, std::shared_ptr<GameObjectManager> arg_manager)
+Framework::EnemyBomb::EnemyBomb(float arg_damage, int arg_direction, int arg_speed, int arg_force, std::shared_ptr<Transform> arg_shp_transform, std::shared_ptr<GameObjectManager> arg_manager)
 	:Bullet(arg_direction, arg_speed, arg_shp_transform, arg_manager)
 {
 	damage = arg_damage;
 	tag = ObjectTag::enemyBullet;
+	phisicsForce = arg_force;
 }
 
 void Framework::EnemyBomb::Initialize()
 {
-	phisicsForce = -5.0f;
 	collisionLayer = 4;
 	auto handle = Game::GetInstance()->GetResourceController()->GetTexture("enemyBomb.png");
 	shp_texture = ObjectFactory::Create<Resource_Texture>(handle, transform, false, false);

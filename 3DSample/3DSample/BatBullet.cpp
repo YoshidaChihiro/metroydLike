@@ -213,5 +213,5 @@ void Framework::BatBullet::DecideTargetPotision() {
 void Framework::BatBullet::Shot()
 {
 	auto bulletTransform = ObjectFactory::Create<Transform>(transform->GetPosition());
-	manager->AddObject(ObjectFactory::Create<EnemyBomb>(1.0f + damage, 5, direction, bulletTransform, manager));
+	manager->AddObject(ObjectFactory::Create<EnemyBullet>(1.0f + damage, 5, direction, bulletTransform, manager));
 }

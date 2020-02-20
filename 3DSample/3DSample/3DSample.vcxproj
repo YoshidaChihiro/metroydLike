@@ -144,6 +144,7 @@
     <ClCompile Include="Bat.cpp" />
     <ClCompile Include="BatBullet.cpp" />
     <ClCompile Include="Board.cpp" />
+    <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Cameraman.cpp" />
     <ClCompile Include="Child.cpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="Bat.h" />
     <ClInclude Include="BatBullet.h" />
     <ClInclude Include="Board.h" />
+    <ClInclude Include="Boss.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="ButiMath.h" />
     <ClInclude Include="Cameraman.h" />

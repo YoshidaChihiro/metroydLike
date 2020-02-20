@@ -220,4 +220,18 @@ namespace Framework {
 
 	};
 
+	class MapChip_Boss :public MapChipObject {
+	public:
+		friend class ObjectFactory;
+		MapChip_Boss(std::shared_ptr<GameObjectManager> arg_manager);
+		std::shared_ptr<MapChipObject> Clone(Vector3 position)override;
+		bool OnUpdate()override;
+		void Initialize()override;
+		void PreInitialize()override {};
+		bool isClone = false;
+		void Replace()override;
+	private:
+		MapChip_Boss(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager);
+
+	};
 }
