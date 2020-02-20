@@ -16,11 +16,12 @@ namespace Framework {
 
 		bool Release()override;
 		std::shared_ptr<Resource_Texture> shp_texture;
-		std::shared_ptr<Collision2D_Rectangle>shp_collisionRect;
+		std::shared_ptr<Resource_Sound> shp_sound_medal;
 
+		std::shared_ptr<Collision2D_Rectangle>shp_collisionRect;
 		std::shared_ptr<Rectangle> GetRectangle() { return shp_collisionRect->rect; }
 	private:
-		std::shared_ptr<GameObject> player = nullptr;
+		std::shared_ptr<GameObject> player;
 
 		float gravity,
 			maxFallSpeed;

@@ -9,7 +9,7 @@ Framework::ChildSeed::ChildSeed(std::shared_ptr<Transform> shp_arg_transform, st
 	maxFallSpeed = 3.0f;
 
 	phisicsForce = Vector3(0, 0, 0);
-
+	
 	tag = ObjectTag::seed;
 }
 
@@ -71,6 +71,7 @@ void Framework::ChildSeed::Hit(std::shared_ptr<GameObject> other)
 void Framework::ChildSeed::PreInitialize()
 {
 	auto handle = Game::GetInstance()->GetResourceController()->GetTexture("seed.png");
+	shp_sound_medal = ObjectFactory::Create<Resource_Sound>("Coin.wav", DX_PLAYTYPE_BACK, true);
 
 
 	shp_texture = ObjectFactory::Create<Resource_Texture>(handle, transform, false, false);
@@ -94,8 +95,14 @@ bool Framework::ChildSeed::OnUpdate() {
 
 bool Framework::ChildSeed::Release()
 {
+	Game::GetInstance()->GetResourceController()->AddSound(shp_sound_medal);
+	player = manager->SerchGameObject(ObjectTag::player);
+	player->GetThis<Player>()->AddPlayerChild();
+
 	shp_collisionRect->Releace();
 	shp_collisionRect = nullptr;
 	shp_texture = nullptr;
+	shp_sound_medal = nullptr;
+	player = nullptr;
 	return true;
 }
