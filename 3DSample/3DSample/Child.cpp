@@ -167,13 +167,18 @@ void Framework::Child::Controll()
 	if ((isRightWall&&velocity.x > 0)) {
 		velocity.x = 0;
 	}
-
 	if (velocity.x < 0) {
 		direction = -1;
 	}else if (velocity.x > 0) {
 		direction = 1;
 	}
 	
+	/*if (velocity.y < 0) {
+		direction = -1;
+	}
+	else if (velocity.y > 0) {
+		direction = 1;
+	}*/
 
 	//velocity.y =-1* Input::GetLettStickVertical();
 	velocity.Normalize();

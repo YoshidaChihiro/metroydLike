@@ -13,14 +13,16 @@ Framework::MapChip_Space::MapChip_Space(std::shared_ptr<Transform> arg_transform
 {
 }
 
-Framework::MapChip_Test::MapChip_Test(std::shared_ptr<GameObjectManager> arg_manager) :MapChipObject(arg_manager->GetThis<GameObjectManager>())
+
+Framework::MapChip_Test::MapChip_Test(int arg_mapImageHandle, std::shared_ptr<GameObjectManager> arg_manager) :MapChipObject(arg_manager->GetThis<GameObjectManager>())
 {
+	mapImageHandle = arg_mapImageHandle;
 }
 
 std::shared_ptr<Framework::MapChipObject> Framework::MapChip_Test::Clone(Vector3 position)
 {
 	auto transform = ObjectFactory::Create<Transform>(position);
-	return ObjectFactory::Create<MapChip_Test>(transform,manager->GetThis<GameObjectManager>());
+	return ObjectFactory::Create<MapChip_Test>(mapImageHandle,transform,manager->GetThis<GameObjectManager>());
 }
 
 bool Framework::MapChip_Test::OnUpdate()
@@ -32,7 +34,7 @@ bool Framework::MapChip_Test::OnUpdate()
 
 void Framework::MapChip_Test::Initialize()
 {
-	shp_texture = ObjectFactory::Create<Resource_Texture>("block.png", transform, false, false);
+	shp_texture = ObjectFactory::Create<Resource_Texture>(mapImageHandle, transform, false, false);
 	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(
 		Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetGlidSize(),
 		Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetGlidSize(), 
@@ -44,9 +46,10 @@ void Framework::MapChip_Test::Initialize()
 	shp_collisionRect->OnUpdate();
 }
 
-Framework::MapChip_Test::MapChip_Test(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager)
+Framework::MapChip_Test::MapChip_Test(int arg_mapNum, std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager)
 	:MapChipObject(arg_transform,arg_manager->GetThis<GameObjectManager>())
 {
+	mapImageHandle = arg_mapNum;
 }
 
 Framework::MapChip_Gate::MapChip_Gate(std::string arg_changeSceneName,Vector2 arg_exitPosition,std::shared_ptr<GameObjectManager> arg_manager)
@@ -103,7 +106,7 @@ void Framework::MapChip_Gate::Hit(std::shared_ptr<GameObject> other)
 
 void Framework::MapChip_Gate::Initialize()
 {
-	shp_texture = ObjectFactory::Create<Resource_Texture>("sample.png", transform, false, false);
+	shp_texture = ObjectFactory::Create<Resource_Texture>("gate.png", transform, false, false);
 	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(
 		Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetGlidSize(),
 		Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetGlidSize(),
@@ -154,7 +157,7 @@ bool Framework::MapChip_ChildBlock::OnUpdate()
 
 void Framework::MapChip_ChildBlock::Initialize()
 {
-	shp_texture = ObjectFactory::Create<Resource_Texture>("child.png", transform, false, false);
+	shp_texture = ObjectFactory::Create<Resource_Texture>("child32.png", transform, false, false);
 	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(
 		Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetGlidSize(),
 		Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetGlidSize(),

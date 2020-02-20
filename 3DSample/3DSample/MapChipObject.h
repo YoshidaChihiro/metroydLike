@@ -39,14 +39,15 @@ namespace Framework {
 	class MapChip_Test :public MapChipObject {
 	public:
 		friend class ObjectFactory;
-		MapChip_Test(std::shared_ptr<GameObjectManager> arg_manager);
+		MapChip_Test(int arg_mapNum,std::shared_ptr<GameObjectManager> arg_manager);
 		std::shared_ptr<MapChipObject> Clone(Vector3 position)override;
 		bool OnUpdate()override;
 		void Initialize()override;
 		void PreInitialize()override {};
 	private:
-		MapChip_Test(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager);
+		MapChip_Test(int arg_mapNum, std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager);
 		std::shared_ptr< Resource_Texture> shp_texture;
+		int mapImageHandle;
 	};
 
 	class MapChip_ChildBlock :public MapChipObject {

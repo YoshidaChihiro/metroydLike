@@ -114,9 +114,21 @@ void Framework::Map::GenerateMap(std::shared_ptr< CSVData> csvData, int arg_glid
 	Game::GetInstance()->GetResourceController()->GetScreenInformation()->SetFieldHeight(glidSize*mapHeight);
 	Game::GetInstance()->GetResourceController()->GetScreenInformation()->SetGlidSize(glidSize);
 
+	auto blockHandle = Game::GetInstance()->GetResourceController()->GetTexture("block.png");
+	auto blockHandle_horizontal = Game::GetInstance()->GetResourceController()->GetTexture("block_horizontal.png");
+	auto blockHandle_vertical = Game::GetInstance()->GetResourceController()->GetTexture("block_vertical.png");
+	auto blockHandle_top = Game::GetInstance()->GetResourceController()->GetTexture("block_top.png");
+    auto blockHandle_bottom = Game::GetInstance()->GetResourceController()->GetTexture("block_bottom.png");
+	auto blockHandle_left = Game::GetInstance()->GetResourceController()->GetTexture("block_left.png");
+    auto blockHandle_right = Game::GetInstance()->GetResourceController()->GetTexture("block_right.png");
+	auto blockHandle_leftTop = Game::GetInstance()->GetResourceController()->GetTexture("block_leftTop.png");
+	auto blockHandle_leftBottom = Game::GetInstance()->GetResourceController()->GetTexture("block_leftBottom.png");
+	auto blockHandle_rightTop = Game::GetInstance()->GetResourceController()->GetTexture("block_rightTop.png");
+	auto blockHandle_rightBottom = Game::GetInstance()->GetResourceController()->GetTexture("block_rightBottom.png");
+
 	mapChips = {
 		ObjectFactory::Create<MapChip_Space>(manager),//0
-		ObjectFactory::Create<MapChip_Test>(manager),//1
+		ObjectFactory::Create<MapChip_Test>(blockHandle_horizontal,manager),//1
 
 		ObjectFactory::Create<Medal>(manager),//2
 
@@ -133,39 +145,54 @@ void Framework::Map::GenerateMap(std::shared_ptr< CSVData> csvData, int arg_glid
 		ObjectFactory::Create<MapChip_Bat>(manager),//9
 		ObjectFactory::Create<MapChip_BatBullet>(manager),//10
 		ObjectFactory::Create<MapChip_Teresa>(manager),//11
-		ObjectFactory::Create<MapChip_Boss>(manager),//12
-
-		ObjectFactory::Create<MapChip_Gate>("Map2Scene",Vector2(32 * 1,32 * 20),manager),//13
-		ObjectFactory::Create<MapChip_Gate>("Map1Scene",Vector2(32 * 26,32 * 21),manager),//14
-
+		ObjectFactory::Create<MapChip_Teresa>(manager),//12
+		//ok
+		ObjectFactory::Create<MapChip_Gate>("Map2Scene",Vector2(32 * 1,32 * 36),manager),//13
+		ObjectFactory::Create<MapChip_Gate>("Map1Scene",Vector2(32 * 25,32 * 16),manager),//14
+		//ok
 		ObjectFactory::Create<MapChip_Gate>("Map3Scene",Vector2(32 * 1,32 * 3),manager),//15
 		ObjectFactory::Create<MapChip_Gate>("Map2Scene",Vector2(32 * 26,32 * 3),manager),//16
-
+		//ok
 		ObjectFactory::Create<MapChip_Gate>("Map4Scene",Vector2(32 * 1,32 * 3),manager),//17
-		ObjectFactory::Create<MapChip_Gate>("Map2Scene",Vector2(32 * 26,32 * 36),manager),//18
+		ObjectFactory::Create<MapChip_Gate>("Map3Scene",Vector2(32 * 42,32 * 1),manager),//18
+		//ok
+		ObjectFactory::Create<MapChip_Gate>("Map5Scene",Vector2(32 * 3,32 * 36),manager),//19		
+		ObjectFactory::Create<MapChip_Gate>("Map4Scene",Vector2(32 * 42,32 * 2),manager),//20
+		//ok
+		ObjectFactory::Create<MapChip_Gate>("Map6Scene",Vector2(32 * 37,32 * 18),manager),//21
+		ObjectFactory::Create<MapChip_Gate>("Map5Scene",Vector2(32 * 27,32 * 2),manager),//22
+		//ok
+		ObjectFactory::Create<MapChip_Gate>("Map7Scene",Vector2(32 * 27,32 * 3),manager),//23
+		ObjectFactory::Create<MapChip_Gate>("Map6Scene",Vector2(32 * 2,32 * 2),manager),//24
+		//ok
+		ObjectFactory::Create<MapChip_Gate>("Map9Scene",Vector2(32 * 41,32 * 3),manager),//25
+		ObjectFactory::Create<MapChip_Gate>("Map7Scene",Vector2(32 * 3,32 * 3),manager),//26
 
-		ObjectFactory::Create<MapChip_Gate>("Map5Scene",Vector2(32 * 1,32 * 10),manager),//19
-		ObjectFactory::Create<MapChip_Gate>("Map3Scene",Vector2(32 * 42,32 * 1),manager),//20
+		ObjectFactory::Create<MapChip_Gate>("Map8Scene",Vector2(32 * 18,32 * 18),manager),//27
+		ObjectFactory::Create<MapChip_Gate>("Map9Scene",Vector2(32 * 25,32 * 2),manager),//28
+		
+		ObjectFactory::Create<MapChip_Space>(manager),//29 lastMap => gameClear
+		ObjectFactory::Create<MapChip_Space>(manager),//30 gameClear => gameTitle
 
-		ObjectFactory::Create<MapChip_Gate>("Map5Scene",Vector2(32 * 3,32 * 36),manager),//21
-		ObjectFactory::Create<MapChip_Gate>("Map4Scene",Vector2(32 * 42,32 * 2),manager),//22
-
-		ObjectFactory::Create<MapChip_Gate>("Map6Scene",Vector2(32 * 37,32 * 18),manager),//23
-		ObjectFactory::Create<MapChip_Gate>("Map5Scene",Vector2(32 * 27,32 * 2),manager),//24
-
-		ObjectFactory::Create<MapChip_Gate>("Map7Scene",Vector2(32 * 27,32 * 3),manager),//25
-		ObjectFactory::Create<MapChip_Gate>("Map6Scene",Vector2(32 * 2,32 * 2),manager),//26
-
-		ObjectFactory::Create<MapChip_Gate>("Map9Scene",Vector2(32 * 41,32 * 3),manager),//27
-		ObjectFactory::Create<MapChip_Gate>("Map7Scene",Vector2(32 * 3,32 * 3),manager),//28
-
-		ObjectFactory::Create<MapChip_Gate>("Map8Scene",Vector2(32 * 71,32 * 18),manager),//29
+			
+		ObjectFactory::Create<MapChip_Gate>("Map8Scene",Vector2(32 * 17,32 * 18),manager),//27
 		ObjectFactory::Create<MapChip_Gate>("Map6Scene",Vector2(32 * 22,32 * 1),manager),//30
 
-		ObjectFactory::Create<MapChip_Gate>("Map8Scene",Vector2(32 * 17,32 * 18),manager),//31
-		ObjectFactory::Create<MapChip_Gate>("Map9Scene",Vector2(32 * 25,32 * 2),manager),//32
+		
 
 		ObjectFactory::Create<MapChip_reset>(manager),//33
+
+		ObjectFactory::Create<MapChip_Space>(manager),//34 for boss
+
+		ObjectFactory::Create<MapChip_Test>(blockHandle_vertical,manager),//35
+		ObjectFactory::Create<MapChip_Test>(blockHandle_top,manager),//36
+		ObjectFactory::Create<MapChip_Test>(blockHandle_bottom,manager),//37
+		ObjectFactory::Create<MapChip_Test>(blockHandle_left,manager),//38
+		ObjectFactory::Create<MapChip_Test>(blockHandle_right,manager),//39
+		ObjectFactory::Create<MapChip_Test>(blockHandle_leftTop,manager),//40
+		ObjectFactory::Create<MapChip_Test>(blockHandle_leftBottom,manager),//41
+		ObjectFactory::Create<MapChip_Test>(blockHandle_rightTop,manager),//42
+		ObjectFactory::Create<MapChip_Test>(blockHandle_rightBottom,manager),//43
 
 	};
 
