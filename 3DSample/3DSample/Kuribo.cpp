@@ -129,6 +129,8 @@ bool Framework::Kuribo::Release()
 void Framework::Kuribo::Dead()
 {
 	Game::GetInstance()->GetSceneManager()->GetGameMaster()->AddScore(100);
+	auto seedTransform = ObjectFactory::Create<Transform>(transform->GetPosition());
+	manager->AddObject_Init(ObjectFactory::Create<ChildSeed>(seedTransform, manager));
 	SetIsDead(true);
 }
 

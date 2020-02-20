@@ -9,6 +9,7 @@
 #include "KuriboBullet.h"
 #include "BatBullet.h"
 #include "Boss.h"
+#include "ChildSeed.h"
 #include<vector>
 namespace Framework {
 	class GameObjectManager:public IObject

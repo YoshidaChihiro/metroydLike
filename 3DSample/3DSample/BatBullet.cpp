@@ -191,6 +191,8 @@ bool Framework::BatBullet::Move() {
 void Framework::BatBullet::Dead()
 {
 	Game::GetInstance()->GetSceneManager()->GetGameMaster()->AddScore(100);
+	auto seedTransform = ObjectFactory::Create<Transform>(transform->GetPosition());
+	manager->AddObject_Init(ObjectFactory::Create<ChildSeed>(seedTransform, manager));
 	SetIsDead(true);
 }
 

@@ -130,6 +130,7 @@ bool Framework::Game::ResourceLoad()
 	unq_resourceController->LoadTexture("block_rightBottom.png");
 
 	unq_resourceController->LoadTexture("gate.png");
+	unq_resourceController->LoadTexture("seed.png");
 
 	unq_resourceController->LoadSound("Damage.wav");
 	unq_resourceController->LoadSound("Explosion.wav");
