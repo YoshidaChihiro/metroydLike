@@ -89,7 +89,7 @@ bool Framework::Game::ResourceLoad()
 	unq_resourceController->LoadTexture("kirari.png");
 
 
-	unq_resourceController->LoadTexture("child.png");
+	unq_resourceController->LoadTexture("child32.png");
 	unq_resourceController->LoadTexture("block.png");
 	unq_resourceController->LoadTexture("robo.png");
 	unq_resourceController->LoadTexture("Kuribo_1.png");
