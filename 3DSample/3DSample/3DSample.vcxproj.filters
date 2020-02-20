@@ -141,6 +141,17 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="SlideFade.cpp" />
+    <ClCompile Include="ClearScene.cpp" />
+    <ClCompile Include="UI.cpp" />
+    <ClCompile Include="Board.cpp" />
+    <ClCompile Include="GameComponent.cpp" />
+    <ClCompile Include="TitleScene.cpp" />
+    <ClCompile Include="BatBullet.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="KuriboBullet.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ButiMath.h">
@@ -292,6 +303,17 @@
       <Filter>header</Filter>
     </ClInclude>
     <ClInclude Include="SlideFade.h" />
+    <ClInclude Include="ClearScene.h" />
+    <ClInclude Include="UI.h" />
+    <ClInclude Include="Board.h" />
+    <ClInclude Include="GameComponent.h" />
+    <ClInclude Include="TitleScene.h" />
+    <ClInclude Include="BatBullet.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="KuriboBullet.h">
+      <Filter>header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="header">

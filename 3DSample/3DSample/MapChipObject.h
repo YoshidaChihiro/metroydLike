@@ -160,6 +160,20 @@ namespace Framework {
 		MapChip_Kuribo(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager);
 		
 	};
+	class MapChip_KuriboBullet :public MapChipObject {
+	public:
+		friend class ObjectFactory;
+		MapChip_KuriboBullet(std::shared_ptr<GameObjectManager> arg_manager);
+		std::shared_ptr<MapChipObject> Clone(Vector3 position)override;
+		bool OnUpdate()override;
+		void Initialize()override;
+		void PreInitialize()override {};
+		void Replace()override;
+		bool isClone = false;
+	private:
+		MapChip_KuriboBullet(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager);
+
+	};
 
 	class MapChip_Bat :public MapChipObject {
 	public:
@@ -173,6 +187,21 @@ namespace Framework {
 		void Replace()override;
 	private:
 		MapChip_Bat(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager);
+
+	};
+
+	class MapChip_BatBullet :public MapChipObject {
+	public:
+		friend class ObjectFactory;
+		MapChip_BatBullet(std::shared_ptr<GameObjectManager> arg_manager);
+		std::shared_ptr<MapChipObject> Clone(Vector3 position)override;
+		bool OnUpdate()override;
+		void Initialize()override;
+		void PreInitialize()override {};
+		bool isClone = false;
+		void Replace()override;
+	private:
+		MapChip_BatBullet(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager);
 
 	};
 

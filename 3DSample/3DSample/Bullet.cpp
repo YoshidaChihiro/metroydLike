@@ -94,6 +94,7 @@ Framework::EnemyBomb::EnemyBomb(float arg_damage, int arg_direction, int arg_spe
 
 void Framework::EnemyBomb::Initialize()
 {
+	phisicsForce = -5.0f;
 	collisionLayer = 4;
 	auto handle = Game::GetInstance()->GetResourceController()->GetTexture("enemyBomb.png");
 	shp_texture = ObjectFactory::Create<Resource_Texture>(handle, transform, false, false);
@@ -105,3 +106,17 @@ void Framework::EnemyBomb::PreInitialize()
 {
 }
 
+bool Framework::EnemyBomb::OnUpdate()
+{
+	phisicsForce+=0.2f;
+	velocity = Vector3(direction*speed, phisicsForce, 0);
+
+	shp_collisionRect->OnUpdate();
+	if (shp_texture)
+		Game::GetInstance()->GetResourceController()->AddGraph(shp_texture, 1);
+	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect, collisionLayer);
+	if (sucideTimer.Update()) {
+		SetIsDead(true);
+	}
+	return true;
+}
