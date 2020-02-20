@@ -142,6 +142,8 @@ bool Framework::Game::ResourceLoad()
 	unq_resourceController->LoadSound("Landing.wav");
 	unq_resourceController->LoadSound("Mapmove.wav");
 	unq_resourceController->LoadSound("Game_play2.wav");
+	unq_resourceController->LoadSound("ChangeBlock.wav");
+	unq_resourceController->LoadSound("DeadEnemy.wav");
 
 	return true;
 }

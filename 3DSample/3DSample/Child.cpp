@@ -125,6 +125,7 @@ bool Framework::Child::Release()
 	shp_sound_shoot = nullptr;
 	shp_sound_throw = nullptr;
 	shp_sound_landing = nullptr;
+	shp_sound_change = nullptr;
 	return true;
 }
 
@@ -150,6 +151,7 @@ void Framework::Child::PreInitialize()
 	shp_sound_shoot = ObjectFactory::Create<Resource_Sound>("Shoot.wav", DX_PLAYTYPE_BACK, true);
 	shp_sound_throw = ObjectFactory::Create<Resource_Sound>("Throw.wav", DX_PLAYTYPE_BACK, true);
 	shp_sound_landing = ObjectFactory::Create<Resource_Sound>("Landing.wav", DX_PLAYTYPE_BACK, true);
+	shp_sound_change = ObjectFactory::Create<Resource_Sound>("ChangeBlock.wav", DX_PLAYTYPE_BACK, true);
 	
 
 }
@@ -374,6 +376,8 @@ void Framework::Child::CreateBlock()
 	if (GetIsDead()) {
 		return;
 	}
+	Game::GetInstance()->GetResourceController()->AddSound(shp_sound_change);
+
 	int glidSize = Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetGlidSize();
 	int x = ((transform->GetPosition().x)+glidSize/2) / (float)glidSize;
 	int y = (transform->GetPosition().y+glidSize/2 )/(float) glidSize;

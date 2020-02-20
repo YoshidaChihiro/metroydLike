@@ -91,6 +91,7 @@ void Framework::KuriboBullet::PreInitialize()
 
 
 	shp_sound_found = ObjectFactory::Create<Resource_Sound>("Found.wav", DX_PLAYTYPE_BACK, true);
+	shp_sound_dead = ObjectFactory::Create<Resource_Sound>("DeadEnemy.wav", DX_PLAYTYPE_BACK, true);
 
 	isShot = false;
 
@@ -137,10 +138,12 @@ bool Framework::KuriboBullet::OnUpdate() {
 
 bool Framework::KuriboBullet::Release()
 {
+	Game::GetInstance()->GetResourceController()->AddSound(shp_sound_dead);
 	shp_collisionRect->Releace();
 	shp_collisionRect = nullptr;
 	shp_texture = nullptr;
 	shp_sound_found = nullptr;
+	shp_sound_dead = nullptr;
 	return true;
 }
 

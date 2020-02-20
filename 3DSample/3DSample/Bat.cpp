@@ -92,6 +92,7 @@ void Framework::Bat::PreInitialize()
 
 
 	shp_sound_found = ObjectFactory::Create<Resource_Sound>("Found.wav", DX_PLAYTYPE_BACK, true);
+	shp_sound_dead = ObjectFactory::Create<Resource_Sound>("DeadEnemy.wav", DX_PLAYTYPE_BACK, true);
 
 
 	isGoalTargetPosition = true;
@@ -121,10 +122,12 @@ bool Framework::Bat::OnUpdate() {
 
 bool Framework::Bat::Release()
 {
+	Game::GetInstance()->GetResourceController()->AddSound(shp_sound_dead);
 	shp_collisionRect->Releace();
 	shp_collisionRect = nullptr;
 	shp_texture = nullptr;
 	shp_sound_found = nullptr;
+	shp_sound_dead = nullptr;
 	return true;
 }
 
