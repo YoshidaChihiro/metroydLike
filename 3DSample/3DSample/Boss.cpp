@@ -93,7 +93,7 @@ void Framework::Boss::PreInitialize()
 	isAction = false;
 
 	shp_texture = ObjectFactory::Create<Resource_Texture>(handle, transform, false, false);
-	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(32, 32)), GetThis<GameObject>());
+	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(64, 64, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(64, 64)), GetThis<GameObject>());
 	vec_gameComponents.push_back(shp_collisionRect->GetThis<GameComponent>());
 }
 
