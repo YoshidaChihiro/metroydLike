@@ -59,6 +59,8 @@ namespace Framework {
 		bool OnUpdate()override;
 		void Initialize()override;
 		void PreInitialize()override {};
+		std::shared_ptr<Resource_Sound> shp_sound_explosion;
+
 	private:
 		MapChip_ChildBlock(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager);
 		std::shared_ptr< Resource_Texture> shp_texture;

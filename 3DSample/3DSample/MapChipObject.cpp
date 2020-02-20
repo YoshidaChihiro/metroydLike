@@ -146,6 +146,7 @@ void Framework::MapChip_ChildBlock::Hit(std::shared_ptr<GameObject> other)
 	if (!GetIsDead()&& other->GetObjectTag() == ObjectTag::playerBullet&&!other->GetIsDead()) {
 		SetIsDead(true);
 		manager->AddObject(ObjectFactory::Create<Explosion>(transform,manager));
+		Game::GetInstance()->GetResourceController()->AddSound(shp_sound_explosion);
 	}
 }
 
@@ -157,6 +158,7 @@ bool Framework::MapChip_ChildBlock::OnUpdate()
 
 void Framework::MapChip_ChildBlock::Initialize()
 {
+	shp_sound_explosion = ObjectFactory::Create<Resource_Sound>("Explosion.wav", DX_PLAYTYPE_BACK, true);
 	shp_texture = ObjectFactory::Create<Resource_Texture>("child32.png", transform, false, false);
 	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(
 		Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetGlidSize(),
