@@ -201,3 +201,41 @@ void Framework::Resource_Text_String_UI::SetText(std::string arg_text)
 	}
 }
 
+//Framework::Resource_Rect::Resource_Rect(int arg_width, int arg_height, int arg_color, std::shared_ptr<Transform> arg_transform, bool isAbs)
+//	:Resource_Texture(0,transform,false,false),isAbs(isAbs)
+//{
+//	width=(arg_width); height=(arg_height);
+//	color = arg_color;
+//}
+
+Framework::Resource_Rect::Resource_Rect(int arg_width,int arg_height,unsigned int arg_color, std::shared_ptr<Transform> arg_transform,bool arg_isAbs)
+	:Resource_Texture(0, arg_transform, false, false) {
+
+	width = arg_width;
+	height = arg_height;
+	color = arg_color;
+	isAbs = arg_isAbs;
+}
+
+Framework::Resource_Rect::~Resource_Rect()
+{
+}
+
+bool Framework::Resource_Rect::Draw()
+{
+	if (isAbs) {
+		 DrawBox(transform->GetPosition().x - width / 2, transform->GetPosition().y - height / 2, transform->GetPosition().x + width / 2, transform->GetPosition().y + height / 2, color, true);
+		
+		return true;
+	}
+
+	auto modify = Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetScrollModify();
+	auto modifiedPos = (Vector3)(transform->GetPosition() - Vector2(width / 2, height / 2) - modify);
+	if (modifiedPos.x > width+960 || modifiedPos.x < -width || modifiedPos.y>640+height, modifiedPos.y < -height) {
+		return true;
+	}
+	DrawBox(modifiedPos.x - width / 2, modifiedPos.y - height / 2, modifiedPos.x + width / 2, modifiedPos.y - height / 2, color, true);
+
+
+	return true;
+}

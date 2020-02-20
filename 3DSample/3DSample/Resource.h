@@ -43,6 +43,13 @@ namespace Framework {
 		~Resource_UI();
 		bool Draw()override;
 	};
+	struct Resource_Rect :Resource_Texture {
+		Resource_Rect(int arg_width,int arg_height,unsigned int arg_color, std::shared_ptr<Transform> arg_transform,bool arg_isAbs);
+		~Resource_Rect();
+		bool Draw()override;
+		bool isAbs;
+		unsigned int color;
+	};
 	struct Resource_Pixel :Resource_Texture {
 		Resource_Pixel( Vector4& arg_color, std::shared_ptr<Transform> arg_transform);
 		~Resource_Pixel();

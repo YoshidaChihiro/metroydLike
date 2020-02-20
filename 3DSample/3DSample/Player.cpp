@@ -190,7 +190,9 @@ bool Framework::Player::Throw() {
 	}
 	else
 		if (Input::GetButtonUp(XINPUT_BUTTON_RIGHT_SHOULDER) && vec_childs.size() >= 2) {
-
+			if (shp_throwChild == nullptr) {
+				return true;
+			}
 			RemoveChildObject(shp_throwChild);
 
 			shp_throwChild->Throw(shp_cursol->GetWorldTransform());

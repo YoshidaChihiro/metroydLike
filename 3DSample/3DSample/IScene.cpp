@@ -19,6 +19,7 @@ void Framework::IScene::SetSceneOverObjects(std::shared_ptr<SceneOverObjects> sh
 	beforeManager->DeathRemoveGameObjects(ObjectTag::enemy);
 	beforeManager->DeathRemoveGameObjects(ObjectTag::playerBullet);
 	beforeManager->DeathRemoveGameObjects(ObjectTag::enemyBullet);
+	beforeManager->DeathRemoveGameObjects(ObjectTag::particle);
 }
 
 std::vector<std::shared_ptr< Framework::GameObject>> Framework::SceneOverObjects::GetSceneOverGameObjects()

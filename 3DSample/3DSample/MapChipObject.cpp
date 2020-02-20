@@ -3,7 +3,7 @@
 #include "Game.h"
 #include"Explosion.h"
 #include"ParticleEmitter.h"
-#include"SlideFAde.h"
+#include"SlideFade.h"
 Framework::MapChip_Space::MapChip_Space(std::shared_ptr<GameObjectManager> arg_manager):MapChipObject(arg_manager->GetThis<GameObjectManager>())
 {
 }
@@ -82,6 +82,14 @@ void Framework::MapChip_Gate::Hit(std::shared_ptr<GameObject> other)
 	sceneOverOgjs->AddSceneOverGameObject(player);
 	auto vec_playersChilds = player->GetChildAndGrandChildObjects();
 
+	auto fadeIn = ObjectFactory::Create<SlideFadeIn>(-1, manager);
+	auto fadeOut = ObjectFactory::Create<SlideFadeOut>(-1, manager);
+
+	manager->AddObject(fadeIn);
+
+	//sceneOverOgjs->AddSceneOverGameObject(fade);
+	sceneOverOgjs->AddSceneOverGameObject(fadeOut);
+
 	for (auto itr = vec_playersChilds.begin(); itr != vec_playersChilds.end(); itr++) {
 		//manager->RemoveObject(*itr);
 		sceneOverOgjs->AddSceneOverGameObject(*itr);
@@ -89,7 +97,8 @@ void Framework::MapChip_Gate::Hit(std::shared_ptr<GameObject> other)
 	//sceneOverOgjs->AddSceneOverGameObject(fade);
 	//manager->RemoveObject(player);
 	//manager->DeathRemoveGameObjects(ObjectTag::enemy);
-	Game::GetInstance()->GetSceneManager()->ChangeScene(changeScenesName, 0, sceneOverOgjs);
+	Game::GetInstance()->GetSceneManager()->ChangeScene(changeScenesName, 30, sceneOverOgjs);
+	Game::GetInstance()->GetGameTime()->Stop(60);
 }
 
 void Framework::MapChip_Gate::Initialize()

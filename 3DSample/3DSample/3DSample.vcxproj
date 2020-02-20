@@ -177,7 +177,7 @@
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="ScreenInformation.cpp" />
     <ClCompile Include="Sencer.cpp" />
-    <ClCompile Include="SlideFAde.cpp" />
+    <ClCompile Include="SlideFade.cpp" />
     <ClCompile Include="StopWatch.cpp" />
     <ClCompile Include="StringHelper.cpp" />
     <ClCompile Include="Teresa.cpp" />
@@ -229,7 +229,7 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="ScreenInformation.h" />
     <ClInclude Include="Sencer.h" />
-    <ClInclude Include="SlideFAde.h" />
+    <ClInclude Include="SlideFade.h" />
     <ClInclude Include="StopWatch.h" />
     <ClInclude Include="StringHelper.h" />
     <ClInclude Include="Teresa.h" />

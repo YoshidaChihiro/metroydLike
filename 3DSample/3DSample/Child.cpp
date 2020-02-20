@@ -135,8 +135,6 @@ void Framework::Child::PreInitialize()
 
 	shp_sound_explosion = ObjectFactory::Create<Resource_Sound>("Explosion.wav", DX_PLAYTYPE_BACK, true);
 
-
-
 	
 
 }

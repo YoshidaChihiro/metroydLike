@@ -127,14 +127,20 @@
     <ClCompile Include="ObjectDelayCreater.cpp">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="SlideFAde.cpp">
+    <ClCompile Include="GameComponent.cpp" />
+    <ClCompile Include="Board.cpp">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="ClearScene.cpp" />
-    <ClCompile Include="UI.cpp" />
-    <ClCompile Include="Board.cpp" />
-    <ClCompile Include="GameComponent.cpp" />
-    <ClCompile Include="TitleScene.cpp" />
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="ClearScene.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="SlideFade.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ButiMath.h">
@@ -272,14 +278,20 @@
     <ClInclude Include="ObjectDelayCreater.h">
       <Filter>header</Filter>
     </ClInclude>
-    <ClInclude Include="SlideFAde.h">
+    <ClInclude Include="GameComponent.h" />
+    <ClInclude Include="Board.h">
       <Filter>header</Filter>
     </ClInclude>
-    <ClInclude Include="ClearScene.h" />
-    <ClInclude Include="UI.h" />
-    <ClInclude Include="Board.h" />
-    <ClInclude Include="GameComponent.h" />
-    <ClInclude Include="TitleScene.h" />
+    <ClInclude Include="ClearScene.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="SlideFade.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="header">

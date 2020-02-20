@@ -8,7 +8,7 @@ namespace Framework {
 		abs,relative,fleeze
 	};
 	enum class ObjectTag {
-		player,enemy,obstacle,none,camera,supporter,sencer,map,playerBullet,item, enemyBullet,spawner
+		player,enemy,obstacle,none,camera,supporter,sencer,map,playerBullet,item, enemyBullet,spawner,particle
 	};
 	class GameObject:public IObject
 	{
