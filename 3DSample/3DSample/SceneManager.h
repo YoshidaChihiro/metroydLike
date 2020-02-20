@@ -13,6 +13,7 @@ namespace Framework {
 		void Initialize();
 		bool OnUpdate();
 		void Release();
+		std::string GetSceneName();
 		void ChangeScene(std::shared_ptr<IScene> shp_arg_changeScene,int sceneChangeDelay=0, std::shared_ptr<SceneOverObjects> shp_sceneOverObjects = nullptr);
 		void ChangeScene(std::string changeSceneName, int sceneChangeDelay=0, std::shared_ptr<SceneOverObjects> shp_sceneOverObjects=nullptr);
 		void LoadScene(std::shared_ptr<IScene> shp_arg_changeScene);

@@ -48,7 +48,7 @@ Framework::SlideFadeOut::SlideFadeOut(int direction, std::shared_ptr<GameObjectM
 	sucideTimer.Start();
 	movePattern = MovePattern::abs;
 	target = Vector3(480 + 1000 * -1 * direction, 320, 0); 
-	tag = ObjectTag::particle;
+	//tag = ObjectTag::particle;
 }
 
 void Framework::SlideFadeOut::Initialize()

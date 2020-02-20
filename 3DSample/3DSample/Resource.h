@@ -63,6 +63,7 @@ namespace Framework {
 		std::string text;
 		bool isCenter;
 		int color;
+		float xModify;
 		std::shared_ptr<Resource_Font> shp_resource_font;
 	};
 	enum class Justification {

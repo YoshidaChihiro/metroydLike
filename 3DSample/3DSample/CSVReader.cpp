@@ -15,6 +15,7 @@ std::shared_ptr<Framework::CSVData> Framework::CSVReader::GetMatrixByFile(std::s
 
 	auto output = std::make_shared< CSVData>(spS.size(), splitedSource.size());
 
+
 	for (int i = 0; i < splitedSource.size(); i++) {
 		auto row = splitedSource.at(i);
 		auto nums = StringHelper::Split(row, ",");

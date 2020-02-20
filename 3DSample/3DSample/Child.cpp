@@ -19,7 +19,7 @@ Framework::Child::~Child() {}
 void Framework::Child::Hit(std::shared_ptr<GameObject> other)
 {
 	if (!isThrown&&other->GetObjectTag() == ObjectTag::enemy) {
-		damage += 0.02f;
+		damage += 0.05f;
 		return;
 	}
 	if (other->GetObjectTag() == ObjectTag::enemyBullet) {
@@ -245,7 +245,7 @@ bool Framework::Child::OnUpdate() {
 		Shot();
 	}
 	shp_collisionRect->OnUpdate();
-	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture);
+	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture,2);
 	if (changeTimer.Update()) {
 		collisionLayer = 5;
 		shp_collisionRect->SetRect(20, 20);
@@ -282,7 +282,7 @@ void Framework::Child::SetNum(int arg_num) {
 
 void Framework::Child::SetStandby() {
 	isStandby = true;
-	transform->localPosition = Vector3(0, -40, 0);
+	transform->localPosition = Vector3(0, -30, 0);
 	transform->baseTransform = shp_player->transform;
 }
 

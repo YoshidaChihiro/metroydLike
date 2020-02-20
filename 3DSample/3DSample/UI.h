@@ -13,12 +13,12 @@ public:
 private:
 
 
-	int color = GetColor(255, 255, 255);
+	int color = GetColor(0, 0, 0);
 	std::shared_ptr<Transform> scorePos;
 	std::shared_ptr< Resource_Text_String_UI> score;
 	std::shared_ptr<Transform> timePos;
 	std::shared_ptr< Resource_Text_String_UI> time;
-	
+	std::shared_ptr<Resource_Rect> rect;
 };
 
 }

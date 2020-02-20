@@ -8,6 +8,7 @@ Framework::Particle::Particle(int graphHandle, float layer, std::shared_ptr<Tran
 {
 	shp_resource_texture = ObjectFactory::Create<Resource_Texture>(graphHandle,transform,false,false);
 	phisicsForce=(arg_phisicsForce);
+	tag = ObjectTag::particle;
 }
 
 Framework::Particle::Particle(Vector4 color, float layer, std::shared_ptr<Transform> arg_shp_transform, Vector3 arg_moveVelocity, float arg_speed, Vector3 arg_rotatePase, Vector3 arg_extentionPase, float arg_accelation, Vector3 arg_phisicsForce, size_t lifeSpan, std::shared_ptr<GameObjectManager> arg_manager)
@@ -16,6 +17,8 @@ Framework::Particle::Particle(Vector4 color, float layer, std::shared_ptr<Transf
 {
 	shp_resource_texture = ObjectFactory::Create<Resource_Pixel>(color, transform);
 	phisicsForce=(arg_phisicsForce);
+	tag = ObjectTag::particle;
+
 }
 
 bool Framework::Particle::OnUpdate()

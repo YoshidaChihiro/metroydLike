@@ -83,6 +83,7 @@ Framework::Resource_Text_String::Resource_Text_String(std::string source, std::s
 	color = arg_color;
 	isCenter = arg_isCenter;
 	shp_resource_font = Game::GetInstance()->GetResourceController()->GetFont(fontName);
+	xModify = shp_resource_font->size*(float)text.size() / 4;
 }
 
 Framework::Resource_Text_String::~Resource_Text_String()
@@ -97,8 +98,7 @@ bool Framework::Resource_Text_String::Draw()
 	}
 	else
 	{
-		float xModify = shp_resource_font->size*(float)text.size() / 4;
-		DrawFormatStringToHandle(transform->GetPosition().GetVector2().x-xModify+modify.x, transform->GetPosition().GetVector2().y-shp_resource_font->size/2+modify.y, color, shp_resource_font->handle, text.c_str());
+		DrawFormatStringToHandle(transform->GetPosition().GetVector2().x - xModify+modify.x, transform->GetPosition().GetVector2().y+modify.y, color, shp_resource_font->handle, text.c_str());
 	}
 	return true;
 }
@@ -227,11 +227,11 @@ bool Framework::Resource_Rect::Draw()
 	}
 
 	auto modify = Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetScrollModify();
-	auto modifiedPos = (Vector3)(transform->GetPosition() - Vector2(width / 2, height / 2) - modify);
+	auto modifiedPos = (Vector3)(transform->GetPosition() - modify);
 	if (modifiedPos.x > width+960 || modifiedPos.x < -width || modifiedPos.y>640+height, modifiedPos.y < -height) {
 		return true;
 	}
-	DrawBox(modifiedPos.x - width / 2, modifiedPos.y - height / 2, modifiedPos.x + width / 2, modifiedPos.y - height / 2, color, true);
+	DrawBox(modifiedPos.x - width / 2, modifiedPos.y - height / 2, modifiedPos.x + width / 2, modifiedPos.y + height / 2, color, true);
 
 
 	return true;

@@ -57,8 +57,10 @@ void Framework::MapScene::OnSet()
 	Game::GetInstance()->GetResourceController()->AddSound(shp_sound_mapmove);
 
 	shp_map->Reload();
+	auto player = shp_gameObjectManager->SerchGameObject(ObjectTag::player);
+	if(player)
 	shp_gameObjectManager->SerchGameObject(ObjectTag::camera)->GetThis<Cameraman_Chase>()->SetTarget(
-		shp_gameObjectManager->SerchGameObject(ObjectTag::player)->transform
+		player->transform
 	); shp_gameObjectManager->SerchGameObject(ObjectTag::camera)->transform->localPosition =Vector3( shp_map->GetCenterPosition());
 	//shp_gameObjectManager->SerchGameObject(ObjectTag::camera)->transform->localPosition = shp_gameObjectManager->SerchGameObject(ObjectTag::player)->transform->GetPosition();
 

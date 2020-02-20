@@ -48,6 +48,11 @@ void Framework::SceneManager::Release()
 	}
 }
 
+std::string Framework::SceneManager::GetSceneName()
+{
+	return shp_currentScene->GetSceneName();
+}
+
 void Framework::SceneManager::ChangeScene(std::shared_ptr<IScene> shp_arg_changeScene, int sceneChangeDelay, std::shared_ptr<SceneOverObjects> shp_arg_sceneOverObjects )
 {
 	sceneChangeTimer = AbsTimer(sceneChangeDelay);

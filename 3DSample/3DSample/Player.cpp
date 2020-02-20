@@ -35,9 +35,6 @@ void Framework::Player::PreInitialize()
 {
 
 
-	std::vector<ObjectTag> tags;
-	tags.push_back(ObjectTag::obstacle);
-
 
 
 	shp_texture = ObjectFactory::Create<Resource_Texture>("robo.png", transform, false, false);
