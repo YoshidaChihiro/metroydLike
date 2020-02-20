@@ -138,7 +138,9 @@
     <ClCompile Include="BatBullet.cpp">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="KuriboBullet.cpp" />
+    <ClCompile Include="KuriboBullet.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ButiMath.h">
@@ -287,7 +289,9 @@
     <ClInclude Include="BatBullet.h">
       <Filter>header</Filter>
     </ClInclude>
-    <ClInclude Include="KuriboBullet.h" />
+    <ClInclude Include="KuriboBullet.h">
+      <Filter>header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="header">
