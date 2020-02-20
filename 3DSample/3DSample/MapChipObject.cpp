@@ -527,6 +527,38 @@ Framework::MapChip_BatBullet::MapChip_BatBullet(std::shared_ptr<Transform> arg_t
 	isClone = true;
 }
 
+Framework::MapChip_Boss::MapChip_Boss(std::shared_ptr<GameObjectManager> arg_manager) :MapChipObject(arg_manager->GetThis<GameObjectManager>())
+{
+	tag = ObjectTag::spawner;
+}
+std::shared_ptr<Framework::MapChipObject> Framework::MapChip_Boss::Clone(Vector3 position)
+{
+	auto transform = ObjectFactory::Create<Transform>(position);
+	return ObjectFactory::Create<MapChip_Boss>(transform, manager->GetThis<GameObjectManager>());
+}
+bool Framework::MapChip_Boss::OnUpdate()
+{
+	return true;
+}
+void Framework::MapChip_Boss::Initialize()
+{
+	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
+
+
+}
+void Framework::MapChip_Boss::Replace()
+{
+	if (isClone) {
+		auto enemyTransform = ObjectFactory::Create<Transform>(transform->GetPosition());
+		manager->AddObject_Init(ObjectFactory::Create<Boss>(enemyTransform, manager, manager->SerchGameObject(ObjectTag::map)->GetThis<Map>()));
+	}
+}
+Framework::MapChip_Boss::MapChip_Boss(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager)
+	:MapChipObject(arg_transform, arg_manager->GetThis<GameObjectManager>())
+{
+	tag = ObjectTag::spawner;
+	isClone = true;
+}
 
 Framework::MapChip_reset::MapChip_reset(std::shared_ptr<GameObjectManager> arg_manager)
 	:MapChipObject(arg_manager->GetThis<GameObjectManager>())

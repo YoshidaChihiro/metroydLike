@@ -133,7 +133,7 @@ void Framework::Map::GenerateMap(std::shared_ptr< CSVData> csvData, int arg_glid
 		ObjectFactory::Create<MapChip_Bat>(manager),//9
 		ObjectFactory::Create<MapChip_BatBullet>(manager),//10
 		ObjectFactory::Create<MapChip_Teresa>(manager),//11
-		ObjectFactory::Create<MapChip_Teresa>(manager),//12
+		ObjectFactory::Create<MapChip_Boss>(manager),//12
 
 		ObjectFactory::Create<MapChip_Gate>("Map2Scene",Vector2(32 * 1,32 * 20),manager),//13
 		ObjectFactory::Create<MapChip_Gate>("Map1Scene",Vector2(32 * 26,32 * 21),manager),//14
