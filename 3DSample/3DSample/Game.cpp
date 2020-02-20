@@ -97,6 +97,7 @@ bool Framework::Game::ResourceLoad()
 	unq_resourceController->LoadTexture("Medal_1.png");
 
 	unq_resourceController->LoadTexture("apple.png");
+	unq_resourceController->LoadTexture("title.png");
 	unq_resourceController->LoadTexture("bullet.png");
 	unq_resourceController->LoadTexture("enemyBullet.png");
 	unq_resourceController->LoadTexture("enemyBomb.png");

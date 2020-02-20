@@ -4,6 +4,7 @@
 #include "Game.h"
 #include"Cameraman.h"
 #include"UI.h"
+#include"Image.h"
 Framework::TestScene::TestScene() {
 	shp_gameObjectManager = ObjectFactory::Create<GameObjectManager>();
 	sceneName = "TestScene";
@@ -15,7 +16,7 @@ Framework::TestScene::~TestScene()
 
 void Framework::TestScene::Initialize()
 {
-	shp_map = ObjectFactory::Create<Map>("Map9.csv", 32, shp_gameObjectManager);
+	shp_map = ObjectFactory::Create<Map>("Map1.csv", 32, shp_gameObjectManager);
 	shp_gameObjectManager->AddObject_Init(shp_map);
 	auto shp_transform = ObjectFactory::Create<Transform>(Vector3(300, 0, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
 
@@ -34,6 +35,10 @@ void Framework::TestScene::Initialize()
 
 
 	shp_gameObjectManager->AddObject_Init(ObjectFactory::Create<UI>(shp_gameObjectManager));
+	auto shp_imageTransform = ObjectFactory::Create<Transform>(Vector3(480, 300, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
+
+	auto titleImage = ObjectFactory::Create<Image>("title.png", shp_imageTransform, shp_gameObjectManager);
+	shp_gameObjectManager->AddObject_Init(titleImage);
 	//shp_gameObjectManager->AddObject_Init(shp_emitter);
 }
 

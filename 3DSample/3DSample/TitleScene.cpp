@@ -3,6 +3,7 @@
 #include"ParticleEmitter.h"
 #include "Game.h"
 #include"Cameraman.h"
+#include"Image.h"
 Framework::TitleScene::TitleScene() {
 	shp_gameObjectManager = ObjectFactory::Create<GameObjectManager>();
 	sceneName = "TitleScene";
@@ -28,7 +29,10 @@ void Framework::TitleScene::Initialize()
 
 
 
-	auto shp_objectTransform = ObjectFactory::Create<Transform>(Vector3(64, 32, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
+	auto shp_objectTransform = ObjectFactory::Create<Transform>(Vector3(480, 300, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
+
+	auto titleImage = ObjectFactory::Create<Image>("title.png", shp_objectTransform, shp_gameObjectManager);
+	shp_gameObjectManager->AddObject_Init(titleImage);
 
 }
 
