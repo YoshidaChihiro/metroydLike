@@ -36,11 +36,12 @@ namespace Framework {
 			maxFallSpeed,
 			overlap, hp,
 			damage;
-		bool isGround, isBombShot, isCall;
+		bool isGround, isBombShot, isCall, isAction;
 		int direction;
 		RelativeTimer selectTimer = RelativeTimer(60 * 5);
 		RelativeTimer bombTimer = RelativeTimer(30);
 		RelativeTimer callTimer = RelativeTimer(60);
+		RelativeTimer continueTimer = RelativeTimer(60 * 3);
 
 	};
 }

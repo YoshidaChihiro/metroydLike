@@ -89,6 +89,8 @@ void Framework::Boss::PreInitialize()
 	auto handle = Game::GetInstance()->GetResourceController()->GetTexture("robo.png");
 
 	isBombShot = false;
+	isCall = false;
+	isAction = false;
 
 	shp_texture = ObjectFactory::Create<Resource_Texture>(handle, transform, false, false);
 	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(32, 32)), GetThis<GameObject>());
@@ -113,23 +115,58 @@ bool Framework::Boss::OnUpdate() {
 		direction = 1;
 	}
 
-	if (!selectTimer.Update()) {
-		isBombShot = false;
-		isCall = false;
-		selectTimer.Start();
+	if (!continueTimer.Update() && isAction == true) {
+		continueTimer.Start();
 	}
-	else {
-		isBombShot = true;
-		isCall = true;
-		selectTimer.Stop();
-		selectTimer.Reset();
+	else{
+		isAction = false;
+		continueTimer.Stop();
+		continueTimer.Reset();
 	}
 
-	if (isBombShot) {
-		Bomb();
+
+	if (!isAction) {
+		if (!selectTimer.Update()) {
+			selectTimer.Start();
+		}
+		else {
+			int actionRand = GetRand(1);
+			if (actionRand == 0) {
+				isCall = true;
+				isBombShot = false;
+			}
+			else {
+				isBombShot = true;
+				isCall = false;
+			}
+			isAction = true;
+			selectTimer.Stop();
+			selectTimer.Reset();
+		}
 	}
-	if (isCall) {
-		Call();
+
+	else{
+		if (isCall) {
+			if (!callTimer.Update()) {
+				callTimer.Start();
+			}
+			else {
+				Call();
+				callTimer.Stop();
+				callTimer.Reset();
+			}
+		}
+
+		if (isBombShot) {
+			if (!bombTimer.Update()) {
+				bombTimer.Start();
+			}
+			else {
+				Bomb();
+				bombTimer.Stop();
+				bombTimer.Reset();
+			}
+		}
 	}
 
 	isGround = false;
