@@ -154,10 +154,10 @@ void Framework::Map::GenerateMap(std::shared_ptr< CSVData> csvData, int arg_glid
 		ObjectFactory::Create<MapChip_Gate>("Map2Scene",Vector2(32 * 26,32 * 3),manager),//16
 		//ok
 		ObjectFactory::Create<MapChip_Gate>("Map4Scene",Vector2(32 * 1,32 * 3),manager),//17
-		ObjectFactory::Create<MapChip_Gate>("Map3Scene",Vector2(32 * 42,32 * 1),manager),//18
+		ObjectFactory::Create<MapChip_Gate>("Map3Scene",Vector2(32 * 27,32 * 2),manager),//18
 		//ok
 		ObjectFactory::Create<MapChip_Gate>("Map5Scene",Vector2(32 * 3,32 * 36),manager),//19		
-		ObjectFactory::Create<MapChip_Gate>("Map4Scene",Vector2(32 * 42,32 * 2),manager),//20
+		ObjectFactory::Create<MapChip_Gate>("Map4Scene",Vector2(32 * 27,32 * 2),manager),//20
 		//ok
 		ObjectFactory::Create<MapChip_Gate>("Map6Scene",Vector2(32 * 37,32 * 18),manager),//21
 		ObjectFactory::Create<MapChip_Gate>("Map5Scene",Vector2(32 * 27,32 * 2),manager),//22
@@ -175,8 +175,8 @@ void Framework::Map::GenerateMap(std::shared_ptr< CSVData> csvData, int arg_glid
 		ObjectFactory::Create<MapChip_Space>(manager),//30 gameClear => gameTitle
 
 			
-		ObjectFactory::Create<MapChip_Gate>("Map8Scene",Vector2(32 * 17,32 * 18),manager),//27
-		ObjectFactory::Create<MapChip_Gate>("Map6Scene",Vector2(32 * 22,32 * 1),manager),//30
+		ObjectFactory::Create<MapChip_Gate>("Map_tutorialScene",Vector2(32 * 27,32 * 28),manager),//31
+		ObjectFactory::Create<MapChip_Gate>("Map1Scene",Vector2(32 * 1,32 * 17),manager),//32
 
 		
 
