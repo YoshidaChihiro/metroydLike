@@ -285,7 +285,7 @@ bool Framework::Child::Jump()
 	if (
 		(isGround) &&
 		Input::GetButtonDown(XINPUT_BUTTON_LEFT_SHOULDER)) {
-		phisicsForce.y = -7.0f;
+		phisicsForce.y = -9.0f;
 		
 	}
 	return true;
