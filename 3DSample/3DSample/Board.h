@@ -15,7 +15,7 @@ namespace Framework {
 		int baseColor,edgeColor;
 		std::vector< std::shared_ptr< Resource_Text_String>> vec_shp_texts;
 		std::shared_ptr<Resource_Rect> outRect, inRect;
-		int width, height,edgeSize;
+		int width, height, edgeSize;
 	};
 
 }

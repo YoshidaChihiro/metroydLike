@@ -13,7 +13,8 @@ namespace Framework {
 		void LoadTexture(std::string fileName,std::string filePath="Resource/Texture/");
 		void LoadSound(std::string fileName, std::string filePath="Resource/Sound/");
 		void LoadMV1(std::string fileName, std::string filePath="Resource/MV1/");
-		void LoadCreateFont(std::string fontName,std::string fontSourceName,int size,int thick,int fontType);
+		void LoadCreateFont(std::string fontName, std::string fontSourceName, int size, int thick, int fontType);
+		void LoadCreateFontData(std::string fontName,std::string source, int edge);
 		int GetTexture(std::string resourceName);
 		int GetSound(std::string resourceName);
 		int GetMV1(std::string resourceName);

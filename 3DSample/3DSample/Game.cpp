@@ -112,6 +112,7 @@ bool Framework::Game::ResourceLoad()
 	unq_resourceController->LoadTexture("whiteParticle.png");
 
 	unq_resourceController->LoadCreateFont("testFont", "MS　明朝", 32, -1, DX_FONTTYPE_NORMAL);
+	unq_resourceController->LoadCreateFontData("simpleBit", "Resource/4x4bit.dft", 0);
 	unq_resourceController->LoadTexture("pumpkin.png");
 
 	unq_resourceController->LoadTexture("potato.png");

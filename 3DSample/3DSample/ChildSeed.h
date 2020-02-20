@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include"Resource.h"
 #include"Collision2D.h"
-
+#include"RelativeTimer.h"
 
 namespace Framework {
 	class ChildSeed :public GameObject
@@ -22,7 +22,7 @@ namespace Framework {
 		std::shared_ptr<Rectangle> GetRectangle() { return shp_collisionRect->rect; }
 	private:
 		std::shared_ptr<GameObject> player;
-
+		RelativeTimer sucideTimer=RelativeTimer(180);
 		float gravity,
 			maxFallSpeed;
 		bool isGround;

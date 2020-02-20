@@ -27,7 +27,7 @@ bool Framework::SlideFadeIn::OnUpdate()
 	if (sucideTimer.Update()) {
 		SetIsDead(true);
 	}
-	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture, 2);
+	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture, 3);
 	if(speed<40)
 	speed += 2.0f;
 	shp_texture->width += speed;
@@ -66,7 +66,7 @@ bool Framework::SlideFadeOut::OnUpdate()
 	if (sucideTimer.Update()) {
 		SetIsDead(true);
 	}
-	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture, 2);
+	Game::GetInstance()->GetResourceController()->AddGraph(shp_texture, 3);
 	if (speed < 40)
 		speed += 2.0f;
 	//shp_texture->width += speed;

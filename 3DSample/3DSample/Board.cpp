@@ -22,7 +22,7 @@ void Framework::Board::AddText(int color, std::string text, Vector3 pos)
 {
 	auto textTransform = ObjectFactory::Create<Transform>(pos);
 	textTransform->baseTransform = transform;
-	vec_shp_texts.push_back(ObjectFactory::Create<Resource_Text_String>(text,textTransform,color,true,"testFont"));
+	vec_shp_texts.push_back(ObjectFactory::Create<Resource_Text_String>(text,textTransform,color,true,"simpleBit"));
 }
 
 void Framework::Board::Initialize()
@@ -40,7 +40,7 @@ bool Framework::Board::OnUpdate()
 	Game::GetInstance()->GetResourceController()->AddGraph(outRect,1);
 	Game::GetInstance()->GetResourceController()->AddGraph(inRect,1);
 
-
+	
 	for (auto itr = vec_shp_texts.begin(); itr != vec_shp_texts.end(); itr++) {
 		Game::GetInstance()->GetResourceController()->AddGraph(*itr,1);
 	}

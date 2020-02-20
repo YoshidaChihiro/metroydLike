@@ -26,9 +26,9 @@ void Framework::UI::Initialize()
 void Framework::UI::PreInitialize()
 {
 	scorePos = ObjectFactory::Create<Transform>(Vector3(960, 0, 0));
-	score = ObjectFactory::Create<Resource_Text_String_UI>("Score::", scorePos, color, Justification::right, "testFont");
+	score = ObjectFactory::Create<Resource_Text_String_UI>("Score::", scorePos, color, Justification::right, "simpleBit");
 	timePos = ObjectFactory::Create<Transform>(Vector3(0, 0, 0));
-	time = ObjectFactory::Create<Resource_Text_String_UI>("Time::", timePos, color, Justification::left, "testFont");
+	time = ObjectFactory::Create<Resource_Text_String_UI>("Time::", timePos, color, Justification::left, "simpleBit");
 	auto rectC = GetColor(255, 255, 255);
 	rect = ObjectFactory::Create<Resource_Rect>(960,40,rectC,
 		ObjectFactory::Create<Transform>(Vector3(480,20,0)),true

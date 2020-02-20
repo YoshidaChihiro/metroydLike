@@ -54,6 +54,14 @@ void Framework::ResouceController::LoadCreateFont(std::string fontName, std::str
 	}
 }
 
+void Framework::ResouceController::LoadCreateFontData(std::string fontName, std::string source, int edge)
+{
+	int r = LoadFontDataToHandle(source.c_str(), edge);
+	if (r != -1) {
+		fontResourceMap.emplace(fontName, ObjectFactory::Create<Resource_Font>(r, 32));
+	}
+}
+
 
 int Framework::ResouceController::GetTexture(std::string resourceName)
 {

@@ -1,334 +1,112 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Child.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="Collision2D.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="Collision2DManager.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="CSVReader.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObjectManager.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="Input.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="IScene.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="Map.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="MapChipObject.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="Particle.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleEmitter.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="ResouceController.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="Resource.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="ScreenInformation.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="StringHelper.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="TestObject.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="TestScene.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="Transform.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="Util.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="MapScene.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="Cameraman.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="Sencer.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="Cursol.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="Explosion.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="AbsTimer.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="GameMaster.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="StopWatch.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="Medal.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="GameTime.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="RelativeTimer.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="Kuribo.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="Bat.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="Teresa.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="Bullet.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="ChildSeed.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="GameComponent.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectDelayCreater.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="GameComponent.cpp" />
-    <ClCompile Include="Board.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="TitleScene.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="ClearScene.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="UI.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="SlideFade.cpp" />
-    <ClCompile Include="ClearScene.cpp" />
-    <ClCompile Include="UI.cpp" />
+    <ClCompile Include="AbsTimer.cpp" />
+    <ClCompile Include="Bat.cpp" />
+    <ClCompile Include="BatBullet.cpp" />
     <ClCompile Include="Board.cpp" />
+    <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="Cameraman.cpp" />
+    <ClCompile Include="Child.cpp" />
+    <ClCompile Include="ChildSeed.cpp" />
+    <ClCompile Include="ClearScene.cpp" />
+    <ClCompile Include="Collision2D.cpp" />
+    <ClCompile Include="Collision2DManager.cpp" />
+    <ClCompile Include="CSVReader.cpp" />
+    <ClCompile Include="Cursol.cpp" />
+    <ClCompile Include="Explosion.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameComponent.cpp" />
+    <ClCompile Include="GameMaster.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameObjectManager.cpp" />
+    <ClCompile Include="GameTime.cpp" />
+    <ClCompile Include="Input.cpp" />
+    <ClCompile Include="IScene.cpp" />
+    <ClCompile Include="Kuribo.cpp" />
+    <ClCompile Include="KuriboBullet.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Map.cpp" />
+    <ClCompile Include="MapChipObject.cpp" />
+    <ClCompile Include="MapScene.cpp" />
+    <ClCompile Include="Medal.cpp" />
+    <ClCompile Include="ObjectDelayCreater.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="ParticleEmitter.cpp" />
+    <ClCompile Include="RelativeTimer.cpp" />
+    <ClCompile Include="ResouceController.cpp" />
+    <ClCompile Include="Resource.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="ScreenInformation.cpp" />
+    <ClCompile Include="Sencer.cpp" />
+    <ClCompile Include="SlideFade.cpp" />
+    <ClCompile Include="StopWatch.cpp" />
+    <ClCompile Include="StringHelper.cpp" />
+    <ClCompile Include="Teresa.cpp" />
+    <ClCompile Include="TestObject.cpp" />
+    <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="TitleScene.cpp" />
-    <ClCompile Include="BatBullet.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="KuriboBullet.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="Boss.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
+    <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="UI.cpp" />
+    <ClCompile Include="Util.cpp" />
+    <ClCompile Include="RankingLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ButiMath.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="Collision2D.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="Collision2DManager.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="CSVReader.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObjectManager.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="Input.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="IScene.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="Library.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="MapChipObject.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="Particle.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleEmitter.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="ResouceController.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="ScreenInformation.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="StringHelper.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="TestObject.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="TestScene.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="Transform.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="Util.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="MathInclude.cpp">
-      <Filter>source</Filter>
-    </ClInclude>
-    <ClInclude Include="MapScene.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="Sencer.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="AbsTimer.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="GameMaster.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="GameTime.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="Medal.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="StopWatch.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="RelativeTimer.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="Kuribo.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="Teresa.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="ChildSeed.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="GameComponent.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="MoveHistory.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectDelayCreater.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="GameComponent.h" />
-    <ClInclude Include="ClearScene.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="TitleScene.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="UI.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="SlideFade.h" />
-    <ClInclude Include="ClearScene.h" />
-    <ClInclude Include="UI.h" />
+    <ClInclude Include="AbsTimer.h" />
+    <ClInclude Include="Bat.h" />
+    <ClInclude Include="BatBullet.h" />
     <ClInclude Include="Board.h" />
+    <ClInclude Include="Boss.h" />
+    <ClInclude Include="Bullet.h" />
+    <ClInclude Include="ButiMath.h" />
+    <ClInclude Include="Cameraman.h" />
+    <ClInclude Include="Child.h" />
+    <ClInclude Include="ChildSeed.h" />
+    <ClInclude Include="ClearScene.h" />
+    <ClInclude Include="Collision2D.h" />
+    <ClInclude Include="Collision2DManager.h" />
+    <ClInclude Include="CSVReader.h" />
+    <ClInclude Include="Cursol.h" />
+    <ClInclude Include="Explosion.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="GameComponent.h" />
+    <ClInclude Include="GameMaster.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameObjectManager.h" />
+    <ClInclude Include="GameTime.h" />
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="IScene.h" />
+    <ClInclude Include="Kuribo.h" />
+    <ClInclude Include="KuriboBullet.h" />
+    <ClInclude Include="Library.h" />
+    <ClInclude Include="Map.h" />
+    <ClInclude Include="MapChipObject.h" />
+    <ClInclude Include="MapScene.h" />
+    <ClInclude Include="MathInclude.cpp" />
+    <ClInclude Include="Medal.h" />
+    <ClInclude Include="ObjectDelayCreater.h" />
+    <ClInclude Include="MoveHistory.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Particle.h" />
+    <ClInclude Include="ParticleEmitter.h" />
+    <ClInclude Include="RelativeTimer.h" />
+    <ClInclude Include="ResouceController.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="ScreenInformation.h" />
+    <ClInclude Include="Sencer.h" />
+    <ClInclude Include="SlideFade.h" />
+    <ClInclude Include="StopWatch.h" />
+    <ClInclude Include="StringHelper.h" />
+    <ClInclude Include="Teresa.h" />
+    <ClInclude Include="TestObject.h" />
+    <ClInclude Include="TestScene.h" />
     <ClInclude Include="TitleScene.h" />
-    <ClInclude Include="KuriboBullet.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="Bat.h">
-      <Filter>header\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Board.h">
-      <Filter>header\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Bullet.h">
-      <Filter>header\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Child.h">
-      <Filter>header\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Cameraman.h">
-      <Filter>header\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="BatBullet.h">
-      <Filter>header\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Cursol.h">
-      <Filter>header\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Explosion.h">
-      <Filter>header\GameObject</Filter>
-    <ClInclude Include="Boss.h">
-      <Filter>header</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="header">
-      <UniqueIdentifier>{efaa583f-40bb-42f1-858a-e50eeb2a622e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="source">
-      <UniqueIdentifier>{1b310c15-f063-4255-bf10-bbb6279615c2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="header\GameObject">
-      <UniqueIdentifier>{42abb8cb-c1aa-4166-8e64-74698b8239e3}</UniqueIdentifier>
-    </Filter>
+    <ClInclude Include="Transform.h" />
+    <ClInclude Include="UI.h" />
+    <ClInclude Include="Util.h" />
+    <ClInclude Include="RankingLoader.h" />
   </ItemGroup>
 </Project>

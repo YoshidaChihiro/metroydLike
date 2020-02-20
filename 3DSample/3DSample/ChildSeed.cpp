@@ -9,7 +9,7 @@ Framework::ChildSeed::ChildSeed(std::shared_ptr<Transform> shp_arg_transform, st
 	maxFallSpeed = 3.0f;
 
 	phisicsForce = Vector3(0, 0, 0);
-	
+	sucideTimer.Start();
 	tag = ObjectTag::seed;
 }
 
@@ -21,6 +21,11 @@ void Framework::ChildSeed::Hit(std::shared_ptr<GameObject> other)
 {
 	if (other->GetObjectTag() == ObjectTag::supporter) {
 		SetIsDead(true);
+		Game::GetInstance()->GetSceneManager()->GetGameMaster()->AddScore(100);
+		Game::GetInstance()->GetResourceController()->AddSound(shp_sound_medal);
+		player = manager->SerchGameObject(ObjectTag::player);
+		if (player)
+			player->GetThis<Player>()->AddPlayerChild();
 		return;
 	}
 
@@ -79,7 +84,9 @@ void Framework::ChildSeed::PreInitialize()
 }
 
 bool Framework::ChildSeed::OnUpdate() {
-
+	if (sucideTimer.Update()) {
+		SetIsDead(true);
+	}
 	shp_collisionRect->OnUpdate();
 
 	phisicsForce.y += gravity;
@@ -95,9 +102,6 @@ bool Framework::ChildSeed::OnUpdate() {
 
 bool Framework::ChildSeed::Release()
 {
-	Game::GetInstance()->GetResourceController()->AddSound(shp_sound_medal);
-	player = manager->SerchGameObject(ObjectTag::player);
-	player->GetThis<Player>()->AddPlayerChild();
 
 	shp_collisionRect->Releace();
 	shp_collisionRect = nullptr;

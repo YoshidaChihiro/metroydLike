@@ -9,6 +9,9 @@ public:
 	void Initialize();
 	void GetMedal();
 	int GetChildsMax() {
+		if (playerChildMax + getedMedalCount > 6) {
+			return 5;
+		}
 		return playerChildMax + getedMedalCount;
 	};
 	void SetRespawnPosition(Vector3 arg_respawn) {

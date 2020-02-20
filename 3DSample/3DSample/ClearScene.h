@@ -18,9 +18,13 @@ namespace Framework {
 
 		void Release()override;
 	private:
+		long long time;
+		int score;
 		std::shared_ptr<Map> shp_map;
 		std::shared_ptr<Board> shp_scoreBoard;
 		std::shared_ptr<Board> shp_timeBoard;
+		std::vector<int> vec_scoreRanking;
+		std::vector<int> vec_timeRanking;
 	};
 
 }
