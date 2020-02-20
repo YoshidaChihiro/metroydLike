@@ -82,6 +82,7 @@ void Framework::MapChip_Gate::Hit(std::shared_ptr<GameObject> other)
 	auto sceneOverOgjs = ObjectFactory::Create<SceneOverObjects>();
 	sceneOverOgjs->playerPos = exitPosition;
 	auto player = manager->SerchGameObject(ObjectTag::player);
+	player->GetThis<Player>()->BlockRelease();
 	sceneOverOgjs->AddSceneOverGameObject(player);
 	auto vec_playersChilds = player->GetChildAndGrandChildObjects();
 

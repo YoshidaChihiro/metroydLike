@@ -181,7 +181,7 @@ void Framework::Map::GenerateMap(std::shared_ptr< CSVData> csvData, int arg_glid
 
 			
 		ObjectFactory::Create<MapChip_Gate>("Map_tutorialScene",Vector2(32 * 27,32 * 28),manager),//31
-		ObjectFactory::Create<MapChip_Gate>("Map1Scene",Vector2(32 * 1,32 * 17),manager),//32
+		ObjectFactory::Create<MapChip_Gate>("TestScene",Vector2(32 * 1,32 * 17),manager),//32
 
 		
 

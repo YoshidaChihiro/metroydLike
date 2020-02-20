@@ -165,6 +165,11 @@ void Framework::Child::Initialize()
 	mapYmax = map->GetThis<Map>()->GetMapMaxUnder();
 }
 
+void Framework::Child::ReSetMapYMax() {
+	auto map = manager->SerchGameObject(ObjectTag::map);
+	mapYmax = map->GetThis<Map>()->GetMapMaxUnder();
+};
+
 void Framework::Child::Controll()
 {
 	Jump();
@@ -189,7 +194,7 @@ void Framework::Child::Controll()
 		Dead();
 	}
 
-	if (Input::GetRightTrigger()) {
+	if (Input::GetButton(XINPUT_BUTTON_RIGHT_SHOULDER)) {
 		isShot = true;
 		coolTimer.Start();
 	}

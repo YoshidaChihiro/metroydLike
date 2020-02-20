@@ -159,6 +159,28 @@ void Framework::Player::UpdateShotHistory(bool arg_shotFlg)
 	deq_shotHistory.pop_back();
 }
 
+void Framework::Player::BlockRelease()
+{
+	if (shp_throwChild == nullptr) {
+		return;
+	}
+	RemoveChildObject(shp_throwChild);
+
+	shp_throwChild->Throw(shp_cursol->GetWorldTransform());
+	vec_childs.erase(vec_childs.begin() + 1);
+	for (int i = 0; i < vec_childs.size(); i++) {
+		vec_childs.at(i)->SetNum(i);
+	}
+	shp_throwChild = nullptr;
+}
+
+void Framework::Player::OnChangeScene()
+{
+	for (auto itr = vec_childs.begin(); itr != vec_childs.end(); itr++) {
+		(*itr)->ReSetMapYMax();
+	}
+}
+
 Framework::MoveHistory Framework::Player::GetMovingFromHystory(int num)
 {
 	return deq_moveHistory.at(num);
@@ -180,13 +202,15 @@ bool Framework::Player::Throw() {
 	if (vec_childs.size() == 0) {
 		return true;
 	}
-	if (Input::GetButtonDown(XINPUT_BUTTON_RIGHT_SHOULDER) && vec_childs.size() >= 2) {
+	befRTrigger = currentRTrigger;
+	currentRTrigger = Input::GetRightTrigger() > 0.5f;
+	if ((!befRTrigger&&currentRTrigger) && vec_childs.size() >= 2) {
 		shp_throwChild = *(vec_childs.begin() + 1);
 
 		shp_throwChild->SetStandby();
 	}
 	else
-		if (Input::GetButtonUp(XINPUT_BUTTON_RIGHT_SHOULDER) && vec_childs.size() >= 2) {
+		if ((befRTrigger&&!currentRTrigger) && vec_childs.size() >= 2) {
 			if (shp_throwChild == nullptr) {
 				return true;
 			}

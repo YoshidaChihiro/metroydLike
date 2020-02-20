@@ -23,6 +23,7 @@ namespace Framework {
 			isTop = true;
 			movePattern = MovePattern::relative;
 		}
+		void ReSetMapYMax();
 		void Controll();
 		bool OnUpdate()override;
 		std::shared_ptr<Resource_Texture> shp_texture;

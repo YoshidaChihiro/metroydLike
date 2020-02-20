@@ -23,6 +23,8 @@ namespace Framework {
 		void AddPlayerChild();
 		void UpdateMovingHistory(MoveHistory& arg_playerMoving);
 		void UpdateShotHistory(bool arg_shotFlg);
+		void BlockRelease();
+		void OnChangeScene();
 		std::shared_ptr<Resource_Texture> shp_texture;
 		std::shared_ptr<Resource_Sound> shp_sound_damage;
 		std::shared_ptr<Resource_Sound> shp_sound_jump;
@@ -41,7 +43,7 @@ namespace Framework {
 		//std::vector< std::shared_ptr<GameObject>> sencerInputs;//0 top, 1 bottom,2 left.3 right
 
 		std::vector< std::shared_ptr<Child>> vec_childs;
-
+		bool currentRTrigger,befRTrigger;
 		std::shared_ptr<Cursol> shp_cursol;
 		std::shared_ptr<Child> shp_throwChild;
 		std::deque<MoveHistory>deq_moveHistory;

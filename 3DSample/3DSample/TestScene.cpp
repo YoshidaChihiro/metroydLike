@@ -5,6 +5,7 @@
 #include"Cameraman.h"
 #include"UI.h"
 #include"Image.h"
+#include"Board.h"
 Framework::TestScene::TestScene() {
 	shp_gameObjectManager = ObjectFactory::Create<GameObjectManager>();
 	sceneName = "TestScene";
@@ -39,6 +40,20 @@ void Framework::TestScene::Initialize()
 
 	auto titleImage = ObjectFactory::Create<Image>("title.png", shp_imageTransform, shp_gameObjectManager);
 	shp_gameObjectManager->AddObject_Init(titleImage);
+	auto shp_startBoardTransform = ObjectFactory::Create<Transform>(Vector3(840, 480, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
+
+	int cyanColor = GetColor(0, 0, 0);
+	int blackColor = GetColor(0, 255, 255);
+	int greenColor = GetColor(127, 255, 127);
+
+	auto startBoard = ObjectFactory::Create<Board>(120, 32, 5, cyanColor, blackColor, shp_startBoardTransform, shp_gameObjectManager);
+	shp_gameObjectManager->AddObject_Init(startBoard);
+
+	auto shp_tutorialBoardTransform = ObjectFactory::Create<Transform>(Vector3(104, 480, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
+
+
+	auto tutorialBoard = ObjectFactory::Create<Board>(120, 32, 5, cyanColor,blackColor, shp_tutorialBoardTransform, shp_gameObjectManager);
+	shp_gameObjectManager->AddObject_Init(tutorialBoard);
 	//shp_gameObjectManager->AddObject_Init(shp_emitter);
 }
 
@@ -59,6 +74,8 @@ void Framework::TestScene::OnSet()
 	shp_gameObjectManager->SerchGameObject(ObjectTag::camera)->GetThis<Cameraman_Chase>()->SetTarget(
 		shp_gameObjectManager->SerchGameObject(ObjectTag::player)->transform
 	);
+	Game::GetInstance()->GetSceneManager()->GetGameMaster()->ReStart();
+	Game::GetInstance()->GetSceneManager()->GetGameMaster()->Initialize();
 	shp_gameObjectManager->SerchGameObject(ObjectTag::camera)->transform->localPosition = shp_gameObjectManager->SerchGameObject(ObjectTag::player)->transform->GetPosition();
 }
 

@@ -15,6 +15,7 @@ void Framework::IScene::SetSceneOverObjects(std::shared_ptr<SceneOverObjects> sh
 	auto player = shp_gameObjectManager->SerchGameObject(ObjectTag::player);
 	if (player) {
 		player->GetThis<Player>()->SetSpawnPoint(shp_arg_sceneOverObjects->playerPos);
+		player->GetThis<Player>()->OnChangeScene();
 	}
 	beforeManager->DeathRemoveGameObjects(ObjectTag::enemy);
 	beforeManager->DeathRemoveGameObjects(ObjectTag::playerBullet);
