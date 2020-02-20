@@ -118,6 +118,18 @@ bool Framework::Game::ResourceLoad()
 
 	unq_resourceController->LoadTexture("watermelon.png");
 
+	unq_resourceController->LoadTexture("block_horizontal.png");
+	unq_resourceController->LoadTexture("block_vertical.png");
+	unq_resourceController->LoadTexture("block_top.png");
+	unq_resourceController->LoadTexture("block_bottom.png");
+	unq_resourceController->LoadTexture("block_left.png");
+	unq_resourceController->LoadTexture("block_right.png");
+	unq_resourceController->LoadTexture("block_leftTop.png");
+	unq_resourceController->LoadTexture("block_leftBottom.png");
+	unq_resourceController->LoadTexture("block_rightTop.png");
+	unq_resourceController->LoadTexture("block_rightBottom.png");
+
+	unq_resourceController->LoadTexture("gate.png");
 
 	unq_resourceController->LoadSound("Damage.wav");
 	unq_resourceController->LoadSound("Explosion.wav");
@@ -130,7 +142,6 @@ bool Framework::Game::ResourceLoad()
 	unq_resourceController->LoadSound("Mapmove.wav");
 	unq_resourceController->LoadSound("Game_play2.wav");
 
-
 	return true;
 }
 
@@ -141,6 +152,7 @@ void Framework::Game::SceneInitialize()
 	unq_sceneManager->LoadScene(ObjectFactory::Create<ClearScene>());
 	unq_sceneManager->LoadScene(ObjectFactory::Create<TitleScene>());
 	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("beta.csv"));
+	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map1.csv"));
 	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map2.csv"));
 	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map3.csv"));
 	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map4.csv"));

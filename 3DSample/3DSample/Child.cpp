@@ -153,6 +153,7 @@ void Framework::Child::Controll()
 {
 	Jump();
 	velocity.x = Input::GetLettStickHolizon();
+
 	
 	if (velocity.x < 0) {
 		direction = -1;
@@ -160,6 +161,12 @@ void Framework::Child::Controll()
 		direction = 1;
 	}
 	
+	/*if (velocity.y < 0) {
+		direction = -1;
+	}
+	else if (velocity.y > 0) {
+		direction = 1;
+	}*/
 
 	//velocity.y =-1* Input::GetLettStickVertical();
 	velocity.Normalize();
