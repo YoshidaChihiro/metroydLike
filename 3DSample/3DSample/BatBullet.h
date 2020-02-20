@@ -31,15 +31,13 @@ namespace Framework {
 		Vector3 floatVec,
 			targetPosition;
 
-		int direction;
-
 		float speed, hp,
 			gravity,
 			maxFallSpeed,
 			huwaCounter,
 			overlap,
 			damage;
-		int targetRange;
+		int targetRange,direction;
 		bool isGround, isFind,
 			isGoalTargetPosition,
 			isShot;

@@ -11,6 +11,7 @@ Framework::KuriboBullet::KuriboBullet(std::shared_ptr<Transform> shp_arg_transfo
 	gravity = 0.6f;
 	maxFallSpeed = 6.0f;
 	overlap = 0.0f;
+	direction = 1;
 
 	phisicsForce = Vector3(0, 0, 0);
 	hp = 5;
@@ -91,6 +92,7 @@ void Framework::KuriboBullet::PreInitialize()
 
 	shp_sound_found = ObjectFactory::Create<Resource_Sound>("Found.wav", DX_PLAYTYPE_BACK, true);
 
+	isShot = false;
 
 	shp_texture = ObjectFactory::Create<Resource_Texture>(handle, transform, false, false);
 	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(32, 32)), GetThis<GameObject>());
@@ -108,11 +110,27 @@ bool Framework::KuriboBullet::OnUpdate() {
 
 	if (velocity.x > 0) {
 		shp_texture->xFlip = true;
+		direction = 1;
 	}
 	else if (velocity.x < 0) {
 		shp_texture->xFlip = false;
-
+		direction = -1;
 	}
+
+	if (!coolTimer.Update()) {
+		isShot = false;
+		coolTimer.Start();
+	}
+	else {
+		isShot = true;
+		coolTimer.Stop();
+		coolTimer.Reset();
+	}
+
+	if (isShot) {
+		Shot();
+	}
+
 	isGround = false;
 	return true;
 }
@@ -170,4 +188,10 @@ bool Framework::KuriboBullet::Move() {
 	prevVelocity = velocity;
 
 	return true;
+}
+
+void Framework::KuriboBullet::Shot()
+{
+	auto bulletTransform = ObjectFactory::Create<Transform>(transform->GetPosition());
+	manager->AddObject(ObjectFactory::Create<EnemyBullet>(1.0f + damage, 5, direction, bulletTransform, manager));
 }

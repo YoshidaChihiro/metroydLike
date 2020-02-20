@@ -24,6 +24,8 @@ namespace Framework {
 		void Dead();
 
 		bool Move();
+		void Shot();
+
 		std::shared_ptr<GameObject> player = nullptr;
 		std::shared_ptr<Map> shp_map;
 
@@ -36,8 +38,11 @@ namespace Framework {
 		float speed,
 			gravity,
 			maxFallSpeed,
-			overlap, hp;
-		bool isGround, isFind;
+			overlap, hp,
+			damage;
+		bool isGround, isFind,isShot;
+		int direction;
+		RelativeTimer coolTimer = RelativeTimer(30);
 
 	};
 }
