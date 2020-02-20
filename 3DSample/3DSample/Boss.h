@@ -23,6 +23,7 @@ namespace Framework {
 
 		bool Move();
 		void Bomb();
+		void Call();
 
 		std::shared_ptr<GameObject> player = nullptr;
 		std::shared_ptr<Map> shp_map;
@@ -35,9 +36,11 @@ namespace Framework {
 			maxFallSpeed,
 			overlap, hp,
 			damage;
-		bool isGround, isBombShot;
+		bool isGround, isBombShot, isCall;
 		int direction;
-		RelativeTimer coolTimer = RelativeTimer(30);
+		RelativeTimer selectTimer = RelativeTimer(60 * 5);
+		RelativeTimer bombTimer = RelativeTimer(30);
+		RelativeTimer callTimer = RelativeTimer(60);
 
 	};
 }

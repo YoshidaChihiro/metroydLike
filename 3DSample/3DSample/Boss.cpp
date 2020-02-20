@@ -113,18 +113,23 @@ bool Framework::Boss::OnUpdate() {
 		direction = 1;
 	}
 
-	if (!coolTimer.Update()) {
+	if (!selectTimer.Update()) {
 		isBombShot = false;
-		coolTimer.Start();
+		isCall = false;
+		selectTimer.Start();
 	}
 	else {
 		isBombShot = true;
-		coolTimer.Stop();
-		coolTimer.Reset();
+		isCall = true;
+		selectTimer.Stop();
+		selectTimer.Reset();
 	}
 
 	if (isBombShot) {
 		Bomb();
+	}
+	if (isCall) {
+		Call();
 	}
 
 	isGround = false;
@@ -186,4 +191,15 @@ void Framework::Boss::Bomb()
 	bombVec = Vector2(GetRand(2) + 3, GetRand(3) + 3);
 	auto bulletTransform = ObjectFactory::Create<Transform>(transform->GetPosition());
 	manager->AddObject(ObjectFactory::Create<EnemyBomb>(1.0f + damage, direction, bombVec.x, -bombVec.y, bulletTransform, manager));
+}
+void Framework::Boss::Call()
+{
+	auto enemyTransform = ObjectFactory::Create<Transform>(transform->GetPosition());
+	int callEnemy = GetRand(1);
+	if (callEnemy == 0) {
+		manager->AddObject_Init(ObjectFactory::Create<Kuribo>(enemyTransform, manager, manager->SerchGameObject(ObjectTag::map)->GetThis<Map>()));
+	}
+	else {
+		manager->AddObject_Init(ObjectFactory::Create<Bat>(enemyTransform, manager));
+	}
 }
