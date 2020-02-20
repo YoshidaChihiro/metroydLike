@@ -8,6 +8,7 @@ public:
 	GameMaster();
 	void Initialize();
 	void GetMedal();
+	void ReStart();
 	int GetChildsMax() {
 		if (playerChildMax + getedMedalCount > 6) {
 			return 5;

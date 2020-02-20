@@ -29,6 +29,11 @@ void Framework::GameMaster::GetMedal()
 	getedMedalCount += 1;
 }
 
+void Framework::GameMaster::ReStart()
+{
+	stopWatch.Start();
+}
+
 int Framework::GameMaster::GetMedalCount()
 {
 	return getedMedalCount;

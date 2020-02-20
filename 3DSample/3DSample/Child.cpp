@@ -161,6 +161,8 @@ void Framework::Child::Initialize()
 	gravity = 0.3f;
 	maxFallSpeed = 5.0f;
 	collisionLayer = 1;
+	auto map = manager->SerchGameObject(ObjectTag::map);
+	mapYmax = map->GetThis<Map>()->GetMapMaxUnder();
 }
 
 void Framework::Child::Controll()
@@ -250,6 +252,9 @@ bool Framework::Child::OnUpdate() {
 		shp_collisionRect->SetRect(20, 20);
 	}
 	Animation();
+	if (transform->GetPosition().y >= mapYmax) {
+		Dead();
+	}
 	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect,collisionLayer);
 	isGround = false; isLeftWall = false; isRightWall = false;
 	return true;

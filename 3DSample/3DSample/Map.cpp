@@ -93,6 +93,11 @@ void Framework::Map::AddMapChip(int x, int y, int mapChipNum)
 	AddMapChip(x, y, addObj);
 }
 
+int Framework::Map::GetMapMaxUnder()
+{
+	return glidSize * mapHeight+glidSize;
+}
+
 void Framework::Map::ChangeMapChipBlock(const int & arg_objectID, const int & x, const int & y)
 {
 

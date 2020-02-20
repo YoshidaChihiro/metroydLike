@@ -63,7 +63,10 @@ void Framework::MapScene::OnSet()
 		player->transform
 	); shp_gameObjectManager->SerchGameObject(ObjectTag::camera)->transform->localPosition =Vector3( shp_map->GetCenterPosition());
 	//shp_gameObjectManager->SerchGameObject(ObjectTag::camera)->transform->localPosition = shp_gameObjectManager->SerchGameObject(ObjectTag::player)->transform->GetPosition();
-
+	if (!isStart&&sceneName == "Map2Scene") {
+		isStart = true;
+		Game::GetInstance()->GetSceneManager()->GetGameMaster()->ReStart();
+	}
 }
 
 void Framework::MapScene::Release()

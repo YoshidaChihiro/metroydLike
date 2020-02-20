@@ -66,6 +66,7 @@ namespace Framework {
 		bool
 			isTop, isThrown,isStandby,isGround,isShot,isLeftWall,isRightWall;
 		int animDirection=1;
+		int mapYmax;
 		int num,collisionLayer;
 		RelativeTimer changeTimer=RelativeTimer(3);
 		RelativeTimer coolTimer = RelativeTimer(10);

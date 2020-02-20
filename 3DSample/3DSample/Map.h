@@ -18,6 +18,7 @@ namespace Framework {
 		void AddMapChip(int x, int y, std::shared_ptr<MapChipObject> arg_mapChipObj);
 		void ChangeGlid(int x, int y, int mapChipNum);
 		void AddMapChip(int x, int y, int mapChipNum);
+		int GetMapMaxUnder();
 		void ChangeMapChipBlock(const int& arg_objectID, const int& x, const int& y);
 		Vector2 GetCenterPosition();
 		void GenerateMap(std::shared_ptr< CSVData> csvData,int glidSize);

@@ -22,6 +22,7 @@ namespace Framework {
 	private:
 		std::string filePath;
 		std::shared_ptr<Map> shp_map;
+		bool isStart;
 	};
 
 }
