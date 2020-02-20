@@ -452,6 +452,73 @@ Framework::MapChip_Teresa::MapChip_Teresa(std::shared_ptr<Transform> arg_transfo
 	isClone = true;
 }
 
+Framework::MapChip_KuriboBullet::MapChip_KuriboBullet(std::shared_ptr<GameObjectManager> arg_manager) :MapChipObject(arg_manager->GetThis<GameObjectManager>())
+{
+	tag = ObjectTag::spawner;
+}
+std::shared_ptr<Framework::MapChipObject> Framework::MapChip_KuriboBullet::Clone(Vector3 position)
+{
+	auto transform = ObjectFactory::Create<Transform>(position);
+	return ObjectFactory::Create<MapChip_KuriboBullet>(transform, manager->GetThis<GameObjectManager>());
+}
+bool Framework::MapChip_KuriboBullet::OnUpdate()
+{
+	return true;
+}
+void Framework::MapChip_KuriboBullet::Initialize()
+{
+	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
+
+
+}
+void Framework::MapChip_KuriboBullet::Replace()
+{
+	if (isClone) {
+		auto enemyTransform = ObjectFactory::Create<Transform>(transform->GetPosition());
+		manager->AddObject_Init(ObjectFactory::Create<KuriboBullet>(enemyTransform, manager, manager->SerchGameObject(ObjectTag::map)->GetThis<Map>()));
+	}
+}
+Framework::MapChip_KuriboBullet::MapChip_KuriboBullet(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager)
+	:MapChipObject(arg_transform, arg_manager->GetThis<GameObjectManager>())
+{
+	tag = ObjectTag::spawner;
+	isClone = true;
+}
+
+Framework::MapChip_BatBullet::MapChip_BatBullet(std::shared_ptr<GameObjectManager> arg_manager) : MapChipObject(arg_manager->GetThis<GameObjectManager>())
+{
+	tag = ObjectTag::spawner;
+}
+std::shared_ptr<Framework::MapChipObject> Framework::MapChip_BatBullet::Clone(Vector3 position)
+{
+	auto transform = ObjectFactory::Create<Transform>(position);
+	return ObjectFactory::Create<MapChip_BatBullet>(transform, manager->GetThis<GameObjectManager>());
+}
+bool Framework::MapChip_BatBullet::OnUpdate()
+{
+	return true;
+}
+void Framework::MapChip_BatBullet::Initialize()
+{
+	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
+
+
+}
+void Framework::MapChip_BatBullet::Replace()
+{
+	if (isClone) {
+		auto enemyTransform = ObjectFactory::Create<Transform>(transform->GetPosition());
+		manager->AddObject_Init(ObjectFactory::Create<BatBullet>(enemyTransform, manager));
+	}
+}
+Framework::MapChip_BatBullet::MapChip_BatBullet(std::shared_ptr<Transform> arg_transform, std::shared_ptr<GameObjectManager> arg_manager)
+	:MapChipObject(arg_transform, arg_manager->GetThis<GameObjectManager>())
+{
+	tag = ObjectTag::spawner;
+	isClone = true;
+}
+
+
 Framework::MapChip_reset::MapChip_reset(std::shared_ptr<GameObjectManager> arg_manager)
 	:MapChipObject(arg_manager->GetThis<GameObjectManager>())
 {

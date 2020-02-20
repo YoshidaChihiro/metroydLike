@@ -6,6 +6,8 @@
 #include "Kuribo.h"
 #include "Bat.h"
 #include "Teresa.h"
+#include "KuriboBullet.h"
+#include "BatBullet.h"
 #include<vector>
 namespace Framework {
 	class GameObjectManager:public IObject

@@ -135,6 +135,10 @@
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="GameComponent.cpp" />
     <ClCompile Include="TitleScene.cpp" />
+    <ClCompile Include="BatBullet.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="KuriboBullet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ButiMath.h">
@@ -280,6 +284,10 @@
     <ClInclude Include="Board.h" />
     <ClInclude Include="GameComponent.h" />
     <ClInclude Include="TitleScene.h" />
+    <ClInclude Include="BatBullet.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="KuriboBullet.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="header">

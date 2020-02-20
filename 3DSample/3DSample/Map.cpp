@@ -129,9 +129,9 @@ void Framework::Map::GenerateMap(std::shared_ptr< CSVData> csvData, int arg_glid
 		ObjectFactory::Create<MapChip_Space>(manager),//6
 
 		ObjectFactory::Create<MapChip_Kuribo>(manager),//7
-		ObjectFactory::Create<MapChip_Kuribo>(manager),//8
+		ObjectFactory::Create<MapChip_KuriboBullet>(manager),//8
 		ObjectFactory::Create<MapChip_Bat>(manager),//9
-		ObjectFactory::Create<MapChip_Bat>(manager),//10
+		ObjectFactory::Create<MapChip_BatBullet>(manager),//10
 		ObjectFactory::Create<MapChip_Teresa>(manager),//11
 		ObjectFactory::Create<MapChip_Teresa>(manager),//12
 

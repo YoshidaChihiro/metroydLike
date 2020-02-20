@@ -22,6 +22,10 @@ void Framework::Child::Hit(std::shared_ptr<GameObject> other)
 		damage += 0.02f;
 		return;
 	}
+	if (other->GetObjectTag() == ObjectTag::enemyBullet) {
+		damage += 0.02f;
+		return;
+	}
 	if ((isTop || isThrown) &&other->GetObjectTag() == ObjectTag::obstacle) {
 
 		
