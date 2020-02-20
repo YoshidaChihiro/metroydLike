@@ -26,7 +26,11 @@ namespace Framework {
 		void Controll();
 		bool OnUpdate()override;
 		std::shared_ptr<Resource_Texture> shp_texture;
-		std::shared_ptr<Resource_Sound> shp_sound_explosion;
+		std::shared_ptr<Resource_Sound> shp_sound_damage;
+		std::shared_ptr<Resource_Sound> shp_sound_jump;
+		std::shared_ptr<Resource_Sound> shp_sound_shoot;
+		std::shared_ptr<Resource_Sound> shp_sound_throw;
+		std::shared_ptr<Resource_Sound> shp_sound_landing;
 		std::shared_ptr<Collision2D_Rectangle>shp_collisionRect;
 		virtual bool Throw(std::shared_ptr<Transform> arg_target);
 		void SetNum(int arg_num);

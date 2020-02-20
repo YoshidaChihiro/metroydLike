@@ -86,6 +86,7 @@ void Framework::Child::Hit(std::shared_ptr<GameObject> other)
 
 void Framework::Child::Dead()
 {
+	Game::GetInstance()->GetResourceController()->AddSound(shp_sound_damage);
 	SetIsDead(true);
 	shp_player->DeletePlayer(num); 
 	{
@@ -119,7 +120,11 @@ bool Framework::Child::Release()
 	shp_collisionRect->Releace();
 	shp_collisionRect = nullptr;
 	shp_texture = nullptr;
-	shp_sound_explosion = nullptr;
+	shp_sound_damage = nullptr;
+	shp_sound_jump = nullptr;
+	shp_sound_shoot = nullptr;
+	shp_sound_throw = nullptr;
+	shp_sound_landing = nullptr;
 	return true;
 }
 
@@ -140,8 +145,11 @@ void Framework::Child::PreInitialize()
 	shp_texture = ObjectFactory::Create<Resource_Texture>(handle, transform, false, false);
 	shp_collisionRect = ObjectFactory::Create<Collision2D_Rectangle>(std::make_shared<Rectangle>(32, 32, transform->GetPosition().GetVector2(), Rectangle::GetRectangleOuterCircleRadius(16, 16)), GetThis<GameObject>());
 
-	shp_sound_explosion = ObjectFactory::Create<Resource_Sound>("Explosion.wav", DX_PLAYTYPE_BACK, true);
-
+	shp_sound_damage = ObjectFactory::Create<Resource_Sound>("Damage.wav", DX_PLAYTYPE_BACK, true);
+	shp_sound_jump = ObjectFactory::Create<Resource_Sound>("Jump.wav", DX_PLAYTYPE_BACK, true);
+	shp_sound_shoot = ObjectFactory::Create<Resource_Sound>("Shoot.wav", DX_PLAYTYPE_BACK, true);
+	shp_sound_throw = ObjectFactory::Create<Resource_Sound>("Throw.wav", DX_PLAYTYPE_BACK, true);
+	shp_sound_landing = ObjectFactory::Create<Resource_Sound>("Landing.wav", DX_PLAYTYPE_BACK, true);
 	
 
 }
@@ -261,6 +269,7 @@ bool Framework::Child::Throw(std::shared_ptr<Transform> arg_target)
 {
 	changeTimer = RelativeTimer(5);
 	changeTimer.Start();
+	Game::GetInstance()->GetResourceController()->AddSound(shp_sound_throw);
 	isThrown = true;
 	collisionLayer = 3;
 	velocity = arg_target->GetPosition().GetVector2()- transform->GetPosition().GetVector2();
@@ -309,7 +318,7 @@ bool Framework::Child::Jump()
 		(isGround) &&
 		Input::GetButtonDown(XINPUT_BUTTON_LEFT_SHOULDER)) {
 		phisicsForce.y = -9.0f;
-		
+		Game::GetInstance()->GetResourceController()->AddSound(shp_sound_jump);
 	}
 	return true;
 }
@@ -323,6 +332,7 @@ void Framework::Child::Shoot()
 	}
 	velocity.Normalize();
 	velocity *= speed;
+
 }
 
 void Framework::Child::Shot()
@@ -334,6 +344,8 @@ void Framework::Child::Shot()
 	}
 	auto bulletTransform = ObjectFactory::Create<Transform>(transform->GetPosition());
 	manager->AddObject(ObjectFactory::Create<PlayerBullet>(1.0f+damage,5,direction,bulletTransform,manager));
+	Game::GetInstance()->GetResourceController()->AddSound(shp_sound_shoot);
+
 }
 
 void Framework::Child::CheckGoal()
