@@ -23,7 +23,7 @@ void Framework::Child::Hit(std::shared_ptr<GameObject> other)
 		return;
 	}
 	if (other->GetObjectTag() == ObjectTag::enemyBullet) {
-		damage += 0.02f;
+		damage += 1.0f;
 		return;
 	}
 	if ((isTop || isThrown) &&other->GetObjectTag() == ObjectTag::obstacle) {
@@ -36,9 +36,9 @@ void Framework::Child::Hit(std::shared_ptr<GameObject> other)
 		Vector3 delta = (Vector3)(other->transform->GetPosition()-transform->GetPosition());
 
 
-		if (abs( delta.x) <abs( delta.y))
+		if (abs(delta.x) < abs(delta.y))
 		{
-			if (delta.y>0) {
+			if (delta.y > 0) {
 				overlap = shp_collisionRect->rect->GetBottom() - otherRect->GetTop();
 				overlap = abs(overlap);
 				transform->localPosition.y -= overlap;
@@ -49,30 +49,33 @@ void Framework::Child::Hit(std::shared_ptr<GameObject> other)
 
 			}
 			else
-			if (delta.y < 0) {
-				overlap = otherRect->GetBottom() - shp_collisionRect->rect->GetTop();
+				if (delta.y < 0) {
+					overlap = otherRect->GetBottom() - shp_collisionRect->rect->GetTop();
 
-				overlap = abs(overlap);
-				transform->localPosition.y += overlap;
-			}
-			//shp_collisionRect->OnUpdate();
+					overlap = abs(overlap);
+					transform->localPosition.y += overlap;
+					phisicsForce.y /=2;
+				}
+			shp_collisionRect->OnUpdate();
 		}
-		else if (abs( delta.x) >abs(delta.y)) {
-			if (delta.x>0) {
+		if (abs(delta.x) > abs(delta.y)) {
+			if (delta.x > 0) {
 				overlap = shp_collisionRect->rect->GetRight() - otherRect->GetLeft();
 				overlap = abs(overlap);
 				transform->localPosition.x -= overlap;
-				velocity.x = 0;
-				phisicsForce.x = 0;
+				if ( !(other->transform->GetPosition().y > transform->GetPosition().y))
+				isRightWall = true;
 			}
 			else
-			if (delta.x< 0) {
-				overlap = otherRect->GetRight() - shp_collisionRect->rect->GetLeft();
-				overlap = abs(overlap);
-				transform->localPosition.x += overlap;
-				velocity.x = 0;
-				phisicsForce.x = 0;
-			}
+				if (delta.x < 0) {
+					overlap = otherRect->GetRight() - shp_collisionRect->rect->GetLeft();
+					overlap = abs(overlap);
+					transform->localPosition.x += overlap;
+					velocity.x = 0;
+					if(!(other->transform->GetPosition().y>transform->GetPosition().y))
+					isLeftWall = true;
+					phisicsForce.x = 0;
+				}
 		}
 		shp_collisionRect->OnUpdate();
 		if (isThrown) {
@@ -157,7 +160,14 @@ void Framework::Child::Controll()
 {
 	Jump();
 	velocity.x = Input::GetLettStickHolizon();
-	
+	if ((isLeftWall&&velocity.x < 0)) {
+		velocity.x = 0;
+		
+	}
+	if ((isRightWall&&velocity.x > 0)) {
+		velocity.x = 0;
+	}
+
 	if (velocity.x < 0) {
 		direction = -1;
 	}else if (velocity.x > 0) {
@@ -214,6 +224,10 @@ bool Framework::Child::OnUpdate() {
 	if (damage > 2.0f) {
 		Dead();
 	}
+	damage-=0.02f;
+	if (damage < 0) {
+		damage = 0;
+	}
 
 	if (direction>0) {
 		shp_texture->xFlip = false;
@@ -231,9 +245,9 @@ bool Framework::Child::OnUpdate() {
 		collisionLayer = 5;
 		shp_collisionRect->SetRect(20, 20);
 	}
-	if(isThrown||isTop)
+	Animation();
 	Game::GetInstance()->GetCollision2DManager()->AddCollision(shp_collisionRect,collisionLayer);
-	isGround = false;
+	isGround = false; isLeftWall = false; isRightWall = false;
 	return true;
 }
 
@@ -326,6 +340,18 @@ void Framework::Child::CheckGoal()
 	}
 }
 
+void Framework::Child::Animation()
+{
+	horizontalExt = 1 - abs(velocity.x) / 50;
+	if (verticalExt > 1.1f || verticalExt < 0.9f) {
+		animDirection *= -1;
+	}
+		verticalExt+=0.01f*animDirection;
+
+	transform->scale.x = horizontalExt + damage / 4;
+	transform->scale.y = verticalExt + damage / 4;
+}
+
 void Framework::Child::CreateBlock()
 {
 	if (GetIsDead()) {
@@ -342,7 +368,7 @@ void Framework::Child::CreateBlock()
 		y -= 1;
 	}
 
-	manager->SerchGameObject(ObjectTag::map)->GetThis<Map>()->ChangeGlid(x, y, 5);
+	manager->SerchGameObject(ObjectTag::map)->GetThis<Map>()->AddMapChip(x, y, 5);
 
 	
 	SetIsDead(true);

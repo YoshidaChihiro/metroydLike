@@ -157,9 +157,6 @@
     <ClInclude Include="ButiMath.h">
       <Filter>header</Filter>
     </ClInclude>
-    <ClInclude Include="Child.h">
-      <Filter>header</Filter>
-    </ClInclude>
     <ClInclude Include="Collision2D.h">
       <Filter>header</Filter>
     </ClInclude>
@@ -235,16 +232,7 @@
     <ClInclude Include="MapScene.h">
       <Filter>header</Filter>
     </ClInclude>
-    <ClInclude Include="Cameraman.h">
-      <Filter>header</Filter>
-    </ClInclude>
     <ClInclude Include="Sencer.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="Cursol.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="Explosion.h">
       <Filter>header</Filter>
     </ClInclude>
     <ClInclude Include="AbsTimer.h">
@@ -268,13 +256,7 @@
     <ClInclude Include="Kuribo.h">
       <Filter>header</Filter>
     </ClInclude>
-    <ClInclude Include="Bat.h">
-      <Filter>header</Filter>
-    </ClInclude>
     <ClInclude Include="Teresa.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="Bullet.h">
       <Filter>header</Filter>
     </ClInclude>
     <ClInclude Include="ChildSeed.h">
@@ -290,9 +272,6 @@
       <Filter>header</Filter>
     </ClInclude>
     <ClInclude Include="GameComponent.h" />
-    <ClInclude Include="Board.h">
-      <Filter>header</Filter>
-    </ClInclude>
     <ClInclude Include="ClearScene.h">
       <Filter>header</Filter>
     </ClInclude>
@@ -308,11 +287,32 @@
     <ClInclude Include="Board.h" />
     <ClInclude Include="GameComponent.h" />
     <ClInclude Include="TitleScene.h" />
-    <ClInclude Include="BatBullet.h">
-      <Filter>header</Filter>
-    </ClInclude>
     <ClInclude Include="KuriboBullet.h">
       <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="Bat.h">
+      <Filter>header\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Board.h">
+      <Filter>header\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>header\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Child.h">
+      <Filter>header\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Cameraman.h">
+      <Filter>header\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="BatBullet.h">
+      <Filter>header\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Cursol.h">
+      <Filter>header\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Explosion.h">
+      <Filter>header\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -321,6 +321,9 @@
     </Filter>
     <Filter Include="source">
       <UniqueIdentifier>{1b310c15-f063-4255-bf10-bbb6279615c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="header\GameObject">
+      <UniqueIdentifier>{42abb8cb-c1aa-4166-8e64-74698b8239e3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

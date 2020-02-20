@@ -33,22 +33,19 @@ Framework::Resource_Texture::~Resource_Texture()
 bool Framework::Resource_Texture::Draw()
 {
 	auto modify = Game::GetInstance()->GetResourceController()->GetScreenInformation()->GetScrollModify();
-	auto modifiedPos =(Vector3)( transform->GetPosition()-Vector2(width/2,height/2)-modify);
+	auto modifiedPos =(Vector3)( transform->GetPosition()-Vector2(width*transform->scale.x/2,height*transform->scale.y/2)-modify);
 	if (modifiedPos.x > 992 || modifiedPos.x < -32 || modifiedPos.y>672, modifiedPos.y < -32) {
 		return true;
 	}
-	if (abs(transform->GetRotation().z) == 0) {
-		if(!xFlip)
-		DrawGraph(modifiedPos.x,modifiedPos.y, handle, true);
-		else
+	if (abs(transform->GetRotation().z) != 0 || transform->scale.x != 0 || transform->scale.y != 0) {
+		if (DrawRotaGraph3(modifiedPos.x, modifiedPos.y,0,0, transform->scale.x, transform->scale.y,  transform->GetRotation().z, handle, true, xFlip) == 0)
+			return true;
+	}
+	if (!xFlip)
+		DrawGraph(modifiedPos.x, modifiedPos.y, handle, true);
+	else
 		DrawTurnGraph(modifiedPos.x, modifiedPos.y, handle, true);
-		return true;
-	}
-	if(DrawRotaGraph(modifiedPos.x, modifiedPos.y, transform->GetScale().x,transform->GetRotation().z,handle,true,xFlip)==0)
 	return true;
-	else {
-		return false;
-	}
 }
 
 Framework::Resource_Texture::Resource_Texture(std::shared_ptr<Transform> arg_transform) : transform(arg_transform->GetThis<Transform>())

@@ -62,7 +62,8 @@ void Framework::Map::ChangeGlid(int x, int y, std::shared_ptr<MapChipObject> arg
 void Framework::Map::AddMapChip(int x, int y, std::shared_ptr<MapChipObject> arg_mapChipObj)
 {
 	if (x > mapWidth || y > mapHeight || x < 0 || y < 0)return;
-	if (mapObjects[x][y] == nullptr) {
+	if (mapObjects[x][y] == nullptr|| mapObjects[x][y]->GetObjectTag()!=ObjectTag::obstacle) {
+		//manager->AddObject(arg_mapChipObj);
 		ChangeGlid(x, y, arg_mapChipObj);
 	}
 }
@@ -89,7 +90,6 @@ void Framework::Map::AddMapChip(int x, int y, int mapChipNum)
 		return;
 	}
 	auto addObj = mapChips.at(mapChipNum)->Clone(Vector3(glidSize*x,glidSize*y,0));
-	manager->AddObject(addObj);
 	AddMapChip(x, y, addObj);
 }
 

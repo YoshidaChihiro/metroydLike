@@ -90,6 +90,7 @@ Framework::EnemyBomb::EnemyBomb(float arg_damage, int arg_direction, int arg_spe
 	:Bullet(arg_direction, arg_speed, arg_shp_transform, arg_manager)
 {
 	damage = arg_damage;
+	tag = ObjectTag::enemyBullet;
 }
 
 void Framework::EnemyBomb::Initialize()

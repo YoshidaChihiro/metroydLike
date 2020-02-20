@@ -42,6 +42,7 @@ namespace Framework {
 		void Shoot();
 		void Shot();
 		void CheckGoal();
+		void Animation();
 		Vector3 targetPosition;
 		MoveHistory history;
 
@@ -52,12 +53,15 @@ namespace Framework {
 
 		int direction;
 
+		float verticalExt = 1.0f;
+		float horizontalExt = 1.0f;
 		float speed,damage,
 			gravity,
 			maxFallSpeed,
 			groundHeight;
 		bool
-			isTop, isThrown,isStandby,isGround,isShot;
+			isTop, isThrown,isStandby,isGround,isShot,isLeftWall,isRightWall;
+		int animDirection=1;
 		int num,collisionLayer;
 		RelativeTimer changeTimer=RelativeTimer(3);
 		RelativeTimer coolTimer = RelativeTimer(10);
