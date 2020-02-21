@@ -173,7 +173,7 @@ void Framework::Map::GenerateMap(std::shared_ptr< CSVData> csvData, int arg_glid
 		ObjectFactory::Create<MapChip_Gate>("Map9Scene",Vector2(32 * 41,32 * 3),manager),//25
 		ObjectFactory::Create<MapChip_Gate>("Map7Scene",Vector2(32 * 3,32 * 3),manager),//26
 
-		ObjectFactory::Create<MapChip_Gate>("Map8Scene",Vector2(32 * 18,32 * 18),manager),//27
+		ObjectFactory::Create<MapChip_Gate>("Map8Scene",Vector2(32 * 16,32 * 18),manager),//27
 		ObjectFactory::Create<MapChip_Gate>("Map9Scene",Vector2(32 * 25,32 * 2),manager),//28
 		
 		ObjectFactory::Create<MapChip_Space>(manager),//29 lastMap => gameClear
