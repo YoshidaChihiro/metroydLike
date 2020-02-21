@@ -90,9 +90,7 @@ bool Framework::Player::OnUpdate() {
 		SetIsDead(true);
 	}
 	Throw();
-	if (Input::GetKeyDown(KEY_INPUT_A)) {
-		AddPlayerChild();
-	}
+	
 	return true;
 }
 

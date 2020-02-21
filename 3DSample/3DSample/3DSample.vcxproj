@@ -190,6 +190,7 @@
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="TutorialScene.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="Util.cpp" />
   </ItemGroup>
@@ -247,6 +248,7 @@
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="TutorialScene.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="Util.h" />
   </ItemGroup>

@@ -10,10 +10,10 @@ public:
 	void GetMedal();
 	void ReStart();
 	int GetChildsMax() {
-		if (playerChildMax + getedMedalCount > 6) {
+		if (playerChildMax + getedMedalCount/2 > 6) {
 			return 5;
 		}
-		return playerChildMax + getedMedalCount;
+		return playerChildMax + getedMedalCount/2;
 	};
 	void SetRespawnPosition(Vector3 arg_respawn) {
 		playerRespawnPoint = arg_respawn;
@@ -34,6 +34,7 @@ public:
 		return score;
 	}
 	std::chrono::milliseconds GetNowTime();
+	int GetNowSec();
 private:
 	int getedMedalCount;
 	int medalCountMax;

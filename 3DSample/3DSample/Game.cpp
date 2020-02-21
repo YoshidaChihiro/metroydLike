@@ -3,12 +3,13 @@
 #include <chrono>
 #include"ClearScene.h"
 #include"TestScene.h"
+#include"TutorialScene.h"
 std::unique_ptr<Framework::Game> Framework::Game::instance=nullptr;
 
 Framework::Game::Game(int windowWidth, int windowHeight, std::string windowText, Framework::Vector4 color):width(windowWidth),height(windowHeight)
 {
 
-	ChangeWindowMode(TRUE);
+	ChangeWindowMode(FALSE);
 	SetWindowSizeChangeEnableFlag(FALSE, FALSE);
 	SetGraphMode(windowWidth, windowHeight,60);
 	SetWindowSizeExtendRate(1.0);
@@ -164,7 +165,8 @@ void Framework::Game::SceneInitialize()
 	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map7.csv"));
 	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map8.csv"));
 	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map9.csv"));
-	unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map_tutorial.csv"));
+	unq_sceneManager->LoadScene(ObjectFactory::Create<TutorialScene>());
+	//unq_sceneManager->LoadScene(ObjectFactory::Create<MapScene>("Map_tutorial.csv"));
 
 	unq_sceneManager->ChangeScene("TestScene");
 }

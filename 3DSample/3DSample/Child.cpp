@@ -190,8 +190,8 @@ void Framework::Child::Controll()
 	velocity.Normalize();
 	velocity *= speed;
 
-	if (Input::GetButtonDown(XINPUT_BUTTON_A)) {
-		Dead();
+	if (Input::GetButtonDown(XINPUT_BUTTON_START)) {
+		Game::GetInstance()->GameReset();
 	}
 
 	if (Input::GetButton(XINPUT_BUTTON_RIGHT_SHOULDER)) {

@@ -1,5 +1,6 @@
 #include "GameMaster.h"
-
+#include<string>
+#include<iostream>
 Framework::GameMaster::GameMaster()
 {
 	playerChildsCount = 0;
@@ -52,4 +53,11 @@ void Framework::GameMaster::AddScore(int arg_addScore)
 std::chrono::milliseconds Framework::GameMaster::GetNowTime()
 {
 	return stopWatch.GetTime();
+}
+
+int Framework::GameMaster::GetNowSec()
+{
+	auto str=std::to_string( GetNowTime().count());
+	
+	return   std::stoi(str);
 }

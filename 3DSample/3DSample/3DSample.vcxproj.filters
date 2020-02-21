@@ -53,6 +53,7 @@
     <ClCompile Include="Util.cpp" />
     <ClCompile Include="RankingLoader.cpp" />
     <ClCompile Include="Image.cpp" />
+    <ClCompile Include="TutorialScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbsTimer.h" />
@@ -110,5 +111,6 @@
     <ClInclude Include="Util.h" />
     <ClInclude Include="RankingLoader.h" />
     <ClInclude Include="Image.h" />
+    <ClInclude Include="TutorialScene.h" />
   </ItemGroup>
 </Project>
