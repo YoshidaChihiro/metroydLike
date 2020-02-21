@@ -6,6 +6,7 @@
 #define PI 3.141592654f
 #include <cstdlib>
 #include <ctime>
+#include "ParticleEmitter.h"
 
 Framework::Bat::Bat(std::shared_ptr<Transform> shp_arg_transform, std::shared_ptr<GameObjectManager> shp_arg_gameObjectManager) :GameObject(shp_arg_transform, shp_arg_gameObjectManager)
 {
@@ -175,6 +176,27 @@ void Framework::Bat::Dead()
 	auto seedTransform = ObjectFactory::Create<Transform>(transform->GetPosition());
 	manager->AddObject_Init(ObjectFactory::Create<ChildSeed>(seedTransform, manager));
 	SetIsDead(true);
+
+	int handle = Game::GetInstance()->GetResourceController()->GetTexture("whiteParticle.png");
+	auto p_param = new ParticleEmitterParameter();
+	p_param->graphHandle = handle;
+	p_param->range_maxVelocity = Vector3(0.5f, 0, 0);
+	p_param->range_minVelocity = Vector3(-0.5f, -1, 0);
+	p_param->layer = 2;
+	p_param->range_maxSpeed = 10;
+	p_param->range_minSpeed = 5;
+	p_param->range_maxLifeSpan = 100;
+	p_param->range_minLifeSpan = 50;
+	p_param->range_maxRotation.z = 360;
+	p_param->range_minRotation.z = 0;
+	p_param->range_maxEmitCount = 20;
+	p_param->range_minEmitCount = 10;
+	p_param->range_maxPhisicsForce = Vector3(0, 0.2f, 0);
+	p_param->range_minPhisicsForce = Vector3(0, 0.2f, 0);
+	p_param->emitSpan = 2;
+	p_param->emitterLifeSpan = 10;
+	manager->AddObject(ObjectFactory::Create<ParticleEmitter>(transform->GetThis<Transform>(), p_param, manager
+		));
 }
 void Framework::Bat::DecideTargetPotision() {
 	//目的地を設定
